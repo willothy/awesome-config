@@ -5,7 +5,7 @@ user configuration file, repositionable bar and titles, dashboard,
 notifications, multiple colorschemes, and more to come, all done with 
 Awesome's widget API!
 
-![Display][./screenshot.png]
+![Display](./screenshot.png)
 
 ## Dependencies
 
