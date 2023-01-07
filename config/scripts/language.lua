@@ -1,3 +1,7 @@
+---------------------------
+-- cycle keyboard layout --
+---------------------------
+
 local awful     = require('awful')
 local naughty   = require('naughty')
 

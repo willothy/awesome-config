@@ -34,7 +34,7 @@ ruled.notification.connect_signal('request::rules', function()
 end)
 
 naughty.connect_signal("request::display", function(n)
-    -- Animation stolen right off the certified animation lady.
+    -- Animation stolen right off the certified animation ghost.
     local x = wibox.widget { 
         widget = wibox.widget.imagebox,
         image  = gears.color.recolor_image(close_ico, beautiful.red),

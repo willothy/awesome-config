@@ -1,3 +1,7 @@
+-------------------------------
+-- window management layouts --
+-------------------------------
+
 -- Imports
 ----------
 local awful         = require('awful')

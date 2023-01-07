@@ -1,3 +1,7 @@
+------------------------------
+-- brightness notifications --
+------------------------------
+
 local naughty = require('naughty')
 
 -- Sends a notification every time the content of the bluetooth signal

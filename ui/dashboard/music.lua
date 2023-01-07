@@ -1,3 +1,7 @@
+-----------------------------
+-- dashboard: music player --
+-----------------------------
+
 -- Imports
 ----------
 local awful     = require('awful')
@@ -254,6 +258,7 @@ local function music()
                     },
                     layout = wibox.layout.align.vertical
                 },
+                visible = false,
                 layout = wibox.layout.stack
             },
             spacing = dash_size / 72,

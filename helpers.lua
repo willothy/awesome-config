@@ -1,3 +1,10 @@
+-----------------------
+-- Helpful functions --
+-----------------------
+-- Basically all of these are alpha's
+
+-- Imports
+----------
 local awful     = require('awful')
 local gears     = require('gears')
 local wibox     = require('wibox')
@@ -6,6 +13,8 @@ local beautiful = require('beautiful')
 local color     = require('modules.color')
 local rubato    = require('modules.rubato')
 
+-- Helpers
+----------
 local helpers = {}
 -- create a transition animation function
 function helpers.apply_transition(opts)
