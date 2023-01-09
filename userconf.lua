@@ -35,7 +35,7 @@ hover_focus  = false
 -----
 -- The 'type' variables can be 'vertical' or 'horizontal'.
 -- The 'pos' variables can be 'top', 'bottom', 'right' or 'left'.
--- Please do try to keep this variables coherent.
+-- Please do try to keep this variables coherent (eg, vertical top is incorrect).
 -- I recommend keeping every scaling variable in the configuration
 -- related to the 'scaling' global variable, it makes managing
 -- scaling A LOT easier and significantly less painful.
@@ -47,8 +47,8 @@ aspect_ratio = dpi(16/9)
 
 -- Bar
 bar_size     = scaling / 22.5
-bar_type     = "horizontal"
-bar_pos      = "bottom"
+bar_type     = "vertical"
+bar_pos      = "left"
 
 -- Titles
 titles_size  = bar_size * 3/5
@@ -56,7 +56,7 @@ titles_type  = "horizontal"
 titles_pos   = "top"
 
 -- Notifications
-notif_size   = scaling / 32
+notif_size   = scaling / 14
 -- Available positions:
 -- top_left       top_right
 -- bottom_left bottom_right
@@ -81,9 +81,11 @@ user_avatar  = "default"
 user_wall    = "default"
 -- Music player fallback background. Either 'default' (matches colorscheme) or path.
 player_bg    = "default"
+-- AwesomeWM icon to be used, either 'default', 'nix' (both follow colorscheme) or path.
+awm_icon     = "nix"
 
 -- Fonts to be used. MUST leave a space at the end.
-ui_font      = "Noto Sans "
+ui_font      = "Roboto "
 ic_font      = "Material Icons "
 mn_font      = "CaskaydiaCove Nerd Font "
 
