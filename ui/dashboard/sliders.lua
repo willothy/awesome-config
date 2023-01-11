@@ -8,6 +8,7 @@ local awful     = require('awful')
 local beautiful = require('beautiful')
 local gears     = require('gears') 
 local wibox     = require('wibox') 
+local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 
@@ -29,19 +30,19 @@ local function makeslider(base_icon, color)
         {
             id                  = 'slider_role',
             bar_shape           = helpers.mkroundedrect(),
-            bar_height          = dash_size / 172,
+            bar_height          = dpi(dash_size / 172),
             bar_color           = beautiful.blk,
             bar_active_color    = color,
             handle_color        = color,
             handle_shape        = gears.shape.circle,
             handle_border_color = beautiful.lbg,
-            handle_border_width = dash_size / 256,
-            handle_width        = dash_size / 48,
+            handle_border_width = dpi(dash_size / 256),
+            handle_width        = dpi(dash_size / 48),
             minimum             = 0,
             maximum             = 100,
             widget              = wibox.widget.slider
         },
-        spacing = dash_size / 72,
+        spacing = dpi(dash_size / 72),
         layout  = wibox.layout.fixed.horizontal,
         get_slider = function(self)
             return self:get_children_by_id('slider_role')[1]
@@ -105,15 +106,15 @@ local function sliderbox()
                 volumebar,
                 mic,
                 brightness and brightbar,
-                spacing = dash_size / 72,
+                spacing = dpi(dash_size / 72),
                 layout  = wibox.layout.flex.vertical
             },
-            margins = dash_size / 30,
+            margins = dpi(dash_size / 30),
             widget  = wibox.container.margin
         },
         shape  = helpers.mkroundedrect(),
         bg     = beautiful.lbg,
-        forced_height = dash_size * 0.18,
+        forced_height = dpi(dash_size * 0.18),
         widget = wibox.container.background
     }
 end

@@ -26,8 +26,8 @@ local calendar    = require('ui.dashboard.calendar')
 local dashboardBox = wibox {
     ontop   = true,
     visible = false,
-    width   = dash_size * 0.4,
-    height  = dash_size,
+    width   = dpi(dash_size * 0.4),
+    height  = dpi(dash_size),
     shape   = helpers.mkroundedrect(),
     bg      = beautiful.bg_normal
 }
@@ -40,10 +40,10 @@ dashboardBox:setup {
             music(),
             sliders(),
             calendar(),
-            spacing = dash_size / 80,
+            spacing = dpi(dash_size / 80),
             layout  = wibox.layout.fixed.vertical
         },
-        margins = dash_size / 40,
+        margins = dpi(dash_size / 40),
         widget  = wibox.container.margin
     },
     bg     = beautiful.nbg,
@@ -59,7 +59,7 @@ awesome.connect_signal("widget::dashboard", function()
             dashboardBox,
             {
                 margins = {
-                    left    = bar_size + beautiful.useless_gap * 2,
+                    left    = dpi(bar_size + beautiful.useless_gap * 2),
                 },
                 parent  = awful.screen.focused()
             }
@@ -69,7 +69,7 @@ awesome.connect_signal("widget::dashboard", function()
             dashboardBox,
             {
                 margins = {
-                    right   = bar_size + beautiful.useless_gap * 2,
+                    right   = dpi(bar_size + beautiful.useless_gap * 2),
                 },
                 parent  = awful.screen.focused()
             }
@@ -79,8 +79,8 @@ awesome.connect_signal("widget::dashboard", function()
             dashboardBox,
             {
                 margins = {
-                    top     = bar_size + beautiful.useless_gap * 2,
-                    left    = beautiful.useless_gap
+                    top     = dpi(bar_size + beautiful.useless_gap * 2),
+                    left    = dpi(beautiful.useless_gap)
                 },
                 parent  = awful.screen.focused()
             }
@@ -90,8 +90,8 @@ awesome.connect_signal("widget::dashboard", function()
             dashboardBox,
             {
                 margins = {
-                    bottom  = bar_size + beautiful.useless_gap * 2,
-                    left    = beautiful.useless_gap
+                    bottom  = dpi(bar_size + beautiful.useless_gap * 2),
+                    left    = dpi(beautiful.useless_gap)
                 },
                 parent  = awful.screen.focused()
             }

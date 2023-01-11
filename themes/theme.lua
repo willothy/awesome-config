@@ -10,6 +10,7 @@ local beautiful = require('beautiful')
 local wibox     = require('wibox')
 local gc        = gears.color
 local gfs       = gears.filesystem
+local dpi       = beautiful.xresources.apply_dpi
 
 local clrs      = require('themes.palettes.' .. clr_palette)
 local asst_dir  = gfs.get_configuration_dir() .. "themes/assets/"
@@ -42,6 +43,10 @@ theme.cya_d = clrs.cya_d
 
 -- Settings
 -----------
+-- custom vars
+theme.bar_enabled             = true
+theme.bar_gap                 = false
+
 -- misc
 theme.font                    = ui_font .. "Medium " .. scaling / 108
 theme.wallpaper               = user_wall == "default" and clrs.wall   or user_wall
@@ -51,19 +56,19 @@ theme.launcher_icon           = gc.recolor_image(asst_dir .. "launcher.svg", the
 theme.icon_theme              = "Papirus"
 
 -- Layouts
-theme.useless_gap             = scaling / 180
+theme.useless_gap             = dpi(inner_gaps)
 theme.gap_single_client       = true
 theme.master_width_factor     = 0.56
 
 -- border settings
-theme.border_width            = border_size
-theme.border_width_maximized  = theme.border_width
+theme.border_width            = dpi(border_size)
+theme.border_width_maximized  = dpi(theme.border_width)
 theme.fullscreen_hide_border  = true
 
 -- menu settings
 theme.menu_font               = ui_font .. "Bold " .. scaling / 98
-theme.menu_height             = scaling / 27
-theme.menu_width              = theme.menu_height * 5
+theme.menu_height             = dpi(scaling / 27)
+theme.menu_width              = dpi(theme.menu_height * 5)
 
 -- task/taglist settings
 theme.tasklist_plain_task_name   = true
@@ -72,8 +77,8 @@ theme.tasklist_disable_task_name = true
 theme.tasklist_align             = "center"
 
 -- notification settings
-theme.notification_padding       = theme.useless_gap * 4
-theme.notification_spacing       = theme.notification_padding / 2
+theme.notification_padding       = dpi(theme.useless_gap * 4)
+theme.notification_spacing       = dpi(theme.notification_padding / 2)
 theme.notification_accent        = theme.grn
 
 -- Theme Colors
@@ -92,7 +97,7 @@ theme.titlebar_fg_focus  = theme.wht
 theme.titlebar_fg_normal = theme.lbg
 theme.titlebar_fg_urgent = theme.red_d
 theme.titlebar_bg_focus  = theme.dfg
-theme.titlebar_bg_normal = theme.bg_urgent
+theme.titlebar_bg_normal = theme.blk
 theme.titlebar_bg_urgent = theme.fg_urgent
 -- Titlebar Buttons
 local button       = asst_dir .. "title_button.svg"
@@ -136,7 +141,7 @@ theme.wibar_fg                = theme.fg_normal
 
 -- Awesome icon
 if awm_icon == "default" then
-    theme.awesome_icon = require('beautiful.theme_assets').awesome_icon(scaling / 8, theme.fg_normal, theme.bg_normal)
+    theme.awesome_icon = require('beautiful.theme_assets').awesome_icon(dpi(scaling / 8), theme.fg_normal, theme.bg_normal)
 elseif awm_icon == "nix" then
     theme.awesome_icon = gc.recolor_image(asst_dir .. "nix.svg", theme.blu)
 else
@@ -191,12 +196,12 @@ theme.tooltip_shape           = gears.shape.rounded_rect
 
 -- Snap
 theme.snap_bg                 = theme.taglist_bg_focus
-theme.snap_border_width       = titles_size / 2
+theme.snap_border_width       = dpi(titles_size / 2)
 theme.snap_shape              = gears.shape.rectangle
 
 -- Systray
 theme.systray_max_rows        = 1
-theme.systray_icon_spacing    = theme.useless_gap / 2
+theme.systray_icon_spacing    = dpi(theme.useless_gap / 2)
 
 -- Wallpaper setting
 --[[ awful.spawn.once("feh --bg-fill --no-xinerama " .. theme.wallpaper) ]]

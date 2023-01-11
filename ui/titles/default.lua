@@ -7,6 +7,7 @@
 local awful     = require('awful')
 local wibox     = require('wibox')
 local beautiful = require('beautiful')
+local dpi       = beautiful.xresources.apply_dpi
 
 -- Titlebars
 ------------
@@ -33,7 +34,7 @@ client.connect_signal("request::titlebars", function(c)
                 awful.titlebar.widget.maximizedbutton(c),
                 awful.titlebar.widget.stickybutton(c),
                 -- awful.titlebar.widget.ontopbutton(c),
-                spacing = titles_size / 8,
+                spacing = dpi(titles_size / 8),
                 layout  = titles_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
             },
             { -- Middle
@@ -45,13 +46,13 @@ client.connect_signal("request::titlebars", function(c)
                 buttons = buttons,
                 layout  = titles_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
             },
-            spacing = titles_size / 4,
+            spacing = dpi(titles_size / 4),
             layout  = titles_type == "horizontal" and wibox.layout.align.horizontal or wibox.layout.align.vertical
         },
-        top     = titles_type == "horizontal" and titles_size / 5 or titles_size / 4,
-        bottom  = titles_type == "horizontal" and titles_size / 5 or titles_size / 2,
-        left    = titles_type == "horizontal" and titles_size / 4 or titles_size / 5,
-        right   = titles_type == "horizontal" and titles_size / 2 or titles_size / 5,
+        top     = titles_type == "horizontal" and dpi(titles_size / 5) or dpi(titles_size / 4),
+        bottom  = titles_type == "horizontal" and dpi(titles_size / 5) or dpi(titles_size / 2),
+        left    = titles_type == "horizontal" and dpi(titles_size / 4) or dpi(titles_size / 5),
+        right   = titles_type == "horizontal" and dpi(titles_size / 2) or dpi(titles_size / 5),
         widget  = wibox.container.margin
     }
 end)

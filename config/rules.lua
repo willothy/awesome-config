@@ -1,3 +1,7 @@
+--------------
+-- WM Rules --
+--------------
+
 -- Imports
 ----------
 local awful     = require('awful')

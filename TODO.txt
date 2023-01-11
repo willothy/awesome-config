@@ -1,0 +1,13 @@
+### Items yet TODO
+- Custom ncmpcpp UI
+- Networking wrapper through lgi dbus interface
+- Proper screenshot utility
+- Make more features toggleable
+- Extend (and improve) colorschemes to 20 color palette
+- Fix client titlebar spacing
+- Default notification template improvements
+- MSTab theming
+
+### Items completed
+- Fix dashboard glitches
+- Panel options

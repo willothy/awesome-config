@@ -1,0 +1,12 @@
+[submodule "modules/bling"]
+	path = modules/bling
+	url = https://github.com/blingcorp/bling
+[submodule "modules/color"]
+	path = modules/color
+	url = https://github.com/andOrlando/color
+[submodule "modules/rubato"]
+	path = modules/rubato
+	url = https://github.com/andOrlando/rubato
+[submodule "modules/awesome-battery_widget"]
+	path = modules/awesome-battery_widget
+	url = https://github.com/Aire-One/awesome-battery_widget

@@ -7,8 +7,7 @@
 -- Imports
 ----------
 local awful     = require('awful')
-local beautiful = require('beautiful')
-local dpi       = beautiful.xresources.apply_dpi
+local dpi       = require('beautiful').xresources.apply_dpi
 
 -- Applications
 ---------------
@@ -23,13 +22,22 @@ app_launcher = "rofi -show drun"
 scrnsht_sel  = "maim -s | xclip -selection clipboard -t image/png"
 scrnsht_full = "maim | xclip -selection clipboard -t image/png"
 
--- Management
--------------
--- 'config/actions/language' uses the 'caps:super' option, you
--- may wanna disable that if you don't use caps as super.
-modkey       = "Mod4" -- 4 is super, 1 is alt.
--- Focus mouse hovered clients.
-hover_focus  = false
+-- Features
+-----------
+-- These options mainly serve the purpose of toggling features.
+
+-- Changes default state of the bar. Can still be brought up
+-- by emitting the 'widget::bar' signal (mod + b) even if disabled.
+bar_enabled  = true
+-- Adds 'outer_gaps' to the bar.
+bar_gap      = false
+
+-- Enables/disables battery metrics.
+battery      = true
+-- Enables/disables brightness metrics.
+brightness   = true
+-- Enables/disables bluetooth status.
+bluetoothctl = true
 
 -- UI
 -----
@@ -41,22 +49,22 @@ hover_focus  = false
 -- scaling A LOT easier and significantly less painful.
 
 -- Resolution Scaling (vertical resolution of your monitor)
-scaling      = dpi(1080 * 1)
+scaling      = 1080
 -- Your monitor's aspect ratio, commonly 16:9 or 16:10.
-aspect_ratio = dpi(16/9)
+aspect_ratio = 16/9
 
 -- Bar
-bar_size     = scaling / 22.5
+bar_size     = scaling * 0.045
 bar_type     = "vertical"
 bar_pos      = "left"
 
 -- Titles
-titles_size  = bar_size * 3/5
+titles_size  = bar_size * 0.6
 titles_type  = "horizontal"
 titles_pos   = "top"
 
 -- Notifications
-notif_size   = scaling / 14
+notif_size   = scaling * 0.08
 -- Available positions:
 -- top_left       top_right
 -- bottom_left bottom_right
@@ -64,7 +72,7 @@ notif_pos    = "top_right"
 
 -- Borders (radius is relevant regardless of size)
 border_size  = 0 --scaling / 540 -- 2 pixel border on 1080p
-border_rad   = scaling / 135
+border_rad   = scaling * 0.008
 
 -- Theming
 ----------
@@ -89,19 +97,18 @@ ui_font      = "Roboto "
 ic_font      = "Material Icons "
 mn_font      = "CaskaydiaCove Nerd Font "
 
--- Features
------------
--- These options mainly serve the purpose of toggling features.
-
--- Changes default state of the bar. Can still be brought up
--- by emitting the 'widget::bar' signal (mod + b) even if disabled.
-bar_enabled  = true
--- Enables/disables battery metrics.
-battery      = true
--- Enables/disables brightness metrics.
-brightness   = true
--- Enables/disables bluetooth status.
-bluetoothctl = true
+-- Management
+-------------
+-- 'config/actions/language' uses the 'caps:super' option, you
+-- may wanna disable that if you don't use caps as super.
+modkey       = "Mod4" -- 4 is super, 1 is alt.
+-- Focus mouse hovered clients.
+hover_focus  = false
+-- Gap configuration. 
+--   Inner gaps are common gaps. 
+--   Outer gaps are the gaps between the tag contents and the edge of the screen.
+inner_gaps   = scaling / 270
+outer_gaps   = inner_gaps * 3 -- Triple outer gap.
 
 -- Autostart
 ------------
