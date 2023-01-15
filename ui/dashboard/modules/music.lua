@@ -25,7 +25,7 @@ local album_art = wibox.widget {
     opacity     = 0.33,
     align       = "center",
     forced_height = dpi(dash_size * 0.2),
-    forced_width  = dpi(dash_size * 0.4),
+    --[[ forced_width  = dpi(dash_size * 0.4), ]]
     clip_shape  = helpers.mkroundedrect(),
     widget      = wibox.widget.imagebox
 }

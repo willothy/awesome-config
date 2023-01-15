@@ -25,7 +25,7 @@ local calendar_wdgt = wibox.widget {
         }
         local torender = flag == 'focus' and focus_widget or widget
         if flag == 'header' then
-            torender.font = ui_font .. dash_size / 64
+            torender.font = ui_font .. 0
         end
         local colors = {
             header  = beautiful.blu,
@@ -47,7 +47,7 @@ local calendar_wdgt = wibox.widget {
             fg     = color,
             bg     = flag == 'focus' and beautiful.blk or beautiful.bg_normal,
             shape  = helpers.mkroundedrect(),
-            forced_width = dpi(dash_size * 0.25),
+            forced_width = dpi(dash_width * 0.5),
             widget = wibox.container.background
         }
     end
@@ -100,8 +100,10 @@ local function calendar()
         {
             {
                 calendar_wdgt,
-                right   = dpi(dash_size / 48),
-                top     = dpi(dash_size / 64),
+                left    = dpi(dash_size / 128),
+                top     = dpi(-dash_size / 128),
+                bottom  = dpi(dash_size / 128),
+                right   = dpi(dash_size / 64),
                 widget  = wibox.container.margin
             },
             {
@@ -110,14 +112,24 @@ local function calendar()
                         clock,
                         {
                             {
-                                format = "%a %d,\n%Y",
+                                format = "%a %d\n",
                                 align  = "center",
                                 widget = wibox.widget.textclock
                             },
                             fg     = beautiful.gry,
                             widget = wibox.container.background
                         },
-                        layout = wibox.layout.align.vertical
+                        {
+                            {
+                                format = "<b>%b</b>\n%Y",
+                                font   = ui_font .. dash_size / 64,
+                                align  = "center",
+                                widget = wibox.widget.textclock
+                            },
+                            fg     = beautiful.wht,
+                            widget = wibox.container.background
+                        },
+                        layout = wibox.layout.fixed.vertical
                     },
                     align  = "center",
                     widget = wibox.container.place
@@ -129,7 +141,7 @@ local function calendar()
             },
             layout = wibox.layout.fixed.horizontal
         },
-        forced_height = dpi(dash_size / 4),
+        forced_height = dpi(dash_size * 0.245),
         widget = wibox.container.background
     }
 end

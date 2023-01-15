@@ -23,7 +23,7 @@ playerctl:connect_signal("metadata",
         info_notif = naughty.notify({
             title   = title:match('.+') or "Nothing Playing", 
             text    = "by " .. artist:match('.+') or "Unknown", 
-            image   = cover and album_path or beautiful.user_avatar,
+            image   = cover and album_path or beautiful.player_bg,
             timeout = timeout
         }, info_notif)
     end

@@ -2,6 +2,7 @@
 -------------------------
 local asst_dir  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/"
 local clrs = {}
+    clrs.dbg   = "#1e2030"
     clrs.nbg   = "#24273a"
     clrs.lbg   = "#2d3146"
     clrs.blk   = "#3d4158"

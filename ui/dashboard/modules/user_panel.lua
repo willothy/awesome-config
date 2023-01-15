@@ -20,7 +20,6 @@ local avatar  = wibox.widget {
     clip_shape    = gears.shape.circle,
     resize        = true,
     forced_height = dpi(dash_size / 12),
-    forced_width  = dpi(dash_size / 12),
 }
 
 local greeter = wibox.widget {

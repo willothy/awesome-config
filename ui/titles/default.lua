@@ -42,7 +42,12 @@ client.connect_signal("request::titlebars", function(c)
                 layout  = titles_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
             },
             { -- Right
-                titles_type == "horizontal" and awful.titlebar.widget.titlewidget(c),
+                {
+                    titles_type == "horizontal" and awful.titlebar.widget.titlewidget(c),
+                    left   = titles_type == "horizontal" and dpi(titles_size / 2) or 0,
+                    top    = titles_type == "vertical" and dpi(titles_size / 2) or 0,
+                    widget = wibox.container.margin
+                },
                 buttons = buttons,
                 layout  = titles_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
             },

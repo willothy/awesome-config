@@ -10,9 +10,9 @@ local beautiful = require('beautiful')
 local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
-local gettags   = require('ui.bar.stuff.tags')
-local gettasks  = require('ui.bar.stuff.tasks')
-local getlayout = require('ui.bar.stuff.layout')
+local gettags   = require('ui.bar.modules.tags')
+local gettasks  = require('ui.bar.modules.tasks')
+local getlayout = require('ui.bar.modules.layout')
 
 -- Bar Widgets
 --------------
@@ -22,7 +22,7 @@ local bar_dash = wibox.widget {
         {
             {
                 image      = beautiful.awesome_icon,
-                clip_shape = helpers.mkroundedrect(), 
+                clip_shape = helpers.mkroundedrect(beautiful.border_radius / 2), 
                 widget     = wibox.widget.imagebox 
             },
             margins = dpi(bar_size / 7),
@@ -82,7 +82,8 @@ end
 -- Battery bar
 local bar_battery_prog = wibox.widget {
     max_value        = 100,
-    forced_width     = bar_type == "vertical" and dpi(bar_size * 5/4) or dpi(bar_size * 5/6 * aspect_ratio),
+    forced_width     = bar_type == "vertical" and dpi(bar_size * 5/4)
+                       or dpi(bar_size * aspect_ratio),
     clip             = true,
     shape            = helpers.mkroundedrect(),
     bar_shape        = helpers.mkroundedrect(),
@@ -171,8 +172,11 @@ local hbar_clock = {
             valign = "center",
             widget = wibox.widget.textclock
         },
-        margins = dpi(bar_size / 8), 
-        widget  = wibox.container.margin
+        left   = dpi(bar_size / 5),
+        right  = dpi(bar_size / 5),
+        bottom = dpi(bar_size / 8), 
+        top    = dpi(bar_size / 8), 
+        widget = wibox.container.margin
     },
     bg     = beautiful.lbg,
     shape  = helpers.mkroundedrect(),
@@ -282,23 +286,12 @@ end)
 -------------------
 if bar_gap then
     local screen = awful.screen.focused()
-    if bar_pos == "right" then
-        screen.mywibox.margins = {
-            right   = outer_gaps
-        }
-    elseif bar_pos == "left" then
-        screen.mywibox.margins = {
-            left    = outer_gaps
-        }
-    elseif bar_pos == "bottom" then
-        screen.mywibox.margins = {
-            bottom  = outer_gaps
-        }
-    else
-        screen.mywibox.margins = {
-            top     = outer_gaps
-        }
-    end
+    screen.mywibox.margins = {
+        right   = bar_pos == "right" and dpi(beautiful.useless_gap) or 0,
+        left    = bar_pos == "left" and dpi(beautiful.useless_gap) or 0,
+        bottom  = bar_pos == "bottom" and dpi(beautiful.useless_gap) or 0,
+        top     = bar_pos == "top" and dpi(beautiful.useless_gap) or 0
+    }
 end
 
 -- Signal Connections
@@ -348,12 +341,3 @@ end
 awesome.connect_signal("signal::network", function(is_enabled)
     bar_network.text   = is_enabled and "" or ""
 end)
---[[ awesome.connect_signal("signal::NetworkManager", function(state) ]]
---[[     if state == 4 then ]]
---[[         bar_network.text   = "" ]]
---[[     elseif state == 2 or state == 3 then ]]
---[[         bar_network.text   = "" ]]
---[[     else ]]
---[[         bar_network.text   = "" ]]
---[[     end ]]
---[[ end) ]]
