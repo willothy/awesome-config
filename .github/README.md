@@ -64,6 +64,7 @@ You can edit some basic stuff by using the included variables inside of
 bar positions, as well as toggling features.
 
 <details>
+  
 | Variable       | Type      | Description                        |
 | -------------- | --------- | ---------------------------------- |
 | Applications   | -         | -                                  |
@@ -106,6 +107,7 @@ bar positions, as well as toggling features.
 | `player_bg`    | `string`  | "default" follows colorscheme, or path |
 | `awm_icon`     | `string`  | "default", "nix", or path |
 | `scrnshot_dir` | `string`  | Directory to save screenshots to   |
+  
 </details>
 
 # References
