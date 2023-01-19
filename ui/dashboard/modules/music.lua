@@ -8,8 +8,6 @@ local awful     = require('awful')
 local wibox     = require('wibox')
 local beautiful = require('beautiful')
 local gears     = require('gears')
-local gfs       = gears.filesystem
-local gc        = gears.color
 local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
@@ -25,7 +23,6 @@ local album_art = wibox.widget {
     opacity     = 0.33,
     align       = "center",
     forced_height = dpi(dash_size * 0.2),
-    --[[ forced_width  = dpi(dash_size * 0.4), ]]
     clip_shape  = helpers.mkroundedrect(),
     widget      = wibox.widget.imagebox
 }
@@ -75,53 +72,36 @@ sng_progress:connect_signal('property::value', function(_, value)
 end)
 
 -- Playback Controls
-local ctrl_play = wibox.widget {
-    text   = "",
-    font   = ic_font .. dash_size / 48,
-    widget = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function()
-            playerctl:play_pause() end)
+local function mk_ctrl(icon, run)
+    local ctrl_button = wibox.widget {
+        {
+            {
+                id     = "text_role",
+                text   = icon,
+                font   = ui_font .. dash_size / 48,
+                widget = wibox.widget.textbox
+            },
+            margins = dpi(scaling / 270),
+            widget  = wibox.container.margin
+        },
+        bg      = beautiful.lbg,
+        shape   = helpers.mkroundedrect(),
+        widget  = wibox.container.background,
+        buttons = {
+            awful.button({}, 1, run)
+        },
+        set_text = function(self, content)
+            self:get_children_by_id('text_role')[1].text = content
+        end
     }
-}
-local ctrl_prev = wibox.widget {
-    text   = "",
-    font   = ic_font .. dash_size / 48,
-    widget = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function()
-            playerctl:previous() end)
-    }
-}
-local ctrl_next = wibox.widget {
-    text   = "",
-    font   = ic_font .. dash_size / 48,
-    widget = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function()
-            playerctl:next() end)
-    }
-}
-local icon_shff = wibox.widget {
-    text    = "",
-    font    = ic_font .. dash_size / 48,
-    widget  = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function()
-            playerctl:cycle_shuffle() end)
-    }
-}
-local ctrl_shff = helpers.mkbtn(icon_shff, beautiful.lbg, beautiful.blk)
-local icon_loop = wibox.widget {
-    text    = "",
-    font    = ic_font .. dash_size / 48,
-    widget  = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function()
-            playerctl:cycle_loop_status() end)
-    }
-}
-local ctrl_loop = helpers.mkbtn(icon_loop, beautiful.lbg, beautiful.blk)
+    helpers.add_hover(ctrl_button, beautiful.lbg, beautiful.blk)
+    return ctrl_button
+end
+local ctrl_prev = mk_ctrl("", function() playerctl:previous()          end)
+local ctrl_play = mk_ctrl("", function() playerctl:play_pause()        end)
+local ctrl_next = mk_ctrl("", function() playerctl:next()              end)
+local ctrl_shff = mk_ctrl("", function() playerctl:cycle_shuffle()     end)
+local ctrl_loop = mk_ctrl("", function() playerctl:cycle_loop_status() end)
 
 -- Volume control
 local is_vol_hovered = false
@@ -245,9 +225,9 @@ local function music()
                             },
                             {
                                 {
-                                    helpers.mkbtn(ctrl_prev, beautiful.lbg, beautiful.blk),
-                                    helpers.mkbtn(ctrl_play, beautiful.lbg, beautiful.blk),
-                                    helpers.mkbtn(ctrl_next, beautiful.lbg, beautiful.blk),
+                                    ctrl_prev,
+                                    ctrl_play,
+                                    ctrl_next,
                                     spacing = dpi(dash_size / 96),
                                     layout  = wibox.layout.fixed.horizontal
                                 },
