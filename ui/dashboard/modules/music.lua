@@ -78,7 +78,7 @@ local function mk_ctrl(icon, run)
             {
                 id     = "text_role",
                 text   = icon,
-                font   = ui_font .. dash_size / 48,
+                font   = ic_font .. dash_size / 48,
                 widget = wibox.widget.textbox
             },
             margins = dpi(scaling / 270),

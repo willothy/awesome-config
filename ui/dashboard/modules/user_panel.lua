@@ -39,8 +39,6 @@ local uptime = wibox.widget {
     font   = ui_font .. dash_size / 96,
     widget = wibox.widget.textbox
 }
--- oh god, please NixOS add `uptime -p`
--- update: (hiPrio procps) :euphoria:
 local function get_uptime()
     awful.spawn.easy_async_with_shell(
         "uptime -p", function(stdout)

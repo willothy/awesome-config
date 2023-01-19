@@ -21,56 +21,25 @@ local function status_widget(action)
         align  = "center",
         widget = wibox.widget.textbox,
         buttons = {
-            awful.button({}, 1, function(action)
-                awful.spawn(action) end)
+            awful.button({}, 1, action)
         }
     }
 end
 
 -- Network
-local dash_network   = wibox.widget {
-    font   = ic_font .. dash_size / 56,
-    align  = "center",
-    widget = wibox.widget.textbox,
-}
-dash_network:connect_signal("button::press", function()
-    awful.spawn(
-        [[bash -c "
-            [ $(nmcli networking connectivity check) = "full" ] && nmcli networking off || nmcli networking on
-        "]])
-end)
+local dash_network   = status_widget(function() awful.spawn([[bash -c "
+    [ $(nmcli networking connectivity check) = "full" ] && nmcli networking off || nmcli networking on
+"]]) end)
 -- Bluetooth
-local dash_bluetooth =  wibox.widget {
-    font   = ic_font .. dash_size / 56,
-    align  = "center",
-    widget = wibox.widget.textbox,
-}
-dash_bluetooth:connect_signal("button::press", function()
-    awful.spawn(
-        [[bash -c "
-            [ $(bluetoothctl show | grep -i powered: | awk '{print $2}') = "yes" ] && bluetoothctl power off || bluetoothctl power on
-        "]])
-end)
+local dash_bluetooth = status_widget(function() awful.spawn([[bash -c "
+    [ $(bluetoothctl show | grep -i powered: | awk '{print $2}') = "yes" ] && bluetoothctl power off || bluetoothctl power on
+"]]) end)
 -- Audio
-local dash_audio     = wibox.widget {
-    font   = ic_font .. dash_size / 56,
-    align  = "center",
-    widget = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function(action)
-            awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end)
-    }
-}
+local dash_audio     = status_widget(function() 
+                           awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end)
 -- Microphone
-local dash_mic      = wibox.widget {
-    font   = ic_font .. dash_size / 56,
-    align  = "center",
-    widget = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function(action)
-            awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle") end)
-    }
-}
+local dash_mic       = status_widget(function()
+                           awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle") end)
 
 -- Quick Actions
 ----------------

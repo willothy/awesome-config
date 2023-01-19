@@ -1,7 +1,8 @@
 -----------------------------
 -- awful.screenshot script --
 -----------------------------
--- Also uses xclip.
+-- Also uses xclip. Works whenever `awful.screenshot` feels
+-- like following `args.directory`.
 
 -- Imports
 ----------
@@ -18,18 +19,15 @@ local def_image = gc.recolor_image(
 
 -- Screenshot
 -------------
-local file_name = "ss-" .. os.date("%H:%M:%S") .. ".png"
-local tmp_path  = "/tmp/" .. file_name 
-local perm_path = beautiful.screenshot_dir
-
 --- Immediate
 local function saved_screenshot(args)
-    args.file_path   = tmp_path
+    args.directory   = "/tmp/"
     args.frame_color = beautiful.red
 
     local ss     = awful.screenshot(args)
     local save   = naughty.action { name = 'Save' }
     local delete = naughty.action { name = 'Discard' }
+    local file_location
 
     local function notify(self)
         naughty.notification {
@@ -41,6 +39,7 @@ local function saved_screenshot(args)
                 delete
             }
         }
+        file_location = self.file_path
     end
 
     if args.auto_save_delay > 0 then
@@ -48,15 +47,15 @@ local function saved_screenshot(args)
     else
         notify(ss)
     end
-    awful.spawn("xclip -sel clip -t image/png '" .. args.file_path .. "'")
+    awful.spawn("xclip -sel clip -t image/png '" .. file_location .. "'")
 
     -- click 'Save' to copy image to clipboard
     save:connect_signal('invoked', function()
-        awful.spawn.with_shell("cp " .. args.file_path .. " " .. perm_path)
+        awful.spawn.with_shell("cp " .. file_location .. " " .. beautiful.screenshot_dir)
     end)
     -- click 'Discard' to remove image by path
     delete:connect_signal('invoked', function()
-        awful.spawn.with_shell("rm " .. args.file_path)
+        awful.spawn.with_shell("rm " .. file_location)
     end)
 
     return ss

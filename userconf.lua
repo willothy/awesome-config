@@ -13,8 +13,8 @@ local dpi       = require('beautiful').xresources.apply_dpi
 ---------------
 -- Define your default applications, mainly used in 'config/keys.lua'
 terminal     = "alacritty"          or "xterm"
-editor       = os.getenv("EDITOR")  or "nvim"
-browser      = os.getenv("BROWSER") or "firefox"
+editor       = "nvim"
+browser      = "firefox"
 top          = "htop"
 files_cli    = "lf"
 files_gui    = "thunar"
@@ -28,9 +28,9 @@ modkey       = "Mod4" -- 4 is super, 1 is alt.
 -- Focus mouse hovered clients.
 hover_focus  = false
 -- Enables/disables battery metrics.
-battery      = true
+battery      = false
 -- Enables/disables brightness metrics.
-brightness   = true
+brightness   = false
 -- Enables/disables bluetooth status.
 bluetoothctl = true
 
@@ -44,6 +44,8 @@ local user = {}
 scaling      = 1080
 -- Your monitor's aspect ratio, commonly 16:9 or 16:10.
 aspect_ratio = 16/9
+-- dpi
+require('beautiful').xresources.set_dpi(96)
 
 --- Bar
 -- Changes default state of the bar. Can still be brought up
@@ -84,7 +86,7 @@ user.border_rad   = scaling * 0.008
 --  'catppuccin', 'tokyonight', 'everforest', 'everblush', 
 --  'decay'
 -- More themes can be added at 'themes/palettes'.
-user.clr_palette  = "everblush"
+user.clr_palette  = "catppuccin"
 
 -- Fonts to be used. MUST leave a space at the end.
 ui_font      = "Roboto "
@@ -99,7 +101,7 @@ user_wall    = "default"
 -- Music player fallback background. Either 'default' (matches colorscheme) or path.
 player_bg    = "default"
 -- AwesomeWM icon to be used, either 'default', 'nix' (both follow colorscheme) or path.
-awm_icon     = "default"
+awm_icon     = "nix"
 
 -- Miscelaneous
 ---------------
