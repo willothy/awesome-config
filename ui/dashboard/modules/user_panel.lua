@@ -131,14 +131,14 @@ local function txtbtn(icon, action)
             text   = icon,
             font   = ic_font .. dash_size / 48,
             align  = "center",
-            widget = wibox.widget.textbox,
-            buttons = {
-                awful.button({}, 1, 
-                    function() awful.spawn(action) end)
-            }
+            widget = wibox.widget.textbox
         },
         fg     = beautiful.red,
-        widget = wibox.container.background
+        widget = wibox.container.background,
+        buttons = {
+            awful.button({}, 1, 
+                function() awful.spawn(action) end)
+        }
     } 
 end
 local shutdown = txtbtn("", "systemctl poweroff");

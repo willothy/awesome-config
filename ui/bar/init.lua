@@ -68,16 +68,34 @@ helpers.add_hover(bar_launcher, beautiful.lbg, beautiful.blk)
 
 -- Status icons
 local function status_widget(button)
-    return wibox.widget {
-        font    = ic_font .. bar_size / 3,
-        align   = "center",
-        widget  = wibox.widget.textbox,
+    local status = wibox.widget {
+        {
+            {
+                id      = "text_role",
+                font    = ic_font .. bar_size / 3,
+                align   = "center",
+                widget  = wibox.widget.textbox,
+            },
+            margins = dpi(scaling / 270),
+            widget  = wibox.container.margin,
+        },
+        bg     = beautiful.nbg,
+        widget = wibox.container.background,
+        shape  = helpers.mkroundedrect(),
         buttons = {
-            awful.button({}, 1, function()
-                awful.spawn(button) end)
-        }
+            awful.button({}, 1, button)
+        },
+        set_text = function(self, content)
+            self:get_children_by_id('text_role')[1].text = content
+        end
     }
+    helpers.add_hover(status, beautiful.nbg, beautiful.lbg)
+    return status
 end
+
+local bar_btn_sound = status_widget(function() awesome.emit_signal("volume::mute") end) 
+local bar_btn_net   = status_widget() 
+local bar_btn_blue  = status_widget(function() awesome.emit_signal("bluetooth::toggle") end) 
 
 -- Battery bar
 local bar_battery_prog = wibox.widget {
@@ -97,14 +115,6 @@ local flipped_battery = wibox.widget {
     widget    = wibox.container.rotate
 }
 local bar_battery_text     = status_widget()
-
--- I don't want to call this a systray... but
-local bar_sound     = status_widget("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") -- Sound muted?
-local bar_btn_sound = helpers.mkbtn(bar_sound,     beautiful.nbg, beautiful.lbg)
-local bar_network   = status_widget() -- Network status?
-local bar_btn_net   = helpers.mkbtn(bar_network,   beautiful.nbg, beautiful.lbg)
-local bar_bluetooth = status_widget("bluetoothctl power off") -- Bluetooth on?
-local bar_btn_blue  = helpers.mkbtn(bar_bluetooth, beautiful.nbg, beautiful.lbg)
 
 -- The actual systray
 local systray     = wibox.widget {
@@ -321,7 +331,7 @@ end
 -- Sound signal
 awesome.connect_signal("signal::volume", function(volume, muted)
     if muted then
-        bar_sound.text    = ""
+        bar_btn_sound.text    = ""
         bar_btn_sound.visible = true
     else
         bar_btn_sound.visible = false
@@ -331,7 +341,7 @@ end)
 if bluetoothctl then
     awesome.connect_signal("signal::bluetooth", function(is_enabled)
         if is_enabled then
-            bar_bluetooth.text   = ""
+            bar_btn_blue.text   = ""
             bar_btn_blue.visible = true
         else
             bar_btn_blue.visible = false
@@ -339,5 +349,5 @@ if bluetoothctl then
     end)
 end
 awesome.connect_signal("signal::network", function(is_enabled)
-    bar_network.text   = is_enabled and "" or ""
+    bar_btn_net.text   = is_enabled and "" or ""
 end)

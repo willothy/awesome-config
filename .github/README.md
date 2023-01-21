@@ -11,31 +11,29 @@ come, all done with Awesome's widget API!
 
 ### Mandatory
 - Awesome-git (duh)
-- mpd, mpDris2, and playerctl
-- Network Manager
-- Pipewire and Wireplumber
+- mpd, mpDris2, and playerctl (music player and actions)
+- Network Manager (network signals)
+- Pipewire and Wireplumber (audio signals)
+- maim, xclip (screenshots)
 - Roboto, Material Icons, and CascadiaCode Nerd Font
-- xclip
 
 ### Optional (toggleable)
-- brightnessctl
-- bluez and bluez-utils
-- upower
+- brightnessctl (brightness signals)
+- bluez and bluez-utils (bluetooth signals)
+- upower (battery signals)
 
 ----------------------
 This configuration also uses alacritty, nvim, firefox, htop, lf, thunar, 
-xclip and rofi by default, but none of these are hard requirements and 
-you can easily change them in `userconf.lua`, although I still 
-recommend **at least installing alacritty**.
+and rofi by default, but none of these are hard requirements and you can 
+easily change them in `userconf.lua`, although I still recommend **at 
+least installing alacritty**.
 
 ## Installation
 
 Install the dependencies listed above for your own distro. After that is
-done you need only run:
+done, back your own configuration up, and you need only run:
 ```sh
-$ git clone https://github.com/Gwynsav/gwdawful.git --recursive
-$ mkdir ~/.config/awesome/
-$ cp -r gwdawful/* ~/.config/awesome/
+$ git clone https://github.com/Gwynsav/gwdawful.git ~/.config/awesome --recursive
 ```
 Also note that CascadiaCode Nerd Font is very likely not packaged for your
 distro. It can easily be installed by [getting it](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/CascadiaCode.zip), 

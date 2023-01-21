@@ -32,8 +32,7 @@ battery      = false
 -- Enables/disables brightness metrics.
 brightness   = false
 -- Enables/disables bluetooth status.
-bluetoothctl = true
-
+bluetoothctl = false
 -- Settings
 -----------
 local user = {}
@@ -62,7 +61,7 @@ bar_gap      = false
 title_enable = true
 titles_size  = bar_size * 0.6
 -- Can be 'top', 'bottom', 'right' or 'left'.
-titles_pos   = "top"
+titles_pos   = "left"
 
 --- Notifications
 notif_size   = scaling * 0.09
@@ -86,7 +85,7 @@ user.border_rad   = scaling * 0.008
 --  'catppuccin', 'tokyonight', 'everforest', 'everblush', 
 --  'decay'
 -- More themes can be added at 'themes/palettes'.
-user.clr_palette  = "catppuccin"
+user.clr_palette  = "everblush"
 
 -- Fonts to be used. MUST leave a space at the end.
 ui_font      = "Roboto "
@@ -101,7 +100,7 @@ user_wall    = "default"
 -- Music player fallback background. Either 'default' (matches colorscheme) or path.
 player_bg    = "default"
 -- AwesomeWM icon to be used, either 'default', 'nix' (both follow colorscheme) or path.
-awm_icon     = "nix"
+awm_icon     = "default"
 
 -- Miscelaneous
 ---------------

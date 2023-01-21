@@ -1,3 +1,10 @@
+-------------------
+-- volume signal --
+-------------------
+-- Allows checking level and state, and changing both of those.
+
+-- Imports
+----------
 local awful = require('awful')
 local gears = require('gears')
 
@@ -20,10 +27,22 @@ local function volume_emit()
             end
         end)
 end
+-- Connect to set volume to a specific amount.
+awesome.connect_signal('volume::set', function(amount)
+    awful.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ " .. amount .. "%")
+end)
+-- Connect to add a specific amount to volume.
+awesome.connect_signal('volume::change', function(amount)
+    awful.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ " .. volume_old + amount .. "%")
+end)
+-- Toggle audio.
+awesome.connect_signal('volume::mute', function()
+    awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+end)
 
 -- Microphone Fetching and Signal Emitting
 ------------------------------------------
--- Emit a volume level signal
+-- Emit a microphone level signal
 local mic_old        = -1
 local mic_muted_old  = -1
 local function microphone_emit()
@@ -40,6 +59,18 @@ local function microphone_emit()
             end
         end)
 end
+-- Connect to set microphone to a specific amount.
+awesome.connect_signal('microphone::set', function(amount)
+    awful.spawn("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ " .. amount .. "%")
+end)
+-- Connect to add a specific amount to microphone.
+awesome.connect_signal('microphone::change', function(amount)
+    awful.spawn("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ " .. mic_old + amount .. "%")
+end)
+-- Toggle microphone.
+awesome.connect_signal('microphone::mute', function()
+    awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle")
+end)
 
 -- Refreshing
 -------------

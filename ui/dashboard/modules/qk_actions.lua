@@ -15,31 +15,37 @@ local helpers   = require('helpers')
 -- Buttons
 ----------
 -- Status icons
-local function status_widget(action)
-    return wibox.widget {
-        font   = ic_font .. dash_size / 56,
-        align  = "center",
-        widget = wibox.widget.textbox,
+local function status_widget(icon, action, color)
+    local status = wibox.widget {
+        {
+            {
+                id     = "text_role",
+                text   = icon,
+                font   = ic_font .. dash_size / 56,
+                align  = "center",
+                widget = wibox.widget.textbox
+            },
+            margins = dpi(scaling / 270),
+            widget  = wibox.container.margin
+        },
+        bg     = beautiful.blk,
+        widget = wibox.container.background,
+        shape  = helpers.mkroundedrect(),
         buttons = {
             awful.button({}, 1, action)
-        }
+        },
+        set_text = function(self, content)
+            self:get_children_by_id('text_role')[1].text = content
+        end
     }
+    helpers.add_hover(status, beautiful.blk, color)
+    return status
 end
 
--- Network
-local dash_network   = status_widget(function() awful.spawn([[bash -c "
-    [ $(nmcli networking connectivity check) = "full" ] && nmcli networking off || nmcli networking on
-"]]) end)
--- Bluetooth
-local dash_bluetooth = status_widget(function() awful.spawn([[bash -c "
-    [ $(bluetoothctl show | grep -i powered: | awk '{print $2}') = "yes" ] && bluetoothctl power off || bluetoothctl power on
-"]]) end)
--- Audio
-local dash_audio     = status_widget(function() 
-                           awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end)
--- Microphone
-local dash_mic       = status_widget(function()
-                           awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle") end)
+local dash_network   = status_widget("", function() awesome.emit_signal("network::toggle") end, beautiful.grn_d)
+local dash_bluetooth = status_widget("", function() awesome.emit_signal("bluetooth::toggle") end, beautiful.blu_d)
+local dash_scr_sel   = status_widget("", function() awesome.emit_signal("screenshot::selection") end, beautiful.cya_d)
+local dash_scr_full  = status_widget("", function() awesome.emit_signal("screenshot::fullscreen") end, beautiful.mag_d)
 
 -- Quick Actions
 ----------------
@@ -47,10 +53,10 @@ local function qk_actions()
     return wibox.widget {
         {
             {
-                helpers.mkbtn(dash_network, beautiful.blk, beautiful.grn_d),
-                bluetoothctl and helpers.mkbtn(dash_bluetooth, beautiful.blk, beautiful.blu_d),
-                helpers.mkbtn(dash_audio, beautiful.blk, beautiful.cya_d),
-                helpers.mkbtn(dash_mic, beautiful.blk, beautiful.mag_d),
+                dash_network,
+                bluetoothctl and dash_bluetooth,
+                dash_scr_sel,
+                dash_scr_full,
                 spacing = dpi(dash_size / 96),
                 layout  = wibox.layout.flex.horizontal
             },
@@ -74,12 +80,5 @@ if bluetoothctl then
         dash_bluetooth.text = is_enabled and "" or ""
     end)
 end
-
-awesome.connect_signal("signal::volume", function(level, muted)
-    dash_audio.text = muted and "" or ""
-end)
-awesome.connect_signal("signal::microphone", function(mic_level, mic_muted)
-    dash_mic.text = mic_muted and "" or ""
-end)
 
 return qk_actions

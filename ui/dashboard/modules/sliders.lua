@@ -35,9 +35,7 @@ local function makeslider(base_icon, color, input)
                     shape   = helpers.mkroundedrect(),
                     widget  = wibox.container.background,
                     buttons = {
-                        awful.button({}, 1, function()
-                            awful.spawn(input)
-                        end)
+                        awful.button({}, 1, input)
                     }
                 },
                 {
@@ -83,24 +81,24 @@ end
 
 -- Volume
 ---------
-local volumebar = makeslider("", beautiful.blu, "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+local volumebar = makeslider("", beautiful.blu, function() awesome.emit_signal("volume::mute") end)
 awesome.connect_signal("signal::volume", function(volume, muted)
     volumebar.value = volume
     volumebar.icon  = muted and "" or ""
 end)
 volumebar.slider:connect_signal('property::value', function(_, value)
-    awful.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ " .. tonumber(value) .. "%")
+    awesome.emit_signal("volume::set", tonumber(value))
 end)
 
 -- Microphone
 -------------
-local mic        = makeslider("", beautiful.mag, "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle")
+local mic        = makeslider("", beautiful.mag, function() awesome.emit_signal("microphone::mute") end)
 awesome.connect_signal("signal::microphone", function(mic_level, mic_muted)
     mic.value = mic_level
     mic.icon = mic_muted and "" or ""
 end)
 mic.slider:connect_signal('property::value', function(_, value)
-    awful.spawn("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ " .. tonumber(value) .. "%")
+    awesome.emit_signal("microphone::set", tonumber(value))
 end)
 
 -- Brightness
@@ -119,7 +117,7 @@ if brightness then
     end)
 end
 brightbar.slider:connect_signal('property::value', function(_, value)
-    awful.spawn("brightnessctl -d intel_backlight set " .. tonumber(value) .. "%")
+    awesome.emit_signal("brightness::set", value)
 end)
 
 -- Sliders

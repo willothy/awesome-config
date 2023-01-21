@@ -1,8 +1,16 @@
+--------------------
+-- network signal --
+--------------------
+-- Reports status, and can toggle it.
+
+-- Imports
+----------
 local awful = require('awful')
 local gears = require('gears')
 
 -- Network Fetching and Signal Emitting
 ---------------------------------------
+-- Emit a network status signal
 local status_old = -1
 local function emit_network_status()
     awful.spawn.easy_async_with_shell(
@@ -15,6 +23,15 @@ local function emit_network_status()
             end
         end)
 end
+
+-- Change network status
+awesome.connect_signal('network::toggle', function()
+    if status_old == 0 then
+        awful.spawn("nmcli networking on")
+    else
+        awful.spawn("nmcli networking off")
+    end
+end)
 
 -- Refreshing
 -------------

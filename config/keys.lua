@@ -121,13 +121,13 @@ awful.keyboard.append_global_keybindings({
     --------
     -- system volume (up, down, mute)
     awful.key({ nil,    }, "XF86AudioRaiseVolume",
-        function() awful.spawn('wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+') end,
+        function() awesome.emit_signal("volume::change", 5) end,
         { description = "Increase system audio volume", group = "Media" }),
     awful.key({ nil,    }, "XF86AudioLowerVolume",
-        function() awful.spawn('wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-') end,
+        function() awesome.emit_signal("volume::change", -5) end,
         { description = "Decrease system audio volume", group = "Media" }),
     awful.key({ nil,    }, "XF86AudioMute", 
-        function() awful.spawn('wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle') end,
+        function() awesome.emit_signal("volume::mute") end,
         { description = "Mute system audio", group = "Media" }),
     -- song playback (play, prev, next)
     awful.key({ nil,    }, "XF86AudioPlay", 
@@ -139,17 +139,22 @@ awful.keyboard.append_global_keybindings({
     awful.key({ nil,    }, "XF86AudioNext", 
         function() playerctl:next() end,
         { description = "Rewind to previous song/video", group = "Media" }),
+    -- brightness (up, down)
+    awful.key({ nil,    }, "XF86MonBrightnessUp",
+        function() awesome.emit_signal("brightness::change", 5) end,
+        { description = "Increase screen brightness", group = "Media" }),
+    awful.key({ nil,    }, "XF86MonBrightnessDown", 
+        function() awesome.emit_signal("brightness::change", -5) end,
+        { description = "Decrease screen brightness", group = "Media" }),
     -- language
     awful.key({ modkey, }, "u",
         function() awesome.emit_signal("signal::lang") end,
         { description = "Cycle keyboard layouts", group = "Media" }),
-    -- brightness (up, down)
-    awful.key({ nil,    }, "XF86MonBrightnessUp",
-        function() awful.spawn('brightnessctl -d intel_backlight set 5%+') end,
-        { description = "Increase screen brightness", group = "Media" }),
-    awful.key({ nil,    }, "XF86MonBrightnessDown", 
-        function() awful.spawn('brightnessctl -d intel_backlight set 5%-') end,
-        { description = "Decrease screen brightness", group = "Media" }),
+    -- screenshot (selection, screen)
+    awful.key({           }, "Print",
+        function() awesome.emit_signal("screenshot::selection") end),
+    awful.key({ modkey    }, "Print",
+        function() awesome.emit_signal("screenshot::fullscreen") end),
 
     -- UI
     -----
