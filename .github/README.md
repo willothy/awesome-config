@@ -1,26 +1,36 @@
 # Welcome, stranger!
 
+<!-- ![Laptop](./screenshot.png) -->
+<img align="right" width="50%" src="./laptop_screenshot.png">
+<img align="right" width="50%" src="./desktop_screenshot.png">
+
 This is my awful configuration for the almighty AwesomeWM, featuring a 
 user configuration file, repositionable bar and titles, dashboard,
 notifications, screenshooting tools, multiple colorschemes, and more to
 come, all done with Awesome's widget API!
 
-![Display](./screenshot.png)
+Both results show on the pictures are achievable through changing just
+a few variables in the `userconf.lua` file.
 
 ## Dependencies
-
 ### Mandatory
-- Awesome-git (duh)
-- mpd, mpDris2, and playerctl (music player and actions)
-- Network Manager (network signals)
-- Pipewire and Wireplumber (audio signals)
-- maim, xclip (screenshots)
-- Roboto, Material Icons, and CascadiaCode Nerd Font
+- [Awesome-git](https://github.com/awesomeWM/awesome) (duh)
+- [mpd](https://github.com/MusicPlayerDaemon/MPD), 
+[mpDris2](https://github.com/eonpatapon/mpDris2) and 
+[playerctl](https://github.com/altdesktop/playerctl) (music player and actions)
+- [Network Manager](https://github.com/NetworkManager/NetworkManager) (network signals)
+- [Pipewire](https://github.com/PipeWire/pipewire) and
+[Wireplumber](https://github.com/PipeWire/wireplumber) (audio signals)
+- [maim](https://github.com/naelstrof/maim),
+[xclip](https://github.com/astrand/xclip) (screenshots)
+- [Roboto](https://github.com/googlefonts/roboto),
+[Material Icons](https://github.com/google/material-design-icons) and
+[CascadiaCode Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/)
 
 ### Optional (toggleable)
-- brightnessctl (brightness signals)
-- bluez and bluez-utils (bluetooth signals)
-- upower (battery signals)
+- [brightnessctl](https://github.com/Hummer12007/brightnessctl) (brightness signals)
+- [bluez](https://github.com/bluez/bluez) (bluetooth signals)
+- [upower](https://github.com/freedesktop/upower) (battery signals)
 
 ----------------------
 This configuration also uses alacritty, nvim, firefox, htop, lf, thunar, 
@@ -63,48 +73,50 @@ bar positions, as well as toggling features.
 
 <details>
   
-| Variable       | Type      | Description                        |
-| -------------- | --------- | ---------------------------------- |
-| Applications   | -         | -                                  |
-| `terminal`     | `string`  | Terminal emulator to use           |
-| `editor`       | `string`  | Text editor to use                 |
-| `browser`      | `string`  | Internet browser to use            |
-| `top`          | `string`  | top application (like htop) to use |
-| `files_cli`    | `string`  | CLI file explorer to use           |
-| `files_gui`    | `string`  | GUI file explorer to use           |
-| `app_launcher` | `string`  | Application launcher (may deprecate) |
-| Settings       | -         | -                                  |
-| `modkey`       | `string`  | Mod1 is Alt, Mod4 is Super         |
-| `hover_focus`  | `boolean` | Should windows be focused on hover |
-| `battery`      | `boolean` | Enable/disable battery metrics     |
-| `brightness`   | `boolean` | Enable/disable brightness metrics  |
-| `bluetoothctl` | `boolean` | Enable/disable bluetooth metrics   |
-| UI             | -         | -                                  |
-| `scaling`      | `number`  | Your vertical resolution, eg 1080p |
-| `aspect_ratio` | `number`  | Your aspect ratio, eg 16/9 or 4/3  |
-| `inner_gaps`   | `number`  | Regular gap size                   |
-| `outer_gaps`   | `number`  | Screen padding size                |
-| `border_size`  | `number`  | Size of client and widget borders  |
-| `border_rad`   | `number`  | Border rounding, 0 to disable      |
-| `bar_enabled`  | `boolean` | Change default bar state.          |
-| `bar_size`     | `number`  | Change bar thickness               |
-| `bar_pos`      | `string`  | May be: left, top, right, bottom   |
-| `bar_gap`      | `boolean` | Apply outer_gaps to bar            |
-| `title_enable` | `boolean` | Enable/disable client titlebars    |
-| `titles_size`  | `number`  | Change titlebar thickness          |
-| `titles_pos`   | `string`  | May be: left, top, right, bottom   |
-| `notif_size`   | `number`  | Change notification size           |
+| Variable       | Type      | Description                                            |
+| -------------- | --------- | ------------------------------------------------------ |
+| Applications   | -         | -                                                      |
+| `terminal`     | `string`  | Terminal emulator to use                               |
+| `editor`       | `string`  | Text editor to use                                     |
+| `browser`      | `string`  | Internet browser to use                                |
+| `top`          | `string`  | top application (like htop) to use                     |
+| `files_cli`    | `string`  | CLI file explorer to use                               |
+| `files_gui`    | `string`  | GUI file explorer to use                               |
+| `app_launcher` | `string`  | Application launcher (may deprecate)                   |
+| Settings       | -         | -                                                      |
+| `modkey`       | `string`  | Mod1 is Alt, Mod4 is Super                             |
+| `hover_focus`  | `boolean` | Should windows be focused on hover                     |
+| `battery`      | `boolean` | Enable/disable battery metrics                         |
+| `brightness`   | `boolean` | Enable/disable brightness metrics                      |
+| `bluetoothctl` | `boolean` | Enable/disable bluetooth metrics                       |
+| UI             | -         | -                                                      |
+| `scaling`      | `number`  | Your vertical resolution, eg 1080p                     |
+| `aspect_ratio` | `number`  | Your aspect ratio, eg 16/9 or 4/3                      |
+| `inner_gaps`   | `number`  | Regular gap size                                       |
+| `outer_gaps`   | `number`  | Screen padding size                                    |
+| `border_size`  | `number`  | Size of client and widget borders                      |
+| `border_rad`   | `number`  | Border rounding, 0 to disable                          |
+| `bar_enabled`  | `boolean` | Change default bar state.                              |
+| `bar_size`     | `number`  | Change bar thickness (screen %)                        |
+| `bar_pos`      | `string`  | May be: left, top, right, bottom                       |
+| `bar_gap`      | `boolean` | Apply outer_gaps to bar                                |
+| `title_enable` | `boolean` | Enable/disable client titlebars                        |
+| `titles_size`  | `number`  | Change titlebar thickness (screen %)                   |
+| `titles_pos`   | `string`  | May be: left, top, right, bottom                       |
+| `dash_size`    | `number`  | Change dashboard size (screen %)                       |
+| `notif_size`   | `number`  | Change notification size (screen %)                    |
 | `notif_pos`    | `string`  | May be: top_left, top_right, bottom_left, bottom_right |
-| Theming        | -         | -                                  |
-| `clr_palette`  | `string`  | catppuccin, decay, everblush, everforest, tokyonight |
-| `ui_font`      | `string`  | Name of main UI font. Does **NOT** take size. |
-| `ic_font`      | `string`  | Name of text icon font. Does **NOT** take size. |
-| `mn_font`      | `string`  | Name of monospace font. Does **NOT** take size. |
-| `user_avatar`  | `string`  | "default" follows colorscheme, or path |
-| `user_wall`    | `string`  | "default" follows colorscheme, or path |
-| `player_bg`    | `string`  | "default" follows colorscheme, or path |
-| `awm_icon`     | `string`  | "default", "nix", or path |
-| `scrnshot_dir` | `string`  | Directory to save screenshots to   |
+| Theming        | -         | -                                                      |
+| `clr_palette`  | `string`  | catppuccin, decay, everblush, everforest, tokyonight   |
+| `icon_pack`    | `string`  | "default" sets it to Papirus, or GTK icon pack name    |
+| `ui_font`      | `string`  | Name of main UI font. Does **NOT** take size.          |
+| `ic_font`      | `string`  | Name of text icon font. Does **NOT** take size.        |
+| `mn_font`      | `string`  | Name of monospace font. Does **NOT** take size.        |
+| `user_avatar`  | `string`  | "default" follows colorscheme, or path                 |
+| `user_wall`    | `string`  | "default" follows colorscheme, or path                 |
+| `player_bg`    | `string`  | "default" follows colorscheme, or path                 |
+| `awm_icon`     | `string`  | "default", "nix", or path                              |
+| `scrnshot_dir` | `string`  | Directory to save screenshots to                       |
   
 </details>
 

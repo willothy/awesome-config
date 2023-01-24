@@ -49,12 +49,24 @@ local function send_notif(temp_file)
         end)
     end)
 
-    naughty.notify {
-        icon  = temp_file,
-        title = "Screenshot",
-        text  = "Copied to clipboard!",
-        actions = { save, discard }
-    }
+    awful.spawn.easy_async_with_shell(
+        "cat " .. temp_file, function(output)
+            if output:match('.') then
+                naughty.notify {
+                    icon  = temp_file,
+                    title = "Screenshot",
+                    text  = "Copied to clipboard!",
+                    actions = { save, discard }
+                }
+            else
+                naughty.notify {
+                    icon  = def_image,
+                    title = "Screenshot",
+                    text  = "Cancelled!",
+                    actions = { ok }
+                }
+            end
+    end)
 end
 
 -- Fullscreen screenshot

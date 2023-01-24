@@ -15,7 +15,7 @@ awesome.connect_signal('signal::brightness', function(brightness)
     else
         local message
         message = "Brightness set to " .. tostring(brightness) .. "%"
-        notif = naughty.notification({
+        local notif = naughty.notification({
                 title = "Screen Brightness", message = message, 
                 icon = brightness < 50 and bri_low or bri_high,
                 timeout = timeout, app_name = "brightness" 

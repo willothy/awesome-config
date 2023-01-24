@@ -25,7 +25,7 @@ local bar_dash = wibox.widget {
                 clip_shape = helpers.mkroundedrect(beautiful.border_radius / 2), 
                 widget     = wibox.widget.imagebox 
             },
-            margins = dpi(bar_size / 7),
+            margins = dpi(beautiful.bar_size / 7),
             widget  = wibox.container.margin
         },
         align  = "center",
@@ -33,8 +33,8 @@ local bar_dash = wibox.widget {
     },
     bg     = beautiful.lbg,
     shape  = helpers.mkroundedrect(),
-    forced_height = dpi(bar_size),
-    forced_width  = dpi(bar_size),
+    forced_height = dpi(beautiful.bar_size),
+    forced_width  = dpi(beautiful.bar_size),
     widget = wibox.container.background,
     buttons = {
         awful.button({}, 1, function()
@@ -52,7 +52,7 @@ local bar_launcher = wibox.widget {
             clip_shape  = helpers.mkroundedrect(),
             widget      = wibox.widget.imagebox
         },
-        margins = dpi(bar_size / 7),
+        margins = dpi(beautiful.bar_size / 7),
         widget  = wibox.container.margin
     },
     bg      = beautiful.lbg,
@@ -72,11 +72,11 @@ local function status_widget(button)
         {
             {
                 id      = "text_role",
-                font    = ic_font .. bar_size / 3,
+                font    = beautiful.ic_font .. beautiful.bar_size / 3,
                 align   = "center",
                 widget  = wibox.widget.textbox,
             },
-            margins = dpi(scaling / 270),
+            margins = dpi(beautiful.bar_size / 12),
             widget  = wibox.container.margin,
         },
         bg     = beautiful.nbg,
@@ -100,8 +100,8 @@ local bar_btn_blue  = status_widget(function() awesome.emit_signal("bluetooth::t
 -- Battery bar
 local bar_battery_prog = wibox.widget {
     max_value        = 100,
-    forced_width     = bar_type == "vertical" and dpi(bar_size * 5/4)
-                       or dpi(bar_size * aspect_ratio),
+    forced_width     = beautiful.bar_type == "vertical" and dpi(beautiful.bar_size * 5/4)
+                       or dpi(beautiful.bar_size * beautiful.aspect_ratio),
     clip             = true,
     shape            = helpers.mkroundedrect(),
     bar_shape        = helpers.mkroundedrect(),
@@ -120,7 +120,7 @@ local bar_battery_text     = status_widget()
 local systray     = wibox.widget {
     {
         horizontal  = false,
-        base_size   = dpi(bar_size / 2),
+        base_size   = dpi(beautiful.bar_size / 2),
         widget      = wibox.widget.systray
     },
     align   = "center",
@@ -131,11 +131,11 @@ local systray_btn = wibox.widget {
     {
         {
             text    = "",
-            font    = ic_font .. bar_size / 2.5,
+            font    = beautiful.ic_font .. beautiful.bar_size / 2.5,
             align   = "center",
             widget  = wibox.widget.textbox,
         },
-        direction   = bar_type == "vertical" and "east" or "south",
+        direction   = beautiful.bar_type == "vertical" and "east" or "south",
         widget      = wibox.container.rotate
     },
     bg     = beautiful.nbg,
@@ -155,19 +155,19 @@ local vbar_clock = {
         {
             {
                 format = '<b>%H</b>',
-                font   = mn_font .. bar_size / 3.4,
+                font   = beautiful.mn_font .. beautiful.bar_size / 3.4,
                 halign = "center",
                 widget = wibox.widget.textclock
             },
             {
                 format = '<b>%M</b>',
-                font   = mn_font .. bar_size / 4,
+                font   = beautiful.mn_font .. beautiful.bar_size / 4,
                 halign = "center",
                 widget = wibox.widget.textclock
             },
             layout  = wibox.layout.fixed.vertical
         },
-        margins = dpi(bar_size / 8),
+        margins = dpi(beautiful.bar_size / 8),
         widget  = wibox.container.margin
     },
     bg     = beautiful.lbg,
@@ -178,14 +178,14 @@ local hbar_clock = {
     {
         {
             format = '<b>%H:%M</b>',
-            font   = mn_font .. bar_size / 4,
+            font   = beautiful.mn_font .. beautiful.bar_size / 4,
             valign = "center",
             widget = wibox.widget.textclock
         },
-        left   = dpi(bar_size / 5),
-        right  = dpi(bar_size / 5),
-        bottom = dpi(bar_size / 8), 
-        top    = dpi(bar_size / 8), 
+        left   = dpi(beautiful.bar_size / 5),
+        right  = dpi(beautiful.bar_size / 5),
+        bottom = dpi(beautiful.bar_size / 8), 
+        top    = dpi(beautiful.bar_size / 8), 
         widget = wibox.container.margin
     },
     bg     = beautiful.lbg,
@@ -196,12 +196,12 @@ local hbar_clock = {
 -- Awesome Bar
 --------------
 -- Bar length handling to switch between gapped and non-gapped modes.
-local bar_length = bar_type == "horizontal" and
-                    dpi(scaling * aspect_ratio) or dpi(scaling)
-if bar_gap then
-    bar_length = bar_type == "horizontal" and
-                    dpi(scaling * aspect_ratio - outer_gaps * 2) or
-                    dpi(scaling - outer_gaps * 2)
+local bar_length = beautiful.bar_type == "horizontal" and
+                    dpi(100 * beautiful.resolution * beautiful.aspect_ratio) or dpi(100 * beautiful.resolution)
+if beautiful.bar_gap then
+    bar_length = beautiful.bar_type == "horizontal" and
+                    dpi(100 * beautiful.resolution * beautiful.aspect_ratio - beautiful.outer_gaps * 2) or
+                    dpi(100 * beautiful.resolution - beautiful.outer_gaps * 2)
 end
 
 -- The actual bar itself
@@ -211,7 +211,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
     local taglist_v = wibox.widget {
         {
             gettags(s),
-            margins = dpi(bar_size / 3.6),
+            margins = dpi(beautiful.bar_size / 3.6),
             widget  = wibox.container.margin
         },
         shape   = helpers.mkroundedrect(),
@@ -224,20 +224,19 @@ screen.connect_signal("request::desktop_decoration", function(s)
         widget      = wibox.container.rotate
     }
     s.mywibox = awful.wibar {
-        visible  = bar_enabled,
-        position = bar_pos,
+        visible  = beautiful.bar_enabled,
+        position = beautiful.bar_position,
         screen   = s,
-        width    = bar_type == "horizontal" and dpi(bar_length) or dpi(bar_size),
-        height   = bar_type == "horizontal" and dpi(bar_size) or dpi(bar_length),
-        shape    = bar_gap and helpers.mkroundedrect(),
+        width    = beautiful.bar_type == "horizontal" and dpi(bar_length) or dpi(beautiful.bar_size),
+        height   = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size) or dpi(bar_length),
+        shape    = beautiful.bar_gap and helpers.mkroundedrect(),
         widget   = {
             {
                 { -- Top Widgets
                     bar_dash,
-                    bar_type == "horizontal" and taglist_h or taglist_v,
-                    bar_launcher,
-                    spacing = dpi(bar_size / 8),
-                    layout  = bar_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical,
+                    beautiful.bar_type == "horizontal" and taglist_h or taglist_v,
+                    spacing = dpi(beautiful.bar_size / 8),
+                    layout  = beautiful.bar_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical,
                 },
                 { -- Middle Widgets
                     gettasks(s),
@@ -247,8 +246,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 { -- Bottom Widgets
                     systray, 
                     systray_btn,
+                    bar_launcher,
                     {
-                        bar_type == "horizontal" and bar_battery_prog or flipped_battery,
+                        beautiful.bar_type == "horizontal" and bar_battery_prog or flipped_battery,
                         {
                             bar_battery_text,
                             fg     = beautiful.bg_normal,
@@ -257,7 +257,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         visible = battery,
                         layout = wibox.layout.stack
                     },
-                    bar_type == "horizontal" and hbar_clock or vbar_clock,
+                    beautiful.bar_type == "horizontal" and hbar_clock or vbar_clock,
                     {
                         bar_btn_sound,
                         {
@@ -266,27 +266,27 @@ screen.connect_signal("request::desktop_decoration", function(s)
                             widget  = wibox.container.background
                         },
                         bar_btn_net,
-                        layout  = bar_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
+                        layout  = beautiful.bar_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
                     },
                     {
                         {
                             getlayout(s),
-                            margins = dpi(bar_size / 7),
+                            margins = dpi(beautiful.bar_size / 7),
                             widget  = wibox.container.margin
                         },
                         bg      = beautiful.lbg,
                         shape   = helpers.mkroundedrect(),
                         widget  = wibox.container.background
                     },
-                    spacing = dpi(bar_size / 8),
-                    layout  = bar_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical,
+                    spacing = dpi(beautiful.bar_size / 8),
+                    layout  = beautiful.bar_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical,
                 },
-                layout = bar_type == "horizontal" and wibox.layout.align.horizontal or wibox.layout.align.vertical
+                layout = beautiful.bar_type == "horizontal" and wibox.layout.align.horizontal or wibox.layout.align.vertical
             },
-            left    = bar_type == "horizontal" and dpi(bar_size / 4) or dpi(bar_size / 7),
-            right   = bar_type == "horizontal" and dpi(bar_size / 4) or dpi(bar_size / 7),
-            top     = bar_type == "horizontal" and dpi(bar_size / 7) or dpi(bar_size / 4),
-            bottom  = bar_type == "horizontal" and dpi(bar_size / 7) or dpi(bar_size / 4),
+            left    = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 4) or dpi(bar_size / 7),
+            right   = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 4) or dpi(bar_size / 7),
+            top     = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 7) or dpi(bar_size / 4),
+            bottom  = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 7) or dpi(bar_size / 4),
             widget  = wibox.container.margin
         }
     }
@@ -294,13 +294,13 @@ end)
 
 -- Bar Gaps to Edge
 -------------------
-if bar_gap then
+if beautiful.bar_gap then
     local screen = awful.screen.focused()
     screen.mywibox.margins = {
-        right   = bar_pos == "right" and dpi(beautiful.useless_gap) or 0,
-        left    = bar_pos == "left" and dpi(beautiful.useless_gap) or 0,
-        bottom  = bar_pos == "bottom" and dpi(beautiful.useless_gap) or 0,
-        top     = bar_pos == "top" and dpi(beautiful.useless_gap) or 0
+        right   = beautiful.bar_position == "right" and dpi(beautiful.useless_gap) or 0,
+        left    = beautiful.bar_position == "left" and dpi(beautiful.useless_gap) or 0,
+        bottom  = beautiful.bar_position == "bottom" and dpi(beautiful.useless_gap) or 0,
+        top     = beautiful.bar_position == "top" and dpi(beautiful.useless_gap) or 0
     }
 end
 
@@ -320,10 +320,10 @@ if battery then
         -- https://lazka.github.io/pgi-docs/UPowerGlib-1.0/enums.html#UPowerGlib.DeviceState
         if state ~= 2 then
             bar_battery_text.text = ""
-            bar_battery_text.font = ic_font .. bar_size / 3
+            bar_battery_text.font = beautiful.ic_font .. beautiful.bar_size / 3
         else
             bar_battery_text.text = level
-            bar_battery_text.font = ui_font .. "Bold " .. bar_size / 3.33
+            bar_battery_text.font = beautiful.ui_font .. "Bold " .. beautiful.bar_size / 3.33
         end
     end)
 end

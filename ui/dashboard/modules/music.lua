@@ -22,7 +22,6 @@ local album_art = wibox.widget {
     resize      = true,
     opacity     = 0.33,
     align       = "center",
-    forced_height = dpi(dash_size * 0.2),
     clip_shape  = helpers.mkroundedrect(),
     widget      = wibox.widget.imagebox
 }
@@ -32,7 +31,7 @@ local function sng_info(size, color, placeholder)
         {
             id     = 'text_role',
             markup = placeholder,
-            font   = ui_font .. dash_size / size,
+            font   = beautiful.ui_font .. beautiful.dashboard_size * size,
             widget = wibox.widget.textbox
         },
         fg     = color,
@@ -42,9 +41,9 @@ local function sng_info(size, color, placeholder)
         end
     }
 end
-local sng_title  = sng_info(60, beautiful.fg_normal, "<b>Nothing Playing</b>")
-local sng_artist = sng_info(72, beautiful.dfg,       "By Unknown")
-local sng_album  = sng_info(72, beautiful.dfg,       "On <i>Unknown</i>")
+local sng_title  = sng_info(0.0215, beautiful.fg_normal, "<b>Nothing Playing</b>")
+local sng_artist = sng_info(0.0185, beautiful.dfg,       "By Unknown")
+local sng_album  = sng_info(0.0185, beautiful.dfg,       "On <i>Unknown</i>")
 
 -- Progress Bar
 local is_prog_hovered = false
@@ -54,8 +53,8 @@ local sng_progress = wibox.widget {
     handle_color     = beautiful.cya,
     handle_shape     = gears.shape.circle,
     bar_shape        = helpers.mkroundedrect(),
-    handle_width     = dpi(dash_size / 100),
-    forced_height    = dpi(dash_size / 100),
+    handle_width     = dpi(beautiful.dashboard_size * 0.0125),
+    forced_height    = dpi(beautiful.dashboard_size * 0.0125),
     minimum          = 0,
     widget           = wibox.widget.slider,
 }
@@ -78,10 +77,10 @@ local function mk_ctrl(icon, run)
             {
                 id     = "text_role",
                 text   = icon,
-                font   = ic_font .. dash_size / 48,
+                font   = beautiful.ic_font .. beautiful.dashboard_size * 0.025,
                 widget = wibox.widget.textbox
             },
-            margins = dpi(scaling / 270),
+            margins = dpi(0.4 * beautiful.resolution),
             widget  = wibox.container.margin
         },
         bg      = beautiful.lbg,
@@ -117,15 +116,15 @@ local vol_bar = wibox.widget {
                 handle_shape        = gears.shape.circle,
                 minimum             = 0,
                 maximum             = 100,
-                handle_width        = dpi(dash_size / 64),
-                bar_height          = dpi(dash_size / 128),
-                forced_height       = dpi(dash_size / 72),
+                handle_width        = dpi(beautiful.dashboard_size / 64),
+                bar_height          = dpi(beautiful.dashboard_size / 128),
+                forced_height       = dpi(beautiful.dashboard_size / 72),
                 widget              = wibox.widget.slider
             },
             direction = "east",
             widget    = wibox.container.rotate
         },
-        margins = dpi(dash_size / 72),
+        margins = dpi(beautiful.dashboard_size / 72),
         widget  = wibox.container.margin
     },
     bg      = beautiful.lbg,
@@ -228,25 +227,25 @@ local function music()
                                     ctrl_prev,
                                     ctrl_play,
                                     ctrl_next,
-                                    spacing = dpi(dash_size / 96),
+                                    spacing = dpi(beautiful.dashboard_size / 96),
                                     layout  = wibox.layout.fixed.horizontal
                                 },
                                 nil,
                                 {
                                     ctrl_shff,
                                     ctrl_loop,
-                                    spacing = dpi(dash_size / 96),
+                                    spacing = dpi(beautiful.dashboard_size / 96),
                                     layout  = wibox.layout.fixed.horizontal
                                 },
                                 layout  = wibox.layout.align.horizontal
                             },
-                            spacing = dpi(dash_size / 72),
+                            spacing = dpi(beautiful.dashboard_size / 72),
                             layout  = wibox.layout.fixed.vertical
                         },
                         margins = {
-                            left   = dpi(dash_size / 72),
-                            right  = dpi(dash_size / 72),
-                            top    = dpi(dash_size / 24),
+                            left   = dpi(beautiful.dashboard_size * 0.02),
+                            right  = dpi(beautiful.dashboard_size * 0.02),
+                            top    = dpi(beautiful.dashboard_size * 0.05),
                         },
                         widget  = wibox.container.margin
                     },
@@ -259,10 +258,10 @@ local function music()
                 },
                 layout = wibox.layout.stack
             },
-            spacing = dpi(dash_size / 72),
+            spacing = dpi(beautiful.dashboard_size / 72),
             layout  = wibox.layout.fixed.horizontal
         },
-        forced_height = dpi(dash_size * 0.215),
+        forced_height = dpi(beautiful.dashboard_size * 0.26),
         widget        = wibox.container.background
     }
 end

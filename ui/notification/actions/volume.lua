@@ -19,7 +19,7 @@ awesome.connect_signal('signal::volume', function(volume, muted)
         else
             message = tostring(volume) .. "%"
         end
-        notif = naughty.notification({
+        local notif = naughty.notification({
                 title = "Audio", message = message, 
                 icon = muted and audio_off or audio_on,
                 timeout = timeout, app_name = "volume" 

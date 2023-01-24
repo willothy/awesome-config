@@ -12,9 +12,6 @@ local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 
-dash_size         = scaling - bar_size - 3 * beautiful.useless_gap
-dash_width        = dash_size * 0.5
-
 local user_panel  = require('ui.dashboard.modules.user_panel')
 local qk_actions  = require('ui.dashboard.modules.qk_actions')
 local music       = require('ui.dashboard.modules.music')
@@ -27,8 +24,8 @@ local calendar    = require('ui.dashboard.modules.calendar')
 local dashboardBox = wibox {
     ontop   = true,
     visible = false,
-    width   = dpi(dash_width * 0.925),
-    height  = dpi(dash_size * 0.83),
+    width   = dpi(beautiful.dashboard_size * 0.55),
+    height  = dpi(beautiful.dashboard_size),
     shape   = helpers.mkroundedrect(),
     bg      = beautiful.bg_normal
 }
@@ -37,7 +34,7 @@ local header = wibox.widget {
     {
         id     = 'text_role',
         markup = "<b>System Panel</b>",
-        font   = ui_font .. dash_size / 70,
+        font   = beautiful.ui_font .. beautiful.dashboard_size * 0.018,
         widget = wibox.widget.textbox
     },
     fg     = beautiful.gry,
@@ -62,23 +59,23 @@ dashboardBox:setup {
                 music(),
                 calendar(),
                 qk_actions(),
-                spacing = dpi(dash_size / 80),
+                spacing = dpi(beautiful.dashboard_size / 80),
                 layout  = wibox.layout.fixed.vertical
             },
             strategy = "exact",
-            width    = dpi(dash_width * 0.7),
+            width    = dpi(beautiful.dashboard_size * 0.435),
             widget   = wibox.container.constraint
         },
         nil,
         {
             sliders(),
             strategy = "exact",
-            width    = dpi(dash_width * 0.1),
+            width    = dpi(beautiful.dashboard_size * 0.05),
             widget   = wibox.container.constraint
         },
         layout = wibox.layout.align.horizontal
     },
-    margins = dpi(dash_size / 40),
+    margins = dpi(beautiful.dashboard_size / 40),
     widget  = wibox.container.margin
 }
 
@@ -89,10 +86,10 @@ awesome.connect_signal("widget::dashboard", function()
     awful.placement.next_to(
         dashboardBox,
         {
-            preferred_positions = bar_pos == "left" and "right" or
-                                  bar_pos == "right" and "left" or
-                                  bar_pos == "top" and "bottom" or
-                                  bar_pos == "bottom" and "top",
+            preferred_positions = beautiful.bar_position == "left" and "right" or
+                                  beautiful.bar_position == "right" and "left" or
+                                  beautiful.bar_position == "top" and "bottom" or
+                                  beautiful.bar_position == "bottom" and "top",
             preferred_anchors   = "front",
             margins             = dpi(beautiful.useless_gap * 2),
             geometry            = awful.screen.focused().mywibox

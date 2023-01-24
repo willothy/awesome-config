@@ -8,6 +8,7 @@ local awful         = require('awful')
 local beautiful     = require('beautiful')
 local gears         = require('gears')
 local delayed_call  = require("gears.timer").delayed_call
+local dpi           = beautiful.xresources.apply_dpi
 
 local bling         = require('modules.bling')
 local helpers       = require('helpers')
@@ -39,10 +40,10 @@ end)
 -- This is added ON TOP of the 'beautiful.useless_gap' value
 awful.screen.connect_for_each_screen(function(s)
     s.padding = {
-        left   = outer_gaps - inner_gaps, 
-        right  = outer_gaps - inner_gaps, 
-        top    = outer_gaps - inner_gaps, 
-        bottom = outer_gaps - inner_gaps
+        left   = dpi(beautiful.outer_gaps - beautiful.useless_gap), 
+        right  = dpi(beautiful.outer_gaps - beautiful.useless_gap), 
+        top    = dpi(beautiful.outer_gaps - beautiful.useless_gap), 
+        bottom = dpi(beautiful.outer_gaps - beautiful.useless_gap)
     }
 end)
 

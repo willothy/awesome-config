@@ -32,7 +32,7 @@ ruled.notification.connect_signal('request::rules', function()
             ontop            = true,
             implicit_timeout = 6,
             border_width     = dpi(beautiful.border_width),
-            position         = notif_pos
+            position         = beautiful.notification_position
         }
     }
 end)
@@ -63,7 +63,7 @@ naughty.connect_signal("request::display", function(n)
         {
             markup = n.title:match('.') and "<b>" .. n.title .. "</b>"
                                          or "<b>Notification</b>",
-            font   = ui_font .. notif_size / 8,
+            font   = beautiful.ui_font .. beautiful.notif_size / 8,
             halign = "center",
             widget = wibox.widget.textbox
         }
@@ -77,7 +77,7 @@ naughty.connect_signal("request::display", function(n)
         {
             widget = wibox.widget.textbox,
             halign = "center",
-            font   = ui_font .. notif_size / 9,
+            font   = beautiful.ui_font .. beautiful.notif_size / 9,
             text   = gears.string.xml_unescape(n.message)
         }
     }
@@ -98,13 +98,13 @@ naughty.connect_signal("request::display", function(n)
         min_value = 0,
         max_value = 100,
         value     = 0,
-        thickness = dpi(notif_size / 24),
-        paddings  = dpi(notif_size / 24),
+        thickness = dpi(beautiful.notif_size / 24),
+        paddings  = dpi(beautiful.notif_size / 24),
         rounded_edge = true,
         colors       = { beautiful.notification_accent },
         bg           = beautiful.lbg,
-        forced_height = dpi(notif_size * 3/4),
-        forced_width  = dpi(notif_size * 3/4),
+        forced_height = dpi(beautiful.notif_size * 3/4),
+        forced_width  = dpi(beautiful.notif_size * 3/4),
         image,
     }
 
@@ -112,7 +112,7 @@ naughty.connect_signal("request::display", function(n)
     local actions = wibox.widget {
         notification = n,
         base_layout  = wibox.widget {
-            spacing  = dpi(notif_size / 24),
+            spacing  = dpi(beautiful.notif_size / 24),
             layout   = wibox.layout.flex.horizontal
         },
         widget_template = {
@@ -120,16 +120,16 @@ naughty.connect_signal("request::display", function(n)
                 {
                     {
                         id       = "text_role",
-                        font     = ui_font .. notif_size / 11,
+                        font     = beautiful.ui_font .. beautiful.notif_size / 11,
                         widget   = wibox.widget.textbox
                     },
                     align  = "center",
                     widget = wibox.container.place
                 },
-                bottom = dpi(notif_size / 18),
-                top    = dpi(notif_size / 18),
-                left   = dpi(notif_size / 12),
-                right  = dpi(notif_size / 12),
+                bottom = dpi(beautiful.notif_size / 18),
+                top    = dpi(beautiful.notif_size / 18),
+                left   = dpi(beautiful.notif_size / 12),
+                right  = dpi(beautiful.notif_size / 12),
                 widget = wibox.container.margin
             },
             bg            = beautiful.blk,
@@ -155,15 +155,15 @@ naughty.connect_signal("request::display", function(n)
                     {
                         {
                             timeout_graph,
-                            margins = dpi(notif_size / 10),
+                            margins = dpi(beautiful.notif_size / 10),
                             widget  = wibox.container.margin
                         },
                         strategy = "min",
-                        width    = dpi(notif_size / 3),
+                        width    = dpi(beautiful.notif_size / 3),
                         widget   = wibox.container.constraint
                     },
                     strategy = "max",
-                    width    = dpi(notif_size * 1.5),
+                    width    = dpi(beautiful.notif_size * 1.5),
                     widget   = wibox.container.constraint
                 },
                 {
@@ -188,23 +188,23 @@ naughty.connect_signal("request::display", function(n)
                                                 shape  = helpers.mkroundedrect(),
                                                 widget = wibox.container.background
                                             },
-                                            left    = dpi(notif_size / 18),
-                                            right   = dpi(notif_size / 18),
-                                            top     = dpi(notif_size / 24),
+                                            left    = dpi(beautiful.notif_size / 18),
+                                            right   = dpi(beautiful.notif_size / 18),
+                                            top     = dpi(beautiful.notif_size / 24),
                                             widget  = wibox.container.margin,
                                             visible = n.actions and #n.actions > 0
                                         },
-                                        spacing = dpi(notif_size / 24),
+                                        spacing = dpi(beautiful.notif_size / 24),
                                         layout  = wibox.layout.fixed.vertical
                                     },
                                     align  = "center",
                                     widget = wibox.container.place
                                 },
                                 margins = {
-                                    left   = dpi(notif_size / 4),
-                                    right  = dpi(notif_size / 4),
-                                    bottom = dpi(notif_size / 8),
-                                    top    = dpi(notif_size / 8)
+                                    left   = dpi(beautiful.notif_size / 4),
+                                    right  = dpi(beautiful.notif_size / 4),
+                                    bottom = dpi(beautiful.notif_size / 8),
+                                    top    = dpi(beautiful.notif_size / 8)
                                 },
                                 widget  = wibox.container.margin
                             },
@@ -213,12 +213,12 @@ naughty.connect_signal("request::display", function(n)
                             widget = wibox.container.background
                         },
                         strategy = "min",
-                        width    = dpi(notif_size * 2),
+                        width    = dpi(beautiful.notif_size * 2),
                         widget   = wibox.container.constraint
                     },
                     strategy = "max",
-                    width   = dpi(notif_size * 3),
-                    height  = dpi(notif_size * 1.3),
+                    width   = dpi(beautiful.notif_size * 3),
+                    height  = dpi(beautiful.notif_size * 1.3),
                     widget  = wibox.container.constraint
                 },
                 layout = wibox.layout.fixed.horizontal

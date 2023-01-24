@@ -20,7 +20,7 @@ local helpers   = require('helpers')
 --------------------
 local ncmpcpp_ui = function(c)
     -- Unbind default titlebar
-    awful.titlebar.hide(c, beautiful.titles_pos)
+    awful.titlebar.hide(c, beautiful.titles_position)
 
     -- Bind custom titlebar
     --[[ c.custom_decoration = { top = true, left = true, bottom = true } ]]

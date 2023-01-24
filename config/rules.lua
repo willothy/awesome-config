@@ -53,7 +53,7 @@ ruled.client.connect_signal("request::rules", function()
         id         = "titlebars",
         rule_any   = { type = { "normal", "dialog" } },
         except_any = { class = { "feh", } },
-        properties = { titlebars_enabled = title_enable }
+        properties = { titlebars_enabled = beautiful.titles_enabled }
     }
     -- App Rules
     ------------

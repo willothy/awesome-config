@@ -15,7 +15,7 @@ awesome.connect_signal('signal::bluetooth', function(powered)
         first = false
     else
         local message = powered and "Bluetooth ON!" or "Bluetooth OFF!"
-        notif = naughty.notification({
+        local notif = naughty.notification({
                 title = "Connectivity", message = message, 
                 icon = powered and blue_on or blue_off,
                 timeout = timeout, app_name = "bluetooth" 

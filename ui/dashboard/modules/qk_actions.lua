@@ -21,11 +21,11 @@ local function status_widget(icon, action, color)
             {
                 id     = "text_role",
                 text   = icon,
-                font   = ic_font .. dash_size / 56,
+                font   = beautiful.ic_font .. beautiful.dashboard_size * 0.025,
                 align  = "center",
                 widget = wibox.widget.textbox
             },
-            margins = dpi(scaling / 270),
+            margins = dpi(0.4 * beautiful.resolution),
             widget  = wibox.container.margin
         },
         bg     = beautiful.blk,
@@ -57,15 +57,15 @@ local function qk_actions()
                 bluetoothctl and dash_bluetooth,
                 dash_scr_sel,
                 dash_scr_full,
-                spacing = dpi(dash_size / 96),
+                spacing = dpi(beautiful.dashboard_size / 96),
                 layout  = wibox.layout.flex.horizontal
             },
-            margins = dpi(dash_size / 72),
+            margins = dpi(beautiful.dashboard_size / 72),
             widget  = wibox.container.margin
         },
         bg     = beautiful.lbg,
         shape  = helpers.mkroundedrect(),
-        forced_height = dpi(dash_size / 10),
+        forced_height = dpi(beautiful.dashboard_size * 0.115),
         widget = wibox.container.background
     }
 end

@@ -9,17 +9,6 @@
 local awful     = require('awful')
 local dpi       = require('beautiful').xresources.apply_dpi
 
--- Applications
----------------
--- Define your default applications, mainly used in 'config/keys.lua'
-terminal     = "alacritty"          or "xterm"
-editor       = "nvim"
-browser      = "firefox"
-top          = "htop"
-files_cli    = "lf"
-files_gui    = "thunar"
-app_launcher = "rofi -show drun"
-
 -- Global Variables
 -------------------
 -- 'config/actions/language' uses the 'caps:super' option, you
@@ -32,52 +21,69 @@ battery      = false
 -- Enables/disables brightness metrics.
 brightness   = false
 -- Enables/disables bluetooth status.
-bluetoothctl = false
+bluetoothctl = true
+
+-- Applications
+---------------
+-- Define your default applications, mainly used in 'config/keys.lua'
+terminal     = "wezterm" or "xterm"
+editor       = os.getenv("EDITOR")  or "nvim"
+browser      = os.getenv("BROWSER") or "firefox"
+top          = "htop"
+files_cli    = "lf"
+files_gui    = "thunar"
+app_launcher = "rofi -show drun"
+
 -- Settings
 -----------
 local user = {}
 
 -- UI
 -----
+-- The '*_size' variables are screen height percentages.
+-- So, dash_size being 66 means it'll take 66% of my monitor height.
+
 -- Resolution Scaling (vertical resolution of your monitor)
-scaling      = 1080
+user.resolution   = 1080
 -- Your monitor's aspect ratio, commonly 16:9 or 16:10.
-aspect_ratio = 16/9
+user.aspect_ratio = 16/9
 -- dpi
 require('beautiful').xresources.set_dpi(96)
 
---- Bar
--- Changes default state of the bar. Can still be brought up
+--- Bar Changes default state of the bar. Can still be brought up
 -- by emitting the 'widget::bar' signal (mod + b) even if disabled.
-bar_enabled  = true
-bar_size     = scaling * 0.045
+user.bar_enabled  = true
+user.bar_size     = 4.5
 -- Can be 'top', 'bottom', 'right' or 'left'.
-bar_pos      = "top"
+user.bar_pos      = "bottom"
 -- Adds 'outer_gaps' to the bar.
-bar_gap      = false
+user.bar_gap      = false
 
 --- Titles
 -- Toggles titlebars
-title_enable = true
-titles_size  = bar_size * 0.6
+user.title_enable = true
+user.titles_size  = 3
 -- Can be 'top', 'bottom', 'right' or 'left'.
-titles_pos   = "left"
+user.titles_pos   = "left"
+
+--- Dashboard
+user.dash_size    = 66
 
 --- Notifications
-notif_size   = scaling * 0.09
+user.notif_size   = 9
 -- Available positions:
 -- Can be 'top_left', 'top_right', 'bottom_left' or 'bottom_right'.
-notif_pos    = "top_right"
+user.notif_pos    = "top_right"
 
 -- Gap configuration. 
 --   Inner gaps are common gaps. 
 --   Outer gaps are the gaps between the tag contents and the edge of the screen.
-inner_gaps   = scaling / 270
-outer_gaps   = inner_gaps * 3 -- Triple outer gap.
+user.inner_gaps   = 0.4
+user.outer_gaps   = user.inner_gaps * 3 -- Triple outer gap.
 
 -- Borders (radius is relevant regardless of size)
-user.border_size  = 0 --scaling / 540 -- 2 pixel border on 1080p
-user.border_rad   = scaling * 0.008
+user.border_size  = 0 --0.2 -- 2 pixel border on 1080p
+user.border_rad   = 0.8
 
 -- Theming
 ----------
@@ -85,22 +91,24 @@ user.border_rad   = scaling * 0.008
 --  'catppuccin', 'tokyonight', 'everforest', 'everblush', 
 --  'decay'
 -- More themes can be added at 'themes/palettes'.
-user.clr_palette  = "everblush"
+user.clr_palette  = "catppuccin"
+-- GTK icon pack to use, 'default' (Papirus) or name.
+user.icon_pack    = "default"
 
 -- Fonts to be used. MUST leave a space at the end.
-ui_font      = "Roboto "
-ic_font      = "Material Icons "
-mn_font      = "CaskaydiaCove Nerd Font "
+user.ui_font      = "Roboto "
+user.ic_font      = "Material Icons "
+user.mn_font      = "CaskaydiaCove Nerd Font "
 
 -- Lua doesn't take '~' for home, use os.getenv('HOME').
 -- Your *amazing* profile picture. Either 'default' or path.
-user_avatar  = "default"
+user.avatar       = "default"
 -- Your wallpaper path. Either 'default' (matches colorscheme) or path.
-user_wall    = "default"
+user.wall         = "default"
 -- Music player fallback background. Either 'default' (matches colorscheme) or path.
-player_bg    = "default"
+user.player_bg    = "default"
 -- AwesomeWM icon to be used, either 'default', 'nix' (both follow colorscheme) or path.
-awm_icon     = "default"
+user.awm_icon     = "nix"
 
 -- Miscelaneous
 ---------------
@@ -110,29 +118,5 @@ user.scrnshot_dir = os.getenv("HOME") .. "/Pictures/"
 -- Autostart
 ------------
 awful.spawn.once("picom")
-awful.spawn.once("mpd")
-awful.spawn.once("mpDris2")
-
--------------------------------
--- End Of User Configuration --
--------------------------------
--- The following code just handles some of the previouly set variables for convenience.
-
--- Adjustments
---------------
--- Determine bar type.
-if bar_pos == "left" or bar_pos == "bottom" then
-    bar_type = "vertical"
-else
-    bar_type = "horizontal"
-end
--- If titlebars are enabled, determine their type.
-if title_enable then
-    if titles_pos == "left" or titles_pos == "right" then
-        titles_type = "vertical"
-    else
-        titles_type = "horizontal"
-    end
-end
 
 return user

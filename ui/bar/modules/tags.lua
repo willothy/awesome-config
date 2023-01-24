@@ -5,15 +5,16 @@
 -- stolen from Alpha with love <3
 local awful     = require('awful')
 local wibox     = require('wibox')
+local beautiful = require('beautiful')
 local gears     = require('gears')
-local dpi       = require('beautiful').xresources.apply_dpi
+local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 local rubato    = require('modules.rubato')
 
 local multiplier = 1
-if bar_type == "horizontal" then
-    multiplier = aspect_ratio * 0.66
+if beautiful.bar_type == "horizontal" then
+    multiplier = beautiful.aspect_ratio * 0.66
 end
 
 local function gettaglist(s)
@@ -24,7 +25,7 @@ local function gettaglist(s)
             shape = helpers.mkroundedrect(),
         },
         layout = {
-            spacing = dpi(bar_size / 4),
+            spacing = dpi(beautiful.bar_size / 4),
             layout  = wibox.layout.fixed.vertical,
         },
         buttons = {
@@ -44,8 +45,8 @@ local function gettaglist(s)
                 widget = wibox.widget.textbox,
             },
             id = 'background_role',
-            forced_height = dpi(bar_size * multiplier / 1.5),
-            forced_width  = dpi(bar_size * multiplier / 6),
+            forced_height = dpi(beautiful.bar_size * multiplier / 1.5),
+            forced_width  = dpi(beautiful.bar_size * multiplier / 6),
             widget = wibox.container.background,
             create_callback = function (self, tag)
                 self.animate = rubato.timed {
@@ -57,11 +58,11 @@ local function gettaglist(s)
 
                 self.update = function ()
                     if tag.selected then
-                        self.animate.target = (bar_size / 1.5 + 1) * multiplier
+                        self.animate.target = (beautiful.bar_size / 1.5 + 1) * multiplier
                     elseif #tag:clients() > 0 then
-                        self.animate.target = (bar_size / 1.5 - bar_size / 6) * multiplier
+                        self.animate.target = (beautiful.bar_size / 1.5 - beautiful.bar_size / 6) * multiplier
                     else
-                        self.animate.target = (bar_size / 6 + 1) * multiplier
+                        self.animate.target = (beautiful.bar_size / 6 + 1) * multiplier
                     end
                 end
 

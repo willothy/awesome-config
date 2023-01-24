@@ -47,30 +47,61 @@ theme.cya_d = clrs.cya_d
 -- Settings
 -----------
 -- user configuration variables
+theme.resolution              = user.resolution / 100
+theme.aspect_ratio            = user.aspect_ratio
 theme.screenshot_dir          = user.scrnshot_dir
-theme.border_radius           = user.border_rad
+theme.border_radius           = user.border_rad * theme.resolution
+theme.useless_gap             = dpi(user.inner_gaps * theme.resolution)
+theme.outer_gaps              = user.outer_gaps * theme.resolution
+
+-- fonts
+theme.ui_font                 = user.ui_font
+theme.ic_font                 = user.ic_font
+theme.mn_font                 = user.mn_font
 
 -- misc
-theme.font                    = ui_font .. "Medium " .. scaling / 108
-theme.wallpaper               = user_wall == "default" and clrs.wall   or user_wall
-theme.user_avatar             = user_avatar == "default" and defaults .. "user.png" or user_avatar
-theme.player_bg               = player_bg == "default" and clrs.player or player_bg
+theme.font                    = theme.ui_font .. "Medium " .. theme.resolution * 0.92
+theme.wallpaper               = user.wall == "default" and clrs.wall or user.wall
+theme.user_avatar             = user.avatar == "default" and defaults .. "user.png" or user.avatar
+theme.player_bg               = user.player_bg == "default" and clrs.player or user.player_bg
 theme.launcher_icon           = gc.recolor_image(asst_dir .. "launcher.svg", theme.nfg)
-theme.icon_theme              = "Papirus"
+theme.icon_theme              = user.icon_pack == "default" and "Papirus" or user.icon_pack
+
+-- bar
+theme.bar_enabled             = user.bar_enabled
+theme.bar_gap                 = user.bar_gap
+theme.bar_size                = user.bar_size * theme.resolution
+theme.bar_position            = user.bar_pos
+theme.bar_type                = (theme.bar_position == "left" or theme.bar_position == "right") and "vertical" or "horizontal"
+
+-- titles
+theme.titles_enabled          = user.title_enable
+theme.titles_size             = user.titles_size * theme.resolution
+theme.titles_position         = user.titles_pos
+theme.titles_type             = (theme.titles_position == "left" or theme.titles_position == "right") and "vertical" or "horizontal"
+
+-- dashboard
+theme.dashboard_size          = user.dash_size * theme.resolution
+
+-- notifications
+theme.notification_position   = user.notif_pos
+theme.notif_size              = user.notif_size * theme.resolution
+theme.notification_padding    = dpi(theme.useless_gap * 4)
+theme.notification_spacing    = dpi(theme.notification_padding / 2)
+theme.notification_accent     = theme.grn
 
 -- Layouts
-theme.useless_gap             = dpi(inner_gaps)
 theme.gap_single_client       = true
 theme.master_width_factor     = 0.56
 
 -- border settings
-theme.border_width            = dpi(user.border_size)
+theme.border_width            = dpi(user.border_size * theme.resolution)
 theme.border_width_maximized  = dpi(theme.border_width)
 theme.fullscreen_hide_border  = true
 
 -- menu settings
-theme.menu_font               = ui_font .. "Bold " .. scaling / 98
-theme.menu_height             = dpi(scaling / 27)
+theme.menu_font               = theme.ui_font .. "Bold " .. theme.resolution
+theme.menu_height             = dpi(theme.resolution * 3.5)
 theme.menu_width              = dpi(theme.menu_height * 5)
 
 -- task/taglist settings
@@ -78,11 +109,6 @@ theme.tasklist_plain_task_name   = true
 theme.tasklist_disable_icon      = false
 theme.tasklist_disable_task_name = true
 theme.tasklist_align             = "center"
-
--- notification settings
-theme.notification_padding       = dpi(theme.useless_gap * 4)
-theme.notification_spacing       = dpi(theme.notification_padding / 2)
-theme.notification_accent        = theme.grn
 
 -- Theme Colors
 ---------------
@@ -95,11 +121,11 @@ theme.fg_focus           = theme.nfg
 theme.fg_urgent          = theme.red
 
 -- Titlebar
-theme.titlebar_font      = ui_font .. "Bold " .. scaling / 108
+theme.titlebar_font      = theme.ui_font .. "Bold " .. theme.resolution
 theme.titlebar_fg_focus  = theme.wht
 theme.titlebar_fg_normal = theme.lbg
 theme.titlebar_fg_urgent = theme.red_d
-theme.titlebar_bg_focus  = theme.dfg
+theme.titlebar_bg_focus  = theme.blk
 theme.titlebar_bg_normal = theme.blk
 theme.titlebar_bg_urgent = theme.fg_urgent
 -- Titlebar Buttons
@@ -143,16 +169,16 @@ theme.wibar_bg                = theme.bg_normal
 theme.wibar_fg                = theme.fg_normal
 
 -- Awesome icon
-if awm_icon == "default" then
-    theme.awesome_icon = require('beautiful.theme_assets').awesome_icon(dpi(scaling / 8), theme.fg_normal, theme.bg_normal)
-elseif awm_icon == "nix" then
+if user.awm_icon == "default" then
+    theme.awesome_icon = require('beautiful.theme_assets').awesome_icon(dpi(theme.resolution / 8), theme.fg_normal, theme.bg_normal)
+elseif user.awm_icon == "nix" then
     theme.awesome_icon = gc.recolor_image(asst_dir .. "nix.svg", theme.blu)
 else
     theme.awesome_icon = awm_icon
 end
 
 -- Taglist
-theme.taglist_font            = mn_font .. scaling / 108
+theme.taglist_font            = theme.mn_font .. theme.resolution / 108
 theme.taglist_bg_focus        = theme.ylw_d
 theme.taglist_bg_occupied     = theme.ylw
 theme.taglist_bg_empty        = theme.gry
@@ -160,7 +186,7 @@ theme.taglist_bg_urgent       = theme.fg_urgent
 
 -- Tasklist
 theme.tasklist_font           = theme.font
-theme.tasklist_font_focus     = ui_font .. "Bold " .. scaling / 108
+theme.tasklist_font_focus     = theme.ui_font .. "Bold " .. theme.resolution / 108
 theme.tasklist_bg_normal      = theme.bg_normal
 theme.tasklist_bg_focus       = theme.blk
 theme.tasklist_bg_urgent      = theme.fg_urgent
@@ -178,9 +204,6 @@ theme.layout_floating         = gc.recolor_image(awes_dir .. "floating.png",    
 -- theme.layout_cornersw         = gc.recolor_image(awes_dir .. "cornersww.png",   theme.fg_normal)
 -- theme.layout_cornerse         = gc.recolor_image(awes_dir .. "cornersew.png",   theme.fg_normal)
 theme.mstab_tabbar_style      = "modern"
-
--- Notification
-theme.notification_font         = theme.font
 
 -- Menu
 theme.menu_fg_focus           = theme.fg_focus
@@ -200,9 +223,9 @@ theme.hotkeys_shape           = function(cr, h, w)
                                     gears.shape.rounded_rect(cr, h, w, theme.border_radius)
                                 end
 theme.hotkeys_modifiers_fg    = theme.gry
-theme.hotkeys_font             = mn_font .. scaling / 96
-theme.hotkeys_description_font = ui_font .. scaling / 108
-theme.hotkeys_group_margin    = scaling / 108
+theme.hotkeys_font             = theme.mn_font .. theme.resolution / 96
+theme.hotkeys_description_font = theme.ui_font .. theme.resolution / 108
+theme.hotkeys_group_margin    = theme.resolution / 108
 
 -- Tooltip
 theme.tooltip_bg              = theme.bg_focus
@@ -212,7 +235,7 @@ theme.tooltip_shape           = gears.shape.rounded_rect
 
 -- Snap
 theme.snap_bg                 = theme.taglist_bg_focus
-theme.snap_border_width       = dpi(titles_size / 2)
+theme.snap_border_width       = dpi(theme.titles_size / 2)
 theme.snap_shape              = gears.shape.rectangle
 
 -- Systray

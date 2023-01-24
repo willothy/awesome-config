@@ -46,7 +46,7 @@ local function gettasklist(s)
             awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
         },
         layout  = {
-            spacing = dpi(bar_size / 10),
+            spacing = dpi(beautiful.bar_size / 10),
             layout  = bar_type == "vertical" and wibox.layout.fixed.vertical or wibox.layout.fixed.horizontal
         },
         style   = {
@@ -57,7 +57,7 @@ local function gettasklist(s)
                 {
                     widget  = awful.widget.clienticon
                 },
-                margins = dpi(bar_size / 10),
+                margins = dpi(beautiful.bar_size / 10),
                 widget  = wibox.container.margin
             },
             id      = 'background_role',
