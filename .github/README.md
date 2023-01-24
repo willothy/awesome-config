@@ -2,6 +2,7 @@
 
 <!-- ![Laptop](./screenshot.png) -->
 <img align="right" width="50%" src="./laptop_screenshot.png">
+
 <img align="right" width="50%" src="./desktop_screenshot.png">
 
 This is my awful configuration for the almighty AwesomeWM, featuring a 

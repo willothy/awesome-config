@@ -21,12 +21,12 @@ battery      = false
 -- Enables/disables brightness metrics.
 brightness   = false
 -- Enables/disables bluetooth status.
-bluetoothctl = true
+bluetoothctl = false
 
 -- Applications
 ---------------
 -- Define your default applications, mainly used in 'config/keys.lua'
-terminal     = "wezterm" or "xterm"
+terminal     = "alacritty" or "xterm"
 editor       = os.getenv("EDITOR")  or "nvim"
 browser      = os.getenv("BROWSER") or "firefox"
 top          = "htop"
@@ -91,7 +91,7 @@ user.border_rad   = 0.8
 --  'catppuccin', 'tokyonight', 'everforest', 'everblush', 
 --  'decay'
 -- More themes can be added at 'themes/palettes'.
-user.clr_palette  = "catppuccin"
+user.clr_palette  = "everblush"
 -- GTK icon pack to use, 'default' (Papirus) or name.
 user.icon_pack    = "default"
 
@@ -108,7 +108,7 @@ user.wall         = "default"
 -- Music player fallback background. Either 'default' (matches colorscheme) or path.
 user.player_bg    = "default"
 -- AwesomeWM icon to be used, either 'default', 'nix' (both follow colorscheme) or path.
-user.awm_icon     = "nix"
+user.awm_icon     = "default"
 
 -- Miscelaneous
 ---------------
