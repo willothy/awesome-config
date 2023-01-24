@@ -114,7 +114,19 @@ local flipped_battery = wibox.widget {
     direction = "east",
     widget    = wibox.container.rotate
 }
-local bar_battery_text     = status_widget()
+local bar_battery_text     = wibox.widget {
+    {
+        id      = "text_role",
+        font    = beautiful.ic_font .. beautiful.bar_size / 3,
+        align   = "center",
+        widget  = wibox.widget.textbox,
+    },
+    margins = dpi(beautiful.bar_size / 12),
+    widget  = wibox.container.margin,
+    set_text = function(self, content)
+        self:get_children_by_id('text_role')[1].text = content
+    end
+}
 
 -- The actual systray
 local systray     = wibox.widget {
@@ -283,10 +295,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 },
                 layout = beautiful.bar_type == "horizontal" and wibox.layout.align.horizontal or wibox.layout.align.vertical
             },
-            left    = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 4) or dpi(bar_size / 7),
-            right   = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 4) or dpi(bar_size / 7),
-            top     = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 7) or dpi(bar_size / 4),
-            bottom  = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 7) or dpi(bar_size / 4),
+            left    = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 4) or dpi(beautiful.bar_size / 7),
+            right   = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 4) or dpi(beautiful.bar_size / 7),
+            top     = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 7) or dpi(beautiful.bar_size / 4),
+            bottom  = beautiful.bar_type == "horizontal" and dpi(beautiful.bar_size / 7) or dpi(beautiful.bar_size / 4),
             widget  = wibox.container.margin
         }
     }
@@ -297,10 +309,10 @@ end)
 if beautiful.bar_gap then
     local screen = awful.screen.focused()
     screen.mywibox.margins = {
-        right   = beautiful.bar_position == "right" and dpi(beautiful.useless_gap) or 0,
-        left    = beautiful.bar_position == "left" and dpi(beautiful.useless_gap) or 0,
-        bottom  = beautiful.bar_position == "bottom" and dpi(beautiful.useless_gap) or 0,
-        top     = beautiful.bar_position == "top" and dpi(beautiful.useless_gap) or 0
+        right   = beautiful.bar_position == "right" and dpi(beautiful.outer_gaps) or 0,
+        left    = beautiful.bar_position == "left" and dpi(beautiful.outer_gaps) or 0,
+        bottom  = beautiful.bar_position == "bottom" and dpi(beautiful.outer_gaps) or 0,
+        top     = beautiful.bar_position == "top" and dpi(beautiful.outer_gaps) or 0
     }
 end
 

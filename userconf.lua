@@ -81,7 +81,7 @@ user.titles_size  = 3
 user.titles_pos   = "left"
 
 --- Dashboard
-user.dash_size    = 66
+user.dash_size    = 75
 
 --- Notifications
 user.notif_size   = 9

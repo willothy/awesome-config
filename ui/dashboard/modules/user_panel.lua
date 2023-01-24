@@ -72,7 +72,7 @@ local bat_bar = wibox.widget {
             {
                 {
                     id      = 'icon_role',
-                    font    = beautiful.ic_font .. beautiful.dashboard_size / 72,
+                    font    = beautiful.ic_font .. beautiful.dashboard_size * 0.018,
                     halign  = "left",
                     valign  = "center",
                     widget  = wibox.widget.textbox
@@ -88,7 +88,7 @@ local bat_bar = wibox.widget {
     {
         {
             id      = 'text_role',
-            font    = beautiful.ui_font .. beautiful.dashboard_size / 96, 
+            font    = beautiful.ui_font .. beautiful.dashboard_size * 0.013, 
             widget  = wibox.widget.textbox
         },
         fg     = beautiful.wht,
