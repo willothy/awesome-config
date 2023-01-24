@@ -254,7 +254,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                             fg     = beautiful.bg_normal,
                             widget = wibox.container.background
                         },
-                        visible = battery,
+                        visible = beautiful.battery_enabled,
                         layout = wibox.layout.stack
                     },
                     beautiful.bar_type == "horizontal" and hbar_clock or vbar_clock,
@@ -262,7 +262,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         bar_btn_sound,
                         {
                             bar_btn_blue,
-                            visible = bluetoothctl,
+                            visible = beautiful.bluetooth_enabled,
                             widget  = wibox.container.background
                         },
                         bar_btn_net,
@@ -313,7 +313,7 @@ awesome.connect_signal("widget::bar", function()
 end)
 
 -- Battery signal
-if battery then
+if beautiful.battery_enabled then
     awesome.connect_signal("signal::battery", function(level, state, _, _, _)
         bar_battery_prog.value  = level
         -- 2 stands for discharging. For more information refer to:
@@ -338,7 +338,7 @@ awesome.connect_signal("signal::volume", function(volume, muted)
     end
 end)
 -- Networking signals
-if bluetoothctl then
+if beautiful.bluetooth_enabled then
     awesome.connect_signal("signal::bluetooth", function(is_enabled)
         if is_enabled then
             bar_btn_blue.text   = ""

@@ -14,6 +14,8 @@ local dpi       = beautiful.xresources.apply_dpi
 
 local user      = require('userconf')
 
+beautiful.xresources.set_dpi(user.dpi)
+
 local clrs      = require('themes.palettes.' .. user.clr_palette)
 local asst_dir  = gfs.get_configuration_dir() .. "themes/assets/"
 local awes_dir  = gfs.get_themes_dir() .. "default/layouts/"
@@ -46,6 +48,23 @@ theme.cya_d = clrs.cya_d
 
 -- Settings
 -----------
+-- General
+theme.modkey                  = user.modkey
+theme.caps_super              = user.caps_super
+theme.kb_layout1              = user.kb_layout1
+theme.kb_layout2              = user.kb_layout2
+if theme.caps_super then
+    awful.spawn.once('setxkbmap '.. theme.kb_layout1 ..' -option caps:super')
+end
+theme.hover_focus             = user.hover_focus
+
+-- features
+theme.battery_enabled         = user.battery
+theme.battery_name            = user.battery_name
+theme.brightness_enabled      = user.brightness
+theme.brightness_name         = user.brightness_name
+theme.bluetooth_enabled       = user.bluetooth
+
 -- user configuration variables
 theme.resolution              = user.resolution / 100
 theme.aspect_ratio            = user.aspect_ratio
@@ -170,7 +189,7 @@ theme.wibar_fg                = theme.fg_normal
 
 -- Awesome icon
 if user.awm_icon == "default" then
-    theme.awesome_icon = require('beautiful.theme_assets').awesome_icon(dpi(theme.resolution / 8), theme.fg_normal, theme.bg_normal)
+    theme.awesome_icon = require('beautiful.theme_assets').awesome_icon(dpi(theme.resolution * 10), theme.fg_normal, theme.bg_normal)
 elseif user.awm_icon == "nix" then
     theme.awesome_icon = gc.recolor_image(asst_dir .. "nix.svg", theme.blu)
 else

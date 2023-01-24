@@ -12,19 +12,19 @@ require('awful.autofocus') -- don't remove this, trust me
 -- Provide keybind orientational menu
 local key_menu  = require('awful.hotkeys_popup')
 
-
 term_cmd        = terminal == "wezterm" and " start " or " -e "
 editor_cmd      = terminal .. term_cmd .. editor
 files_cmd       = terminal .. term_cmd .. files_cli
 tasks_cmd       = terminal .. term_cmd .. top
 
+local modkey    = beautiful.modkey
 local menu      = require('ui.menu')
 local playerctl = require('modules.bling').signal.playerctl.lib()
 
 -- Behavior
 -----------
 -- Enable sloppy focus, so that focus follows mouse.
-if hover_focus then
+if beautiful.hover_focus then
     client.connect_signal("mouse::enter", function(c)
         c:activate { context = "mouse_enter", raise = false }
     end)

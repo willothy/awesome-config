@@ -1,12 +1,12 @@
 -- This uses UPowerGlib.Device (https://lazka.github.io/pgi-docs/UPowerGlib-1.0/classes/Device.html)
-local upower = require('lgi').require('UPowerGlib')
+local upower    = require('lgi').require('UPowerGlib')
 
 if upower.Client():get_devices() ~= nil then
 
     local upower_widget = require("modules.awesome-battery_widget")
 
     upower_widget({
-        device_path = '/org/freedesktop/UPower/devices/battery_BAT0',
+        device_path = '/org/freedesktop/UPower/devices/' .. require('beautiful').battery_name,
         instant_update = true
     }):connect_signal("upower::update", function(_, device)
         local time_to_empty = device.time_to_empty / 60

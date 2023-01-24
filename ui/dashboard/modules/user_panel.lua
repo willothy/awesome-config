@@ -106,7 +106,7 @@ local bat_bar = wibox.widget {
         self:get_children_by_id('text_role')[1].text = new_text
     end
 }
-if battery then
+if beautiful.battery_enabled then
     awesome.connect_signal("signal::battery", function(level, state, discharge_t, charge_t, type)
         bat_bar.value  = level
         if state ~= 2 then
@@ -187,7 +187,7 @@ local function user_profile()
                     {
                         bat_bar,
                         margins = dpi(beautiful.dashboard_size / 400),
-                        visible = battery,
+                        visible = beautiful.battery_enabled,
                         widget  = wibox.container.margin
                     },
                     nil,

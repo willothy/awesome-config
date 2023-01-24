@@ -4,25 +4,6 @@
 -- Main user configuration file. Here you may define your default
 -- applications, UI scaling, and toggle features on/off.
 
--- Imports
-----------
-local awful     = require('awful')
-local dpi       = require('beautiful').xresources.apply_dpi
-
--- Global Variables
--------------------
--- 'config/actions/language' uses the 'caps:super' option, you
--- may wanna disable that if you don't use caps as super.
-modkey       = "Mod4" -- 4 is super, 1 is alt.
--- Focus mouse hovered clients.
-hover_focus  = false
--- Enables/disables battery metrics.
-battery      = false
--- Enables/disables brightness metrics.
-brightness   = false
--- Enables/disables bluetooth status.
-bluetoothctl = false
-
 -- Applications
 ---------------
 -- Define your default applications, mainly used in 'config/keys.lua'
@@ -34,9 +15,40 @@ files_cli    = "lf"
 files_gui    = "thunar"
 app_launcher = "rofi -show drun"
 
+-- Options
+----------
+local user = {}
+
 -- Settings
 -----------
-local user = {}
+-- Mod4 is Super, Mod1 is Alt. 
+user.modkey       = "Mod4"
+-- Use the CapsLock key as an additional super key.
+user.caps_super   = false
+-- Should hovering a client with mouse focus it.
+user.hover_focus  = false
+-- Keyboard layouts to switch between using `mod + u`. Set both to your
+-- main language to disable this behavior.
+user.kb_layout1   = "us"
+user.kb_layout2   = "latam"
+
+-- Features
+-----------
+-- Enable/disable battery metrics and specify device to be used.
+-- The device name is provided by the lgi Upower interface, I
+-- believe it follows the `battery_XXXX` pattern where XXXX is
+-- the `/sys/class/power_supply/` device name, e.g. BAT0/BAT1.
+user.battery      = false
+user.battery_name = "battery_BAT0"
+
+-- Enable/disable brightness metrics and specify device to be used.
+-- The device name is found in `/sys/class/backlight/`. Common examples
+-- are "intel_backlight" and "amdgpu_bl0" for integrated graphics.
+user.brightness      = false
+user.brightness_name = "intel_backlight"
+
+-- Enable/disable bluetooth metrics. No need to specify device name.
+user.bluetooth    = false
 
 -- UI
 -----
@@ -47,8 +59,10 @@ local user = {}
 user.resolution   = 1080
 -- Your monitor's aspect ratio, commonly 16:9 or 16:10.
 user.aspect_ratio = 16/9
--- dpi
-require('beautiful').xresources.set_dpi(96)
+-- Your monitor's dpi. I'll be honest, don't touch this. I have literally
+-- no idea how to deal with dpi scaling, and so changing it fucks stuff up.
+-- Use it if you actually know what you're doing.
+user.dpi          = 96
 
 --- Bar Changes default state of the bar. Can still be brought up
 -- by emitting the 'widget::bar' signal (mod + b) even if disabled.
@@ -117,6 +131,12 @@ user.scrnshot_dir = os.getenv("HOME") .. "/Pictures/"
 
 -- Autostart
 ------------
+-- Using `spawn.once` only spawns items at the beginning of the running session, and
+-- not on reloads. `spawn` does actually run not running items on reload. 
+local awful = require('awful')
+
 awful.spawn.once("picom")
 
+-- EOF
+------
 return user

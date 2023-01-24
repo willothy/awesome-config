@@ -13,19 +13,20 @@ local lang_icon = require('gears.color').recolor_image(icon, bt.notification_acc
 
 -- Language Switching
 ---------------------
+local opts = bt.caps_super and "-option caps:super" or ""
 awesome.connect_signal('signal::lang', function()
     awful.spawn.easy_async_with_shell(
         'setxkbmap -query | grep layout:', function(stdout)
-            local default = stdout:match("latam")
             local content
-            if default then
-                awful.spawn('setxkbmap us -option caps:super')
-                content = "American English"
+            local content_old = bt.kb_layout1
+            if stdout:match(bt.kb_layout2) then
+                awful.spawn('setxkbmap ' .. bt.kb_layout1 .. ' ' .. opts)
+                content = bt.kb_layout1
             else
-                awful.spawn('setxkbmap latam -option caps:super')
-                content = "Latinamerican Spanish"
+                awful.spawn('setxkbmap ' .. bt.kb_layout2 .. ' ' .. opts)
+                content = bt.kb_layout2
             end
-            notif = naughty.notify({
+            local notif = naughty.notify({
                     title   = "Keyboard Layout", 
                     icon    = lang_icon,
                     text    = "Changed to " .. content,

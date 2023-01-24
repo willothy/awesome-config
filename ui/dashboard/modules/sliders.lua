@@ -98,7 +98,7 @@ end)
 -- Brightness
 -------------
 local brightbar = makeslider("", beautiful.ylw, nil)
-if brightness then
+if beautiful.brightness_enabled then
     awesome.connect_signal("signal::brightness", function(brightness)
         brightbar.value = brightness
         if brightness <= 33 then 
@@ -120,7 +120,7 @@ local function sliderbox()
     return wibox.widget {
         volumebar,
         mic,
-        brightness and brightbar,
+        beautiful.brightness_enabled and brightbar,
         spacing = dpi(beautiful.dashboard_size / 80),
         layout  = wibox.layout.flex.vertical
     }

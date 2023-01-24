@@ -2,11 +2,13 @@
 -- Action notifications --
 --------------------------
 
+local beautiful = require('beautiful')
+
 require('ui.notification.actions.volume')
 require('ui.notification.actions.playerctl')
-if brightness then
+if beautiful.brightness_enabled then
     require('ui.notification.actions.brightness')
 end
-if bluetoothctl then
+if beautiful.bluetooth_enabled then
     require('ui.notification.actions.bluetooth')
 end

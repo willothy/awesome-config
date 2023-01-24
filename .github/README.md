@@ -5,7 +5,7 @@
 
 <img align="right" width="50%" src="./desktop_screenshot.png">
 
-This is my awful configuration for the almighty AwesomeWM, featuring a 
+This is my awful configuration for the almighty **AwesomeWM**, featuring a 
 user configuration file, repositionable bar and titles, dashboard,
 notifications, screenshooting tools, multiple colorschemes, and more to
 come, all done with Awesome's widget API!
@@ -34,8 +34,14 @@ a few variables in the `userconf.lua` file.
 - [upower](https://github.com/freedesktop/upower) (battery signals)
 
 ----------------------
-This configuration also uses alacritty, nvim, firefox, htop, lf, thunar, 
-and rofi by default, but none of these are hard requirements and you can 
+This configuration also uses [alacritty](https://github.com/alacritty/alacritty),
+[nvim](https://github.com/neovim/neovim), 
+[firefox](https://www.mozilla.org/en-US/firefox/), 
+[htop](https://github.com/htop-dev/htop), 
+[lf](https://github.com/gokcehan/lf), 
+[thunar](https://github.com/xfce-mirror/thunar), 
+and [rofi](https://github.com/davatorium/rofi) 
+by default, but none of these are hard requirements and you can 
 easily change them in `userconf.lua`, although I still recommend **at 
 least installing alacritty**.
 
@@ -86,13 +92,20 @@ bar positions, as well as toggling features.
 | `app_launcher` | `string`  | Application launcher (may deprecate)                   |
 | Settings       | -         | -                                                      |
 | `modkey`       | `string`  | Mod1 is Alt, Mod4 is Super                             |
+| `caps_super`   | `boolean` | Makes CapsLock an additional Super key                 |
 | `hover_focus`  | `boolean` | Should windows be focused on hover                     |
+| `kb_layout1`   | `string`  | Keyboard layout to use                                 |
+| `kb_layout2`   | `string`  | Alternate keyboard layout. Set to same as 1 to disable |
+| Features       | -         | -                                                      |
 | `battery`      | `boolean` | Enable/disable battery metrics                         |
+| `battery_name` | `boolean` | Specify battery name from Upower's interface           |
 | `brightness`   | `boolean` | Enable/disable brightness metrics                      |
+| `brightness_name` | `boolean` | Specify video adapter name from '/sys/class/backlight' |
 | `bluetoothctl` | `boolean` | Enable/disable bluetooth metrics                       |
 | UI             | -         | -                                                      |
-| `scaling`      | `number`  | Your vertical resolution, eg 1080p                     |
+| `resolution`   | `number`  | Your vertical resolution, eg 1080p                     |
 | `aspect_ratio` | `number`  | Your aspect ratio, eg 16/9 or 4/3                      |
+| `dpi`          | `number`  | Your dpi, keep at 96 unless you know what you're doing |
 | `inner_gaps`   | `number`  | Regular gap size                                       |
 | `outer_gaps`   | `number`  | Screen padding size                                    |
 | `border_size`  | `number`  | Size of client and widget borders                      |

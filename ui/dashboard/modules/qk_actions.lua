@@ -54,7 +54,7 @@ local function qk_actions()
         {
             {
                 dash_network,
-                bluetoothctl and dash_bluetooth,
+                beautiful.bluetooth_enabled and dash_bluetooth,
                 dash_scr_sel,
                 dash_scr_full,
                 spacing = dpi(beautiful.dashboard_size / 96),
@@ -75,7 +75,7 @@ end
 awesome.connect_signal("signal::network", function(is_enabled)
     dash_network.text = is_enabled and "" or ""
 end)
-if bluetoothctl then
+if beautiful.bluetooth_enabled then
     awesome.connect_signal("signal::bluetooth", function(is_enabled)
         dash_bluetooth.text = is_enabled and "" or ""
     end)
