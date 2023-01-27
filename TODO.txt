@@ -1,12 +1,12 @@
 ### Items yet TODO
 - Make native launcher
-- Reduce amount of global variables
-- More user configuration features
 - Custom ncmpcpp UI
 - Networking wrapper through lgi dbus interface (presumably same for bluetooth)
 - MSTab theming
 
 ### Items completed
+- More user configuration features
+- Reduce amount of global variables
 - Fix client titlebar spacing
 - Screenshot actions (save, discard)
 - Proper screenshot utility

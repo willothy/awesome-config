@@ -50,8 +50,8 @@ local function send_notif(temp_file)
     end)
 
     awful.spawn.easy_async_with_shell(
-        "cat " .. temp_file, function(output)
-            if output:match('.') then
+        "[ -e '" .. temp_file .. "' ] && echo exists", function(output)
+            if output:match('%w+') then
                 naughty.notify {
                     icon  = temp_file,
                     title = "Screenshot",

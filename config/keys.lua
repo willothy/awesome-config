@@ -9,8 +9,6 @@ local awful     = require('awful')
 local beautiful = require('beautiful')
 
 require('awful.autofocus') -- don't remove this, trust me
--- Provide keybind orientational menu
-local key_menu  = require('awful.hotkeys_popup')
 
 term_cmd        = terminal == "wezterm" and " start " or " -e "
 editor_cmd      = terminal .. term_cmd .. editor
@@ -41,9 +39,6 @@ awful.keyboard.append_global_keybindings({
 
     -- AwesomeWM
     ------------
-    -- Show keybind menu
-    awful.key({ modkey, "Shift"   }, "w",       key_menu.show_help,
-              { description = "Show keybindings", group = "AwesomeWM" }),
     -- Reload Awesome
     awful.key({ modkey, "Control" }, "r",       awesome.restart,
               { description = "Reload AwesomeWM", group = "AwesomeWM" }),

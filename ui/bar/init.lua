@@ -48,11 +48,12 @@ helpers.add_hover(bar_dash, beautiful.lbg, beautiful.blk)
 local bar_launcher = wibox.widget {
     {
         {
-            image       = beautiful.launcher_icon,
-            clip_shape  = helpers.mkroundedrect(),
-            widget      = wibox.widget.imagebox
+            text    = "",
+            font    = beautiful.ic_font .. beautiful.bar_size / 3,
+            align   = "center",
+            widget  = wibox.widget.textbox
         },
-        margins = dpi(beautiful.bar_size / 7),
+        margins = dpi(beautiful.bar_size / 8),
         widget  = wibox.container.margin
     },
     bg      = beautiful.lbg,
@@ -77,11 +78,11 @@ local function status_widget(button)
                 widget  = wibox.widget.textbox,
             },
             margins = dpi(beautiful.bar_size / 12),
-            widget  = wibox.container.margin,
+            widget  = wibox.container.margin
         },
         bg     = beautiful.nbg,
-        widget = wibox.container.background,
         shape  = helpers.mkroundedrect(),
+        widget = wibox.container.background,
         buttons = {
             awful.button({}, 1, button)
         },
@@ -131,7 +132,7 @@ local bar_battery_text     = wibox.widget {
 -- The actual systray
 local systray     = wibox.widget {
     {
-        horizontal  = false,
+        horizontal  = beautiful.bar_type == "horizontal",
         base_size   = dpi(beautiful.bar_size / 2),
         widget      = wibox.widget.systray
     },

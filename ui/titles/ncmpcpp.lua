@@ -29,7 +29,10 @@ end
 ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule({
         id       = "music",
-        rule     = { instance = "music" },
+        rule_any = { 
+            class    = { "music" },
+            instance = { "music" },
+        },
         callback = ncmpcpp_ui
     })
 end)

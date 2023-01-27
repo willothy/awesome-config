@@ -1,9 +1,7 @@
 # Welcome, stranger!
 
-<!-- ![Laptop](./screenshot.png) -->
-<img align="right" width="50%" src="./laptop_screenshot.png">
-
-<img align="right" width="50%" src="./desktop_screenshot.png">
+<img align="right" width="40%" src="./laptop_screenshot.png">
+<img align="right" width="40%" src="./desktop_screenshot.png">
 
 This is my awful configuration for the almighty **AwesomeWM**, featuring a 
 user configuration file, repositionable bar and titles, dashboard,
@@ -64,14 +62,68 @@ You may still use them as reference but they don't exactly work if you're
 not using Nix with Home Manager as is.
 
 ## Usage
-### Basic Keybinds
-| Keybind           | Description                 |
-| ----------------- | --------------------------- |
-| `mod + Shift + w` | Opens the keybindings menu. |
-| `mod + Return`    | Opens a terminal.           |
+### Keybinds
+<details>
 
-That should be enough for you to access both the configuration and keybinds
-menu and see all the other stuff.
+| Keybind                | Description                                                |
+| ---------------------- | ---------------------------------------------------------- |
+| AwesomeWM              | -                                                          |
+| `mod + Control + r`    | Reload AwesomeWM.                                          |
+| `mod + w`              | Opens the AwesomeWM menu.                                  |
+| `mod + N`              | Switch to Nth tag.                                         |
+| `mod + Control + N`    | Show Nth tag on current tag.                               |
+| `mod + Shift + N`      | Send focused client to Nth tag.                            |
+| `mod + Control + Shift + N` | Show focused client on Nth tag.                       |
+| Applications           | -                                                          |
+| `mod + Return`         | Opens a terminal.                                          |
+| `mod + Shift + Return` | Opens a text editor.                                       |
+| `mod + e`              | Opens a TUI file manager.                                  |
+| `mod + Shift + e`      | Opens a GUI file manager.                                  |
+| `mod + Escape`         | Opens a task manager/top application.                      |
+| `mod + p`              | Opens an application launcher.                             |
+| Window Management      | -                                                          |
+| `mod + q`              | Close focused client.                                      |
+| `mod + Mouse1`         | Move client by dragging mouse.                             |
+| `mod + Mouse3`         | Resize client by dragging mouse.                           |
+| `mod + j`              | Focus next client by index.                                |
+| `mod + k`              | Focus previous client by index.                            |
+| `mod + Shift + j`      | Switch client with next by index.                          |
+| `mod + Shift + k`      | Switch client with previous by index.                      |
+| `mod + period`         | Focus next screen by index.                                |
+| `mod + comma`          | Focus previous screen by index.                            |
+| `mod + m`              | Maximize focused client.                                   |
+| `mod + f`              | Fullscreen focused client.                                 |
+| `mod + s`              | Float focused client.                                      |
+| `mod + Shift + s`      | Make focused client sticky.                                |
+| `mod + Tab`            | Switch focused slave client with master.                   |
+| Layout Management      | -                                                          |
+| `mod + l`              | Grow master client.                                        |
+| `mod + h`              | Shrink master client.                                      |
+| `mod + equal`          | Increase amount of master clients.                         |
+| `mod + minus`          | Decrease amount of master clients.                         |
+| `mod + Shift + l`      | Grow tiled client.                                         |
+| `mod + Shift + h`      | Shrink tiled client.                                       |
+| `mod + Shift + equal`  | Increase amount of slave columns.                          |
+| `mod + Shift + minus`  | Decrease amount of slave columns.                          |
+| `mod + space`          | Cycle to next layout.                                      |
+| `mod + Shift + space`  | Cycle to previous layout.                                  |
+| Media Management       | -                                                          |
+| `XF86AudioRaiseVolume` | Increase system audio volume.                              |
+| `XF86AudioLowerVolume` | Decrease system audio volume.                              |
+| `XF86AudioMute`        | Mute system audio.                                         |
+| `XF86AudioPlay`        | Play/pause media playback.                                 |
+| `XF86AudioNext`        | Skip to next song/video.                                   |
+| `XF86AudioPrev`        | Rewind to previous song/video.                             |
+| `XF86MonBrightnessUp`  | Increase screen backlight brightness.                      |
+| `XF86MonBrightnessDown`| Decrease screen backlight brightness.                      |
+| `mod + u`              | Cycle keyboard layouts.                                    |
+| `Print`                | Take cursor selection screenshot.                          |
+| `mod + Print`          | Take fullscreen screenshot.                                |
+| UI                     | -                                                          |
+| `mod + b`              | Toggle bar visibility.                                     |
+| `mod + d`              | Toggle dashboard visibility.                               |
+
+</details>
 
 ### Simple Configuration
 You can edit some basic stuff by using the included variables inside of

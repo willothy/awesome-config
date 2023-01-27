@@ -49,8 +49,10 @@ end)
 
 -- Rounded Corners
 ------------------
-client.connect_signal("request::manage", function(c)
-    c.shape = function(cr, w, h)
-        gears.shape.rounded_rect(cr, w, h, beautiful.border_radius)
-    end
-end)
+if beautiful.rounded_clients then
+    client.connect_signal("request::manage", function(c)
+        c.shape = function(cr, w, h)
+            gears.shape.rounded_rect(cr, w, h, beautiful.border_radius)
+        end
+    end)
+end

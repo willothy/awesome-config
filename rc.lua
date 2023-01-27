@@ -8,12 +8,12 @@
 -- Imports
 ----------
 pcall(require, 'luarocks.loader')
-local naughty   = require('naughty')
 
 -- Error Handling
 -----------------
 -- Leaving this as the first in your config guarantees all errors will produce
 -- a traceback notification.
+local naughty   = require('naughty')
 naughty.connect_signal("request::display_error", function(message, startup)
     naughty.notification {
         urgency = "critical",
@@ -27,8 +27,9 @@ end)
 -- Contains general user configuration. 
 -- I recommend checking this out FIRST.
 require('userconf')
--- Contains the theming configuration.
-require('themes')
+-- Loads the theming configuration.
+require('beautiful').init(
+    require('gears.filesystem').get_configuration_dir() .. "themes/init.lua")
 -- Contains custom managed signals.
 require('signals')
 -- Contains the window manager configuration, like keybinds and rules.

@@ -29,7 +29,7 @@ local mkbutton = function (width, color, onclick)
       element   = button,
       prop      = 'bg',
       bg        = color,
-      hbg       = beautiful.titlebar_fg_normal,
+      hbg       = beautiful.blk,
     }
 
     client.connect_signal("property::active", function ()

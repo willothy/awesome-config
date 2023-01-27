@@ -69,16 +69,16 @@ user.dpi          = 96
 user.bar_enabled  = true
 user.bar_size     = 4.5
 -- Can be 'top', 'bottom', 'right' or 'left'.
-user.bar_pos      = "bottom"
+user.bar_pos      = "left"
 -- Adds 'outer_gaps' to the bar.
-user.bar_gap      = false
+user.bar_gap      = true
 
 --- Titles
 -- Toggles titlebars
 user.title_enable = true
 user.titles_size  = 3
 -- Can be 'top', 'bottom', 'right' or 'left'.
-user.titles_pos   = "left"
+user.titles_pos   = "top"
 
 --- Dashboard
 user.dash_size    = 75
@@ -95,15 +95,21 @@ user.notif_pos    = "top_right"
 user.inner_gaps   = 0.4
 user.outer_gaps   = user.inner_gaps * 3 -- Triple outer gap.
 
--- Borders (radius is relevant regardless of size)
+-- Borders
+-- Size of borders used on windows and some widgets.
 user.border_size  = 0 --0.2 -- 2 pixel border on 1080p
+-- Radius of borders used on windows and some widgets.
 user.border_rad   = 0.8
+-- Should clients/windows be rounded using `border_rad`.
+user.round_client = false
 
 -- Theming
 ----------
 -- Supported themes:
---  'catppuccin', 'tokyonight', 'everforest', 'everblush', 
---  'decay'
+--  dark:
+--    'catppuccin', 'everblush', 'everforest', 'tokyonight' 
+--  light:
+--    'gruvbox'
 -- More themes can be added at 'themes/palettes'.
 user.clr_palette  = "everblush"
 -- GTK icon pack to use, 'default' (Papirus) or name.
@@ -121,7 +127,9 @@ user.avatar       = "default"
 user.wall         = "default"
 -- Music player fallback background. Either 'default' (matches colorscheme) or path.
 user.player_bg    = "default"
--- AwesomeWM icon to be used, either 'default', 'nix' (both follow colorscheme) or path.
+-- AwesomeWM icon to be used: 
+--   'default', 'arch', 'debian', 'fedora', 'nix', 'ubuntu' or 'void'.
+-- Can also be a path to an image.
 user.awm_icon     = "default"
 
 -- Miscelaneous
