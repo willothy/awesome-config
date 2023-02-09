@@ -31,9 +31,9 @@ ruled.client.connect_signal("request::rules", function()
         rule_any = {
             instance = { "copyq", "pinentry" },
             class    = {
-                "Arandr", "Gpick", "Sxiv", "Tor Browser", 
-                "Gucharmap", "Lxappearance", "Pavucontrol",
-                "Galculator", "feh"
+                "Arandr", "Pavucontrol", "Galculator", 
+                "Gucharmap", "Gpick", "Lxappearance",
+                "feh", "Viewnior", "Sxiv"
             },
             name    = {
                 "Event Tester", "Friends List",
@@ -52,7 +52,8 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule {
         id         = "titlebars",
         rule_any   = { type = { "normal", "dialog" } },
-        except_any = { class = { "feh", } },
+        -- excempt image viewers from having titlebars
+        except_any = { class = { "feh", "Viewnior", "Sxiv" } },
         properties = { titlebars_enabled = beautiful.titles_enabled }
     }
     -- App Rules

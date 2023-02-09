@@ -10,19 +10,6 @@ local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 
---TODO: implement fix for st's icon
---[[ -- Obtain client icon if not available by default ]]
---[[ local extract_icon = function(c) ]]
---[[   -- exceptions (add support for st). ]]
---[[   if c.class then ]]
---[[     if string.lower(c.class) == 'st' then ]]
---[[       return theme:get_icon_path(string.lower(c.class)) ]]
---[[     end ]]
---[[   end ]]
---[[   -- has support for some others apps like spotify ]]
---[[   return theme:get_client_icon_path(c) ]]
---[[ end ]]
-
 local function gettasklist(s)
     return awful.widget.tasklist {
         screen  = s,
@@ -47,7 +34,7 @@ local function gettasklist(s)
         },
         layout  = {
             spacing = dpi(beautiful.bar_size / 10),
-            layout  = bar_type == "vertical" and wibox.layout.fixed.vertical or wibox.layout.fixed.horizontal
+            layout  = beautiful.bar_type == "vertical" and wibox.layout.fixed.vertical or wibox.layout.fixed.horizontal
         },
         style   = {
             shape   = helpers.mkroundedrect()

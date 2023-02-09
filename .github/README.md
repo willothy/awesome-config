@@ -1,6 +1,7 @@
 # Welcome, stranger!
 
 <img align="right" width="40%" src="./laptop_screenshot.png">
+
 <img align="right" width="40%" src="./desktop_screenshot.png">
 
 This is my awful configuration for the almighty **AwesomeWM**, featuring a 
@@ -20,11 +21,12 @@ a few variables in the `userconf.lua` file.
 - [Network Manager](https://github.com/NetworkManager/NetworkManager) (network signals)
 - [Pipewire](https://github.com/PipeWire/pipewire) and
 [Wireplumber](https://github.com/PipeWire/wireplumber) (audio signals)
-- [maim](https://github.com/naelstrof/maim),
+- [shotgun](https://github.com/neXromancers/shotgun),
+[slop](https://github.com/naelstrof/slop),
 [xclip](https://github.com/astrand/xclip) (screenshots)
 - [Roboto](https://github.com/googlefonts/roboto),
 [Material Icons](https://github.com/google/material-design-icons) and
-[CascadiaCode Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/)
+[Fira Code](https://github.com/tonsky/FiraCode)
 
 ### Optional (toggleable)
 - [brightnessctl](https://github.com/Hummer12007/brightnessctl) (brightness signals)
@@ -37,8 +39,7 @@ This configuration also uses [alacritty](https://github.com/alacritty/alacritty)
 [firefox](https://www.mozilla.org/en-US/firefox/), 
 [htop](https://github.com/htop-dev/htop), 
 [lf](https://github.com/gokcehan/lf), 
-[thunar](https://github.com/xfce-mirror/thunar), 
-and [rofi](https://github.com/davatorium/rofi) 
+and [thunar](https://github.com/xfce-mirror/thunar), 
 by default, but none of these are hard requirements and you can 
 easily change them in `userconf.lua`, although I still recommend **at 
 least installing alacritty**.
@@ -50,10 +51,6 @@ done, back your own configuration up, and you need only run:
 ```sh
 $ git clone https://github.com/Gwynsav/gwdawful.git ~/.config/awesome --recursive
 ```
-Also note that CascadiaCode Nerd Font is very likely not packaged for your
-distro. It can easily be installed by [getting it](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/CascadiaCode.zip), 
-putting it in either `/usr/share/fonts` or `~/.local/share/fonts/` and 
-running `fc-cache -f`.
 
 And that is basically it, note that I do not provide configuration files 
 for the programs used by default, this is because those are written in Nix
@@ -127,68 +124,73 @@ not using Nix with Home Manager as is.
 
 ### Simple Configuration
 You can edit some basic stuff by using the included variables inside of
-`userconf.lua`. This configuration includes, border size, gaps, titles and
-bar positions, as well as toggling features.
+`userconf.lua`. This configuration includes, border size, gaps, titles,
+bar positions, and much more, as well as toggling features.
 
 <details>
   
-| Variable       | Type      | Description                                            |
-| -------------- | --------- | ------------------------------------------------------ |
-| Applications   | -         | -                                                      |
-| `terminal`     | `string`  | Terminal emulator to use                               |
-| `editor`       | `string`  | Text editor to use                                     |
-| `browser`      | `string`  | Internet browser to use                                |
-| `top`          | `string`  | top application (like htop) to use                     |
-| `files_cli`    | `string`  | CLI file explorer to use                               |
-| `files_gui`    | `string`  | GUI file explorer to use                               |
-| `app_launcher` | `string`  | Application launcher (may deprecate)                   |
-| Settings       | -         | -                                                      |
-| `modkey`       | `string`  | Mod1 is Alt, Mod4 is Super                             |
-| `caps_super`   | `boolean` | Makes CapsLock an additional Super key                 |
-| `hover_focus`  | `boolean` | Should windows be focused on hover                     |
-| `kb_layout1`   | `string`  | Keyboard layout to use                                 |
-| `kb_layout2`   | `string`  | Alternate keyboard layout. Set to same as 1 to disable |
-| Features       | -         | -                                                      |
-| `battery`      | `boolean` | Enable/disable battery metrics                         |
-| `battery_name` | `boolean` | Specify battery name from Upower's interface           |
-| `brightness`   | `boolean` | Enable/disable brightness metrics                      |
-| `brightness_name` | `boolean` | Specify video adapter name from '/sys/class/backlight' |
-| `bluetoothctl` | `boolean` | Enable/disable bluetooth metrics                       |
-| UI             | -         | -                                                      |
-| `resolution`   | `number`  | Your vertical resolution, eg 1080p                     |
-| `aspect_ratio` | `number`  | Your aspect ratio, eg 16/9 or 4/3                      |
-| `dpi`          | `number`  | Your dpi, keep at 96 unless you know what you're doing |
-| `inner_gaps`   | `number`  | Regular gap size                                       |
-| `outer_gaps`   | `number`  | Screen padding size                                    |
-| `border_size`  | `number`  | Size of client and widget borders                      |
-| `border_rad`   | `number`  | Border rounding, 0 to disable                          |
-| `bar_enabled`  | `boolean` | Change default bar state.                              |
-| `bar_size`     | `number`  | Change bar thickness (screen %)                        |
-| `bar_pos`      | `string`  | May be: left, top, right, bottom                       |
-| `bar_gap`      | `boolean` | Apply outer_gaps to bar                                |
-| `title_enable` | `boolean` | Enable/disable client titlebars                        |
-| `titles_size`  | `number`  | Change titlebar thickness (screen %)                   |
-| `titles_pos`   | `string`  | May be: left, top, right, bottom                       |
-| `dash_size`    | `number`  | Change dashboard size (screen %)                       |
-| `notif_size`   | `number`  | Change notification size (screen %)                    |
-| `notif_pos`    | `string`  | May be: top_left, top_right, bottom_left, bottom_right |
+| Variable       | Type      | Description                                                                        |
+| -------------- | --------- | ---------------------------------------------------------------------------------- |
+| Applications   | -         | -                                                                                  |
+| `terminal`     | `string`  | Terminal emulator to use. **Must be set**.                                         |
+| `editor`       | `string`  | Text editor to use. **Must be set**.                                               |
+| `browser`      | `string`  | Internet browser to use. **Must be set**.                                          |
+| `top`          | `string`  | top application (like htop) to use. **Must be set**.                               |
+| `files_cli`    | `string`  | CLI file explorer to use. **Must be set**.                                         |
+| `files_gui`    | `string`  | GUI file explorer to use. **Must be set**.                                         |
+| Settings       | -         | -                                                                                  |
+| `modkey`       | `string`  | Mod1 is Alt, Mod4 is Super. Defaults to **"Mod4"**.                                |
+| `caps_super`   | `boolean` | Makes CapsLock an additional Super key. Defaults to **false**.                     |
+| `hover_focus`  | `boolean` | Should windows be focused on hover. Defaults to **false**.                         |
+| `kb_layout1`   | `string`  | Keyboard layout to use. Entirely **optional**.                                     |
+| `kb_layout2`   | `string`  | Alternate keyboard layout. Also entirely **optional**.                             |
+| Features       | -         | -                                                                                  |
+| `battery`      | `boolean` | Enable/disable battery metrics. Defaults to **false**.                             |
+| `battery_name` | `boolean` | Specify battery name from Upower's interface. Defaults to **"battery_BAT0"**.      |
+| `brightness`   | `boolean` | Enable/disable brightness metrics. Defaults to **false**.                          |
+| `brightness_name` | `boolean` | Specify video adapter name from '/sys/class/backlight'. Defaults to **"intel_backlight"** |
+| `bluetoothctl` | `boolean` | Enable/disable bluetooth metrics. Defaults to **false**.                           |
+| UI             | -         | -                                                                                  |
+| `resolution`   | `number`  | Your vertical resolution, eg 1080p. Defaults to **1080**.                          |
+| `aspect_ratio` | `number`  | Your aspect ratio, eg 16/9 or 4/3. Defaults to **16/9**.                           |
+| `dpi`          | `number`  | Your dpi. Defaults to **auto**. Dots built on 96, for reference.                   |
+| `inner_gaps`   | `number`  | Regular gap size (screen%). Defaults to **0.4**.                                   |
+| `outer_gaps`   | `number`  | Screen padding size (screen%). Defaults to **3 * inner_gaps**.                     |
+| `border_size`  | `number`  | Size of client and widget borders (screen%). Defaults to **0**.                    |
+| `border_rad`   | `number`  | Border rounding (screen%), 0 to disable. Defaults to **0.8**.                      |
+| `bar_enabled`  | `boolean` | Change default bar state. Defaults to **true**.                                    |
+| `bar_size`     | `number`  | Change bar thickness (screen%). Defaults to **4.5**.                               |
+| `bar_pos`      | `string`  | May be: "left", "top", "right", "bottom". Defaults to **"left"**.                  |
+| `bar_gap`      | `boolean` | Apply outer_gaps to bar. Defaults to **false**.                                    |
+| `title_enable` | `boolean` | Enable/disable client titlebars. Defaults to **true**.                             |
+| `titles_size`  | `number`  | Change titlebar thickness (screen%). Defaults to **3**.                            |
+| `titles_pos`   | `string`  | May be: "left", "top", "right", "bottom". Defaults to **"top"**.                   |
+| `dash_size`    | `number`  | Change dashboard size (screen%). Defaults to **75**.                               |
+| `notif_size`   | `number`  | Change notification size (screen%). Defaults to **9**.                             |
+| `notif_pos`    | `string`  | May be: "top_left", "top_right", "bottom_left", "bottom_right". Defaults to **auto** |
 | Theming        | -         | -                                                      |
-| `clr_palette`  | `string`  | catppuccin, decay, everblush, everforest, tokyonight   |
-| `icon_pack`    | `string`  | "default" sets it to Papirus, or GTK icon pack name    |
-| `ui_font`      | `string`  | Name of main UI font. Does **NOT** take size.          |
-| `ic_font`      | `string`  | Name of text icon font. Does **NOT** take size.        |
-| `mn_font`      | `string`  | Name of monospace font. Does **NOT** take size.        |
-| `user_avatar`  | `string`  | "default" follows colorscheme, or path                 |
-| `user_wall`    | `string`  | "default" follows colorscheme, or path                 |
-| `player_bg`    | `string`  | "default" follows colorscheme, or path                 |
-| `awm_icon`     | `string`  | "default", "nix", or path                              |
-| `scrnshot_dir` | `string`  | Directory to save screenshots to                       |
+| `clr_palette`  | `string`  | "catppuccin", "everblush", "everforest", "tokyonight", "gruvbox", "solarized". Does **NOT** have a default. |
+| `icon_pack`    | `string`  | GTK icon pack name. Defaults to **"Papirus"**.                                     |
+| `ui_font`      | `string`  | Name of main UI font. Does **NOT** take size. Defaults to **"Roboto"**.            |
+| `ic_font`      | `string`  | Name of text icon font. Does **NOT** take size. Defaults to **"Material Icons"**.  |
+| `mn_font`      | `string`  | Name of monospace font. Does **NOT** take size. Defaults to **"Fira Code"**.       |
+| `user_avatar`  | `string`  | Path to user profile picture. Defaults to **$AWM/themes/assets/user.png"**.        |
+| `user_wall`    | `string`  | Path to user wallpaper. Defaults to **colorscheme default**.                       |
+| `player_bg`    | `string`  | Path to music player background image. Defaults to **colorscheme default**.        |
+| `awm_icon`     | `string`  | "arch", "debian", "fedora", "nix", "ubuntu", "void" or path. Defaults to **AWM icon**. |
+| Misc           | -         | -                                                                                  |
+| `scrnshot_dir` | `string`  | Directory to save screenshots to. Defaults to **$HOME/Pictures/**.                 |
+| `scratch_wide` | `number`  | Scratchpad terminal width (screen%). Defaults to **40**.                           |
+| `scratch_high` | `number`  | Scratchpad terminal height (screen%). Defaults to **66**.                          |
   
 </details>
 
 # References
 These people's dotfiles (and in some cases they themselves) have massively
 helped me create this configuration.
+
+[Blyaticon's cropping helper](https://git.gemia.net/paul.s/homedots). 
+Finally some good fucking image usage.
 
 [Alpha.'s NixOS Awesome setup](https://github.com/AlphaTechnolog/nixdots). 
 General reference and stole his helpers :)

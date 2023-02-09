@@ -1,6 +1,5 @@
 -- Everblush Colorscheme
 ------------------------
-local asst_dir  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/"
 local clrs = {}
     clrs.dbg   = "#101619"
     clrs.nbg   = "#141b1e"

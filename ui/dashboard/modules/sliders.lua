@@ -22,7 +22,7 @@ local function makeslider(base_icon, color, input)
                     {
                         id      = 'icon_role',
                         text    = base_icon,
-                        font    = beautiful.ic_font .. beautiful.dashboard_size * 0.025,
+                        font    = beautiful.ic_font .. dpi(beautiful.dashboard_size * 0.025),
                         align   = "center",
                         widget  = wibox.widget.textbox
                     },

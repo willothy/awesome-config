@@ -16,15 +16,14 @@ local helpers   = require('helpers')
 ---------------
 local avatar  = wibox.widget {
     widget        = wibox.widget.imagebox,
-    image         = beautiful.user_avatar,
+    image         = helpers.crop_surface(1, gears.surface.load_uncached(beautiful.user_avatar)),
     clip_shape    = gears.shape.circle,
-    resize        = true,
-    forced_height = dpi(beautiful.dashboard_size * 0.11),
+    resize        = true
 }
 
 local greeter = wibox.widget {
     markup = "Welcome, <b>user!</b>",
-    font   = beautiful.ui_font .. beautiful.dashboard_size * 0.025,
+    font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.025),
     widget = wibox.widget.textbox
 }
 awful.spawn.easy_async_with_shell(
@@ -36,7 +35,7 @@ awful.spawn.easy_async_with_shell(
 
 local uptime = wibox.widget {
     text   = "Uptime unknown...",
-    font   = beautiful.ui_font .. beautiful.dashboard_size * 0.015,
+    font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.015),
     widget = wibox.widget.textbox
 }
 local function get_uptime()
@@ -72,7 +71,7 @@ local bat_bar = wibox.widget {
             {
                 {
                     id      = 'icon_role',
-                    font    = beautiful.ic_font .. beautiful.dashboard_size * 0.018,
+                    font    = beautiful.ic_font .. dpi(beautiful.dashboard_size * 0.018),
                     halign  = "left",
                     valign  = "center",
                     widget  = wibox.widget.textbox
@@ -88,7 +87,7 @@ local bat_bar = wibox.widget {
     {
         {
             id      = 'text_role',
-            font    = beautiful.ui_font .. beautiful.dashboard_size * 0.013, 
+            font    = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.013), 
             widget  = wibox.widget.textbox
         },
         fg     = beautiful.wht,
@@ -129,7 +128,7 @@ local function txtbtn(icon, action)
     return wibox.widget {
         {
             text   = icon,
-            font   = beautiful.ic_font .. beautiful.dashboard_size * 0.025,
+            font   = beautiful.ic_font .. dpi(beautiful.dashboard_size * 0.025),
             align  = "center",
             widget = wibox.widget.textbox
         },
@@ -150,9 +149,14 @@ local function user_profile()
         {
             {
                 {
-                    avatar,
-                    valign = "center",
-                    layout = wibox.container.place
+                    {
+                        avatar,
+                        valign = "center",
+                        layout = wibox.container.place
+                    },
+                    strategy = "exact",
+                    height   = dpi(beautiful.dashboard_size * 0.11),
+                    widget   = wibox.container.constraint
                 },
                 {
                     {
@@ -181,6 +185,7 @@ local function user_profile()
             right  = dpi(beautiful.dashboard_size * 0.02),
             widget = wibox.container.margin
         },
+        nil,
         {
             {
                 {

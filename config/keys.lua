@@ -17,7 +17,10 @@ tasks_cmd       = terminal .. term_cmd .. top
 
 local modkey    = beautiful.modkey
 local menu      = require('ui.menu')
+local scratch   = require('config.scratchpad')
+local launcher  = require('ui.app_launcher')
 local playerctl = require('modules.bling').signal.playerctl.lib()
+local tabbed    = require('modules.bling').module.tabbed
 
 -- Behavior
 -----------
@@ -51,6 +54,9 @@ awful.keyboard.append_global_keybindings({
     -- Term
     awful.key({ modkey,           }, "Return",  function() awful.spawn(terminal) end,
               { description = "Open a terminal",  group = "Programs" }),
+    -- Scratchpad terminal
+    awful.key({ modkey, "Control" }, "Return",  function() scratch:toggle() end,
+              { description = "Opens a terminal scratchpad", group = "Programs" }),
     -- Editor
     awful.key({ modkey, "Shift"   }, "Return",  function() awful.spawn(editor_cmd) end,
               { description = "Open an editor",   group = "Programs" }),
@@ -63,7 +69,9 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "Escape",  function() awful.spawn(tasks_cmd) end,
               { description = "Open a task manager", group = "Programs" }),
     -- Application launcher
-    awful.key({ modkey            }, "p",       function() awful.spawn(app_launcher) end,
+    -- awful.key({ modkey            }, "p",       function() awful.spawn(app_launcher) end,
+    --           { description = "Open the application launcher", group = "Programs" }),
+    awful.key({ modkey            }, "p",       function() launcher:toggle() end,
               { description = "Open the application launcher", group = "Programs" }),
 
     -- Window Management
@@ -78,6 +86,22 @@ awful.keyboard.append_global_keybindings({
               { description = "Swap with next client", group = "Window Management" }),
     awful.key({ modkey, "Shift"   }, "k",       function() awful.client.swap.byidx( -1) end,
               { description = "Swap with previous client", group = "Window Management" }),
+    -- add window to tabbed group (next, previous)
+    awful.key({ modkey, "Control" }, "j",   function () tabbed.pick_by_direction("down") end,
+              { description = "Add next window to tabbed group", group = "Window Management" }),
+    awful.key({ modkey, "Control" }, "k",   function () tabbed.pick_by_direction("up") end,
+              { description = "add previous window to tabbed group", group = "window management" }),
+    -- switch focused monitor (next, previous)
+    awful.key({ modkey,           }, "period",  function () awful.screen.focus_relative( 1) end,
+              { description = "Focus next screen", group = "Window Management" }),
+    awful.key({ modkey,           }, "comma",   function () awful.screen.focus_relative(-1) end,
+              { description = "Focus previous screen", group = "Window Management" }),
+    -- remove window from tabbed group
+    awful.key({ modkey, "Control" }, "h",   function () tabbed.pop() end,
+              { description = "Remove window from tabbed group", group = "Window Management" }),
+    -- iterate through tabbed group members
+    awful.key({ modkey, "Control" }, "l",   function () tabbed.iter() end,
+              { description = "Cycle tabbed group members", group = "Window Management" }),
     -- switch focused monitor (next, previous)
     awful.key({ modkey,           }, "period",  function () awful.screen.focus_relative( 1) end,
               { description = "Focus next screen", group = "Window Management" }),

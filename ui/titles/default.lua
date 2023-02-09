@@ -29,7 +29,7 @@ local mkbutton = function (width, color, onclick)
       element   = button,
       prop      = 'bg',
       bg        = color,
-      hbg       = beautiful.blk,
+      hbg       = beautiful.titlebar_fg_normal,
     }
 
     client.connect_signal("property::active", function ()
@@ -88,23 +88,35 @@ client.connect_signal("request::titlebars", function(c)
         {
             { -- Left
                 {
-                  close(c),
-                  direction = beautiful.titles_type == "vertical" and "east" or "north",
-                  widget    = wibox.container.rotate
+                    {
+                      close(c),
+                      direction = beautiful.titles_type == "vertical" and "east" or "north",
+                      widget    = wibox.container.rotate
+                    },
+                    {
+                      maximize(c),
+                      direction = beautiful.titles_type == "vertical" and "east" or "north",
+                      widget    = wibox.container.rotate
+                    },
+                    {
+                      sticky(c),
+                      direction = beautiful.titles_type == "vertical" and "east" or "north",
+                      widget    = wibox.container.rotate
+                    },
+                    spacing = dpi(beautiful.titles_size / 4),
+                    layout  = beautiful.titles_type == "horizontal"
+                              and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
                 },
-                {
-                  maximize(c),
-                  direction = beautiful.titles_type == "vertical" and "east" or "north",
-                  widget    = wibox.container.rotate
-                },
-                {
-                  sticky(c),
-                  direction = beautiful.titles_type == "vertical" and "east" or "north",
-                  widget    = wibox.container.rotate
-                },
-                spacing = dpi(beautiful.titles_size / 4),
-                layout  = beautiful.titles_type == "horizontal"
-                          and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
+
+                top     = beautiful.titles_type == "horizontal"
+                          and dpi(beautiful.titles_size / 6) or dpi(beautiful.titles_size / 6),
+                bottom  = beautiful.titles_type == "horizontal" 
+                          and dpi(beautiful.titles_size / 6) or dpi(beautiful.titles_size / 4),
+                left    = beautiful.titles_type == "horizontal" 
+                          and dpi(beautiful.titles_size / 6) or dpi(beautiful.titles_size / 6),
+                right   = beautiful.titles_type == "horizontal" 
+                          and dpi(beautiful.titles_size / 4) or dpi(beautiful.titles_size / 6),
+                widget = wibox.container.margin
             },
             { -- Middle
                 buttons = buttons,
@@ -112,12 +124,6 @@ client.connect_signal("request::titlebars", function(c)
                           and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
             },
             { -- Right
-                -- {
-                --     beautiful.titles_type == "horizontal" and awful.titlebar.widget.titlewidget(c),
-                --     left   = beautiful.titles_type == "horizontal" and dpi(beautiful.titles_size / 2) or 0,
-                --     top    = beautiful.titles_type == "vertical" and dpi(beautiful.titles_size / 2) or 0,
-                --     widget = wibox.container.margin
-                -- },
                 buttons = buttons,
                 layout  = beautiful.titles_type == "horizontal"
                           and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
@@ -126,10 +132,7 @@ client.connect_signal("request::titlebars", function(c)
             layout  = beautiful.titles_type == "horizontal"
                       and wibox.layout.align.horizontal or wibox.layout.align.vertical
         },
-        top     = beautiful.titles_type == "horizontal" and dpi(beautiful.titles_size / 3) or dpi(beautiful.titles_size / 3),
-        bottom  = beautiful.titles_type == "horizontal" and dpi(beautiful.titles_size / 3) or dpi(beautiful.titles_size / 2),
-        left    = beautiful.titles_type == "horizontal" and dpi(beautiful.titles_size / 3) or dpi(beautiful.titles_size / 3),
-        right   = beautiful.titles_type == "horizontal" and dpi(beautiful.titles_size / 2) or dpi(beautiful.titles_size / 3),
+        margins = dpi(beautiful.titles_size / 5),
         widget  = wibox.container.margin
     }
 end)

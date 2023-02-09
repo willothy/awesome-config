@@ -15,7 +15,7 @@ local helpers   = require('helpers')
 local calendar_wdgt = wibox.widget {
     widget  = wibox.widget.calendar.month,
     date    = os.date("*t"),
-    font    = beautiful.ui_font .. beautiful.dashboard_size * 0.0135,
+    font    = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.0135),
     flex_height = true,
     fn_embed = function(widget, flag, date) 
         local focus_widget = wibox.widget {
@@ -59,7 +59,7 @@ local clock = wibox.widget {
            {
                {
                     format = "<b>%M</b>",
-                    font   = beautiful.mn_font .. beautiful.dashboard_size * 0.025,
+                    font   = beautiful.mn_font .. dpi(beautiful.dashboard_size * 0.025),
                     widget = wibox.widget.textclock
                 },
                 fg     = beautiful.wht,
@@ -77,7 +77,7 @@ local clock = wibox.widget {
            {
                {
                     format = "<b>%H</b>",
-                    font   = beautiful.ui_font .. beautiful.dashboard_size * 0.025,
+                    font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.025),
                     widget = wibox.widget.textclock
                 },
                 fg     = beautiful.blu,
@@ -122,7 +122,7 @@ local function calendar()
                         {
                             {
                                 format = "<b>%b</b>\n%Y",
-                                font   = beautiful.ui_font .. beautiful.dashboard_size * 0.02,
+                                font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.02),
                                 align  = "center",
                                 widget = wibox.widget.textclock
                             },

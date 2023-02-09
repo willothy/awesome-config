@@ -23,6 +23,7 @@ local rubato    = require('modules.rubato')
 
 -- Notifications
 ----------------
+naughty.config.defaults.timeout = 5
 ruled.notification.connect_signal('request::rules', function()
     -- All notifications will match this rule.
     ruled.notification.append_rule {
@@ -53,6 +54,9 @@ end)
 
 naughty.connect_signal("request::display", function(n)
     
+    local timeout = n.timeout
+    n.timeout = 999999
+
     -- Basics
     local title = wibox.widget {
         widget        = wibox.container.scroll.horizontal,
@@ -63,7 +67,7 @@ naughty.connect_signal("request::display", function(n)
         {
             markup = n.title:match('.') and "<b>" .. n.title .. "</b>"
                                          or "<b>Notification</b>",
-            font   = beautiful.ui_font .. beautiful.notif_size / 8,
+            font   = beautiful.ui_font .. dpi(beautiful.notif_size / 8),
             halign = "center",
             widget = wibox.widget.textbox
         }
@@ -77,7 +81,7 @@ naughty.connect_signal("request::display", function(n)
         {
             widget = wibox.widget.textbox,
             halign = "center",
-            font   = beautiful.ui_font .. beautiful.notif_size / 9,
+            font   = beautiful.ui_font .. dpi(beautiful.notif_size / 9),
             text   = gears.string.xml_unescape(n.message)
         }
     }
@@ -85,12 +89,16 @@ naughty.connect_signal("request::display", function(n)
     -- Fancy timeout image frame animation
     local image = wibox.widget {
         widget = wibox.widget.imagebox,
-        image  = n.icon or def_icon,
+        image  = n.icon and helpers.crop_surface(1, gears.surface.load_uncached(n.icon))
+                 or helpers.crop_surface(1, gears.surface.load_uncached(def_icon)),
         resize = true,
         align  = "center",
         horizontal_fit_policy = "fit",
         vertical_fit_policy   = "fit",
         clip_shape    = helpers.mkroundedrect(),
+        buttons = {
+            awful.button({}, 1, function() n:destroy() end)
+        }
 	  }
     -- Animation stolen right off the certified animation lady.
     local timeout_graph = wibox.widget {
@@ -105,7 +113,7 @@ naughty.connect_signal("request::display", function(n)
         bg           = beautiful.lbg,
         forced_height = dpi(beautiful.notif_size * 3/4),
         forced_width  = dpi(beautiful.notif_size * 3/4),
-        image,
+        image
     }
 
     -- Action buttons
@@ -120,7 +128,7 @@ naughty.connect_signal("request::display", function(n)
                 {
                     {
                         id       = "text_role",
-                        font     = beautiful.ui_font .. beautiful.notif_size / 11,
+                        font     = beautiful.ui_font .. dpi(beautiful.notif_size / 11),
                         widget   = wibox.widget.textbox
                     },
                     align  = "center",
@@ -217,9 +225,9 @@ naughty.connect_signal("request::display", function(n)
                         widget   = wibox.container.constraint
                     },
                     strategy = "max",
-                    width   = dpi(beautiful.notif_size * 3),
-                    height  = dpi(beautiful.notif_size * 1.3),
-                    widget  = wibox.container.constraint
+                    width    = dpi(beautiful.notif_size * 3),
+                    height   = dpi(beautiful.notif_size * 1.3),
+                    widget   = wibox.container.constraint
                 },
                 layout = wibox.layout.fixed.horizontal
             },
@@ -228,12 +236,23 @@ naughty.connect_signal("request::display", function(n)
             widget = naughty.container.background
         }
     }
+    widget.buttons = {}
     local anim = rubato.timed {
         intro      = 0,
-        duration   = n.timeout,
-        subscribed = function(pos)
+        duration   = timeout,
+        subscribed = function(pos, time)
             timeout_graph.value = pos
+            if time == timeout then
+                n:destroy()
+            end
         end
     }
+    widget:connect_signal("mouse::enter", function()
+        anim.pause = true
+    end)
+
+    widget:connect_signal("mouse::leave", function()
+        anim.pause = false
+    end)
     anim.target     = 100
 end)

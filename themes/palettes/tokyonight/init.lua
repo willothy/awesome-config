@@ -1,6 +1,5 @@
 -- Tokyonight Colorscheme
 -------------------------
-local asst_dir  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/"
 local clrs = {}
     clrs.dbg   = "#16161e"
     clrs.nbg   = "#1a1b26"

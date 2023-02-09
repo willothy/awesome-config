@@ -21,7 +21,7 @@ local function status_widget(icon, action, color)
             {
                 id     = "text_role",
                 text   = icon,
-                font   = beautiful.ic_font .. beautiful.dashboard_size * 0.025,
+                font   = beautiful.ic_font .. dpi(beautiful.dashboard_size * 0.025),
                 align  = "center",
                 widget = wibox.widget.textbox
             },

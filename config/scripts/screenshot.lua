@@ -1,8 +1,9 @@
 -----------------------
 -- screenshot script --
 -----------------------
--- Uses maim, cat and xclip. I was gonna use awful.screenshot
--- but I ended up giving up because it's buggy as hell.
+-- Uses shotgun, slop, cat and xclip. I was gonna use awful.screenshot
+-- but I ended up giving up because it's buggy as hell. Shotgun is also
+-- fast as actual fuck.
 
 -- Imports
 ----------
@@ -16,14 +17,14 @@ local def_image =
     gears.filesystem.get_configuration_dir() .. "themes/assets/notification/image.svg",
     beautiful.notification_accent)
 
--- Screenshot
--------------
+-- Notification
+---------------
 local function send_notif(temp_file)
     -- Actions
     ----------
     local ok   = naughty.action { name = "Ok" }
 
-    -- Save to permanent file
+    -- Save temporary to permanent file
     local save = naughty.action { name = "Save" }
     save:connect_signal('invoked', function()
         awful.spawn.easy_async_with_shell("cp " .. temp_file .. " " .. beautiful.screenshot_dir, function()
@@ -49,6 +50,8 @@ local function send_notif(temp_file)
         end)
     end)
 
+    -- Send
+    -------
     awful.spawn.easy_async_with_shell(
         "[ -e '" .. temp_file .. "' ] && echo exists", function(output)
             if output:match('%w+') then
@@ -69,20 +72,22 @@ local function send_notif(temp_file)
     end)
 end
 
--- Fullscreen screenshot
-awesome.connect_signal("screenshot::fullscreen", function()
+-- Screenshot
+-------------
+local function take_screenshot(command)
     local temp_file = "/tmp/ss-" .. os.date("%Y%m%d-%H%M%S") .. ".png"
-    awful.spawn.easy_async_with_shell("maim " .. temp_file, function()
+    awful.spawn.easy_async_with_shell(command .. " " .. temp_file, function()
         awful.spawn.with_shell("cat " .. temp_file .. " | xclip -se c -t image/png -i")
         send_notif(temp_file)
     end)
+end
+
+-- Fullscreen screenshot
+awesome.connect_signal("screenshot::fullscreen", function()
+    take_screenshot("shotgun")
 end)
 
 -- Selection screenshot
 awesome.connect_signal("screenshot::selection", function()
-    local temp_file = "/tmp/ss-" .. os.date("%Y%m%d-%H%M%S") .. ".png"
-    awful.spawn.easy_async_with_shell("maim -s " .. temp_file, function()
-        awful.spawn.with_shell("cat " .. temp_file .. " | xclip -se c -t image/png -i")
-        send_notif(temp_file)
-    end)
+    take_screenshot("shotgun $(slop -f '-i %i -g %g')")
 end)

@@ -16,7 +16,7 @@ local playerctl = require('modules.bling').signal.playerctl.lib()
 -- Widgets
 ----------
 local album_art = wibox.widget {
-    image       = beautiful.player_bg,
+    image       = helpers.crop_surface(1.5, gears.surface.load_uncached(beautiful.player_bg)),
     vertical_fit_policy   = "fit",
     horizontal_fit_policy = "fit",
     resize      = true,
@@ -31,7 +31,7 @@ local function sng_info(size, color, placeholder)
         {
             id     = 'text_role',
             markup = placeholder,
-            font   = beautiful.ui_font .. beautiful.dashboard_size * size,
+            font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * size),
             widget = wibox.widget.textbox
         },
         fg     = color,
@@ -77,7 +77,7 @@ local function mk_ctrl(icon, run)
             {
                 id     = "text_role",
                 text   = icon,
-                font   = beautiful.ic_font .. beautiful.dashboard_size * 0.025,
+                font   = beautiful.ic_font .. dpi(beautiful.dashboard_size * 0.025),
                 widget = wibox.widget.textbox
             },
             margins = dpi(0.4 * beautiful.resolution),
@@ -151,10 +151,12 @@ end)
 ----------
 playerctl:connect_signal("metadata",
     function(_, title, artist, album_path, album, new, player_name)
-        album_art.image   = album_path:match("/") and album_path or beautiful.player_bg
-        sng_title.markup  = title:match("%w") and "<b>" .. title .. "</b>" or "<b>Nothing Playing</b>"
-        sng_artist.markup = artist:match("%w") and "by " .. artist or "by Unknown"
-        sng_album.markup  = album:match("%w") and"on <i>" .. album .. "</i>" or "on <i>Unknown</i>"
+        album_art.image   = album_path:match("/") and 
+                            helpers.crop_surface(1.5, gears.surface.load_uncached(album_path)) or 
+                            helpers.crop_surface(1.5, gears.surface.load_uncached(beautiful.player_bg))
+        sng_title.markup  = title:match("%w")  and "<b>" .. title .. "</b>"    or "<b>Nothing Playing</b>"
+        sng_artist.markup = artist:match("%w") and "by " .. artist             or "by Unknown"
+        sng_album.markup  = album:match("%w")  and "on <i>" .. album .. "</i>" or "on <i>Unknown</i>"
 end)
 playerctl:connect_signal("position", function(_, interval_sec, length_sec, player_name)
     if interval_sec > 0 then
@@ -181,7 +183,7 @@ playerctl:connect_signal("loop_status", function(_, loop_status)
     end
 end)
 playerctl:connect_signal("volume", function(_, volume, player_name)
-        vol_bar.value  = not is_vol_hovered and volume
+    vol_bar.value  = not is_vol_hovered and volume
 end)
 
 -- Music Player

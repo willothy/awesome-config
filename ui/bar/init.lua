@@ -13,6 +13,7 @@ local helpers   = require('helpers')
 local gettags   = require('ui.bar.modules.tags')
 local gettasks  = require('ui.bar.modules.tasks')
 local getlayout = require('ui.bar.modules.layout')
+local launcher  = require('ui.app_launcher')
 
 -- Bar Widgets
 --------------
@@ -49,7 +50,7 @@ local bar_launcher = wibox.widget {
     {
         {
             text    = "",
-            font    = beautiful.ic_font .. beautiful.bar_size / 3,
+            font    = beautiful.ic_font .. dpi(beautiful.bar_size / 3),
             align   = "center",
             widget  = wibox.widget.textbox
         },
@@ -58,10 +59,12 @@ local bar_launcher = wibox.widget {
     },
     bg      = beautiful.lbg,
     shape   = helpers.mkroundedrect(),
+    forced_height = dpi(beautiful.bar_size),
+    forced_width  = dpi(beautiful.bar_size),
     widget  = wibox.container.background,
     buttons = {
         awful.button({}, 1, function()
-            awful.spawn(app_launcher)
+            launcher:toggle()
         end)
     }
 }
@@ -73,7 +76,7 @@ local function status_widget(button)
         {
             {
                 id      = "text_role",
-                font    = beautiful.ic_font .. beautiful.bar_size / 3,
+                font    = beautiful.ic_font .. dpi(beautiful.bar_size / 3),
                 align   = "center",
                 widget  = wibox.widget.textbox,
             },
@@ -115,10 +118,10 @@ local flipped_battery = wibox.widget {
     direction = "east",
     widget    = wibox.container.rotate
 }
-local bar_battery_text     = wibox.widget {
+local bar_battery_text = wibox.widget {
     {
         id      = "text_role",
-        font    = beautiful.ic_font .. beautiful.bar_size / 3,
+        font    = beautiful.ic_font .. dpi(beautiful.bar_size / 3),
         align   = "center",
         widget  = wibox.widget.textbox,
     },
@@ -144,7 +147,7 @@ local systray_btn = wibox.widget {
     {
         {
             text    = "",
-            font    = beautiful.ic_font .. beautiful.bar_size / 2.5,
+            font    = beautiful.ic_font .. dpi(beautiful.bar_size / 2.5),
             align   = "center",
             widget  = wibox.widget.textbox,
         },
@@ -168,15 +171,19 @@ local vbar_clock = {
         {
             {
                 format = '<b>%H</b>',
-                font   = beautiful.mn_font .. beautiful.bar_size / 3.4,
+                font   = beautiful.mn_font .. dpi(beautiful.bar_size / 3.6),
                 halign = "center",
                 widget = wibox.widget.textclock
             },
             {
-                format = '<b>%M</b>',
-                font   = beautiful.mn_font .. beautiful.bar_size / 4,
-                halign = "center",
-                widget = wibox.widget.textclock
+                {
+                    format = '<b>%M</b>',
+                    font   = beautiful.mn_font .. dpi(beautiful.bar_size / 3.6),
+                    halign = "center",
+                    widget = wibox.widget.textclock
+                },
+                fg     = beautiful.dfg,
+                widget = wibox.container.background
             },
             layout  = wibox.layout.fixed.vertical
         },
@@ -191,7 +198,7 @@ local hbar_clock = {
     {
         {
             format = '<b>%H:%M</b>',
-            font   = beautiful.mn_font .. beautiful.bar_size / 4,
+            font   = beautiful.mn_font .. dpi(beautiful.bar_size / 4),
             valign = "center",
             widget = wibox.widget.textclock
         },
@@ -210,7 +217,8 @@ local hbar_clock = {
 --------------
 -- Bar length handling to switch between gapped and non-gapped modes.
 local bar_length = beautiful.bar_type == "horizontal" and
-                    dpi(100 * beautiful.resolution * beautiful.aspect_ratio) or dpi(100 * beautiful.resolution)
+                    dpi(100 * beautiful.resolution * beautiful.aspect_ratio) 
+                    or dpi(100 * beautiful.resolution)
 if beautiful.bar_gap then
     bar_length = beautiful.bar_type == "horizontal" and
                     dpi(100 * beautiful.resolution * beautiful.aspect_ratio - beautiful.outer_gaps * 2) or
@@ -333,10 +341,10 @@ if beautiful.battery_enabled then
         -- https://lazka.github.io/pgi-docs/UPowerGlib-1.0/enums.html#UPowerGlib.DeviceState
         if state ~= 2 then
             bar_battery_text.text = ""
-            bar_battery_text.font = beautiful.ic_font .. beautiful.bar_size / 3
+            bar_battery_text.font = beautiful.ic_font .. dpi(beautiful.bar_size / 3)
         else
             bar_battery_text.text = level
-            bar_battery_text.font = beautiful.ui_font .. "Bold " .. beautiful.bar_size / 3.33
+            bar_battery_text.font = beautiful.ui_font .. "Bold " .. dpi(beautiful.bar_size / 3.33)
         end
     end)
 end

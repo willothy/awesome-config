@@ -1,6 +1,5 @@
 -- Everforest Colorscheme
 -------------------------
-local asst_dir  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/"
 local clrs = {}
     clrs.dbg   = "#21272b"
     clrs.nbg   = "#272e33"

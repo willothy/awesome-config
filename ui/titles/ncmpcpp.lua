@@ -30,8 +30,8 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule({
         id       = "music",
         rule_any = { 
-            class    = { "music" },
-            instance = { "music" },
+            class    = { "ncmpcpp" },
+            name     = { "ncmpcpp" },
         },
         callback = ncmpcpp_ui
     })

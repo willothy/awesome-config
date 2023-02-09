@@ -34,7 +34,7 @@ local header = wibox.widget {
     {
         id     = 'text_role',
         markup = "<b>System Panel</b>",
-        font   = beautiful.ui_font .. beautiful.dashboard_size * 0.018,
+        font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.018),
         widget = wibox.widget.textbox
     },
     fg     = beautiful.gry,

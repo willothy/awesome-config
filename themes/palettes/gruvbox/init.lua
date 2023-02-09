@@ -1,6 +1,5 @@
 -- Gruvbox Light Colorscheme
 ----------------------------
-local asst_dir  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/"
 local clrs = {}
     clrs.dbg   = "#f9f5d7"
     clrs.nbg   = "#fbf1c7"

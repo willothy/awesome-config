@@ -1,6 +1,5 @@
 -- Catppuccin Colorscheme
 -------------------------
-local asst_dir  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/"
 local clrs = {}
     clrs.dbg   = "#1e2030"
     clrs.nbg   = "#24273a"
@@ -23,7 +22,4 @@ local clrs = {}
     clrs.mag_d = "#dda1cd"
     clrs.cya   = "#8bd5ca"
     clrs.cya_d = "#76bbb1"
-
-    clrs.wall   = asst_dir .. "default/catppuccin/wall.png"
-    clrs.player = asst_dir .. "default/catppuccin/player.png"
 return clrs
