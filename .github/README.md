@@ -1,15 +1,14 @@
 # Welcome, stranger!
 
-<img align="right" width="40%" src="./laptop_screenshot.png">
-
-<img align="right" width="40%" src="./desktop_screenshot.png">
+<img align="right" width="50%" src="./laptop_screenshot.png">
+<img align="right" width="50%" src="./desktop_screenshot.png">
 
 This is my awful configuration for the almighty **AwesomeWM**, featuring a 
 user configuration file, repositionable bar and titles, dashboard,
 notifications, screenshooting tools, multiple colorschemes, and more to
 come, all done with Awesome's widget API!
 
-Both results show on the pictures are achievable through changing just
+Both results shown on the pictures are achievable through changing just
 a few variables in the `userconf.lua` file.
 
 ## Dependencies
