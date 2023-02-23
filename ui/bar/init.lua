@@ -110,7 +110,14 @@ local bar_battery_prog = wibox.widget {
     shape            = helpers.mkroundedrect(),
     bar_shape        = helpers.mkroundedrect(),
     background_color = beautiful.bg_focus,
-    color            = beautiful.grn,
+    border_color     = beautiful.bg_focus,
+    border_width     = dpi(beautiful.bar_size * 0.1),
+    color            = {
+       type  = "linear",
+       from  = { dpi(beautiful.bar_size), 0 },
+       to    = { 0, 0 },
+       stops = { { 0, beautiful.grn }, { 1, beautiful.grn_d } }
+    },
     widget           = wibox.widget.progressbar
 }
 local flipped_battery = wibox.widget {
@@ -171,14 +178,14 @@ local vbar_clock = {
         {
             {
                 format = '<b>%H</b>',
-                font   = beautiful.mn_font .. dpi(beautiful.bar_size / 3.6),
+                font   = beautiful.mn_font .. dpi(beautiful.bar_size / 3.75),
                 halign = "center",
                 widget = wibox.widget.textclock
             },
             {
                 {
                     format = '<b>%M</b>',
-                    font   = beautiful.mn_font .. dpi(beautiful.bar_size / 3.6),
+                    font   = beautiful.mn_font .. dpi(beautiful.bar_size / 3.75),
                     halign = "center",
                     widget = wibox.widget.textclock
                 },

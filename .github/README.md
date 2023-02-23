@@ -23,9 +23,9 @@ a few variables in the `userconf.lua` file.
 - [shotgun](https://github.com/neXromancers/shotgun),
 [slop](https://github.com/naelstrof/slop),
 [xclip](https://github.com/astrand/xclip) (screenshots)
-- [Roboto](https://github.com/googlefonts/roboto),
-[Material Icons](https://github.com/google/material-design-icons) and
-[Fira Code](https://github.com/tonsky/FiraCode)
+- [IBM Plex](https://github.com/IBM/plex) and
+[Material Icons](https://github.com/google/material-design-icons)
+
 
 ### Optional (toggleable)
 - [brightnessctl](https://github.com/Hummer12007/brightnessctl) (brightness signals)
@@ -33,15 +33,15 @@ a few variables in the `userconf.lua` file.
 - [upower](https://github.com/freedesktop/upower) (battery signals)
 
 ----------------------
-This configuration also uses [alacritty](https://github.com/alacritty/alacritty),
-[nvim](https://github.com/neovim/neovim), 
+This configuration also uses [tym](https://github.com/endaaman/tym),
+emacs, 
 [firefox](https://www.mozilla.org/en-US/firefox/), 
 [htop](https://github.com/htop-dev/htop), 
 [lf](https://github.com/gokcehan/lf), 
-and [thunar](https://github.com/xfce-mirror/thunar), 
+and [nemo](https://github.com/linuxmint/nemo), 
 by default, but none of these are hard requirements and you can 
 easily change them in `userconf.lua`, although I still recommend **at 
-least installing alacritty**.
+least installing tym**.
 
 ## Installation
 
@@ -53,9 +53,9 @@ $ git clone https://github.com/Gwynsav/gwdawful.git ~/.config/awesome --recursiv
 
 And that is basically it, note that I do not provide configuration files 
 for the programs used by default, this is because those are written in Nix
-for my [NixOS rice](https://github.com/Gwynsav/nix-dots/tree/master/users/gw/config). 
-You may still use them as reference but they don't exactly work if you're
-not using Nix with Home Manager as is.
+for my [NixOS rice](https://github.com/Gwynsav/nix-dots/tree/master/users/common/config). 
+You may still use them as reference but they don't exactly work as is if you're
+not using Nix with Home Manager.
 
 ## Usage
 ### Keybinds
@@ -170,9 +170,9 @@ bar positions, and much more, as well as toggling features.
 | Theming        | -         | -                                                      |
 | `clr_palette`  | `string`  | "catppuccin", "everblush", "everforest", "tokyonight", "gruvbox", "solarized". Does **NOT** have a default. |
 | `icon_pack`    | `string`  | GTK icon pack name. Defaults to **"Papirus"**.                                     |
-| `ui_font`      | `string`  | Name of main UI font. Does **NOT** take size. Defaults to **"Roboto"**.            |
+| `ui_font`      | `string`  | Name of main UI font. Does **NOT** take size. Defaults to **"IBM Plex Sans"**.     |
 | `ic_font`      | `string`  | Name of text icon font. Does **NOT** take size. Defaults to **"Material Icons"**.  |
-| `mn_font`      | `string`  | Name of monospace font. Does **NOT** take size. Defaults to **"Fira Code"**.       |
+| `mn_font`      | `string`  | Name of monospace font. Does **NOT** take size. Defaults to **"IBM Plex Mono"**.   |
 | `user_avatar`  | `string`  | Path to user profile picture. Defaults to **$AWM/themes/assets/user.png"**.        |
 | `user_wall`    | `string`  | Path to user wallpaper. Defaults to **colorscheme default**.                       |
 | `player_bg`    | `string`  | Path to music player background image. Defaults to **colorscheme default**.        |

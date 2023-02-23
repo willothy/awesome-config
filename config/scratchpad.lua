@@ -61,7 +61,10 @@ if terminal == "tym" then
     rule_name = " --role "
 end
 
-local term_scratch = bling.module.scratchpad {
+local scratch = {}
+
+-- Terminal scratchpad
+scratch.terminal = bling.module.scratchpad {
     command     = term_name .. rule_name .. "spad",
     -- The rule that the scratchpad will be searched by
     rule        = terminal == "tym" and { role  = "spad" } 
@@ -81,4 +84,42 @@ local term_scratch = bling.module.scratchpad {
     dont_focus_before_close  = false                      
 }
 
-return term_scratch
+-- Music player scratchpad
+local music_height = dpi(beautiful.resolution * 45)
+local music_width  = dpi(beautiful.resolution * beautiful.aspect_ratio * 33)
+local x_music     = 
+    not beautiful.bar_enabled or beautiful.bar_type == "horizontal" and
+        (beautiful.resolution * beautiful.aspect_ratio * 100 - music_width) / 2 
+    or beautiful.bar_position == "left" and 
+        (beautiful.resolution * beautiful.aspect_ratio * 100 - music_width + bar_dimensions) / 2
+    or beautiful.bar_position == "right" and 
+        (beautiful.resolution * beautiful.aspect_ratio * 100 - music_width - bar_dimensions) / 2
+local y_music     = 
+    not beautiful.bar_enabled or beautiful.bar_type == "vertical" and
+        (beautiful.resolution * 100 - music_height) / 2
+    or beautiful.bar_position == "top" and 
+        (beautiful.resolution * 100 - music_height + bar_dimensions) / 2
+    or beautiful.bar_position == "bottom" and 
+        (beautiful.resolution * 100 - music_height - bar_dimensions) / 2
+
+scratch.music = bling.module.scratchpad {
+    command     = terminal .. term_cmd .. "ncmpcpp" .. rule_name .. "ncmpcpp",
+    -- The rule that the scratchpad will be searched by
+    rule        = terminal == "tym" and { role  = "ncmpcpp" } 
+                  or { class = "ncmpcpp" },
+    autoclose   = true, -- Whether it should hide itself when losing focus
+    floating    = true,
+    sticky      = true,
+    geometry    = { 
+        x      = dpi(x_music), 
+        y      = dpi(y_music), 
+        height = dpi(music_height), 
+        width  = dpi(music_width) 
+    }, 
+    -- Reopening the scratchpad resets geometry properties.
+    reapply     = true,
+    rubato      = { x = anim_x, y = anim_y },
+    dont_focus_before_close  = false                      
+}
+
+return scratch

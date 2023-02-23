@@ -58,14 +58,23 @@ theme.fg_urgent = theme.red
 --------------
 -- General
 ----------
-theme.modkey                  = user.modkey ~= nil     and user.modkey     or "Mod4"
-theme.caps_super              = user.caps_super ~= nil and user.caps_super or false
+theme.modkey                  = user.modkey ~= nil and user.modkey or "Mod4"
+
+theme.caps_super              = false
+if user.caps_super ~= nil then
+   theme.caps_super = user.caps_super
+end
+
 theme.kb_layout1              = user.kb_layout1
 theme.kb_layout2              = user.kb_layout2
 if theme.caps_super and kb_layout1 ~= nil then
     awful.spawn.once('setxkbmap '.. theme.kb_layout1 ..' -option caps:super')
 end
-theme.hover_focus             = user.hover_focus ~= nil and user.hover_focus or false
+
+theme.hover_focus             = false
+if user.hover_focus ~= nil then
+   theme.hover_focus = user.hover_focus
+end
 
 -- Scaling
 ----------
@@ -77,18 +86,29 @@ end
 
 -- Features
 -----------
-theme.battery_enabled         = user.battery ~= nil         and user.battery         or false
+theme.battery_enabled         = false
+if user.battery ~= nil then
+   theme.battery_enabled = user.battery
+end
 theme.battery_name            = user.battery_name ~= nil    and user.battery_name    or "battery_BAT0"
-theme.brightness_enabled      = user.brightness ~= nil      and user.brightness      or false
+
+theme.brightness_enabled      = false
+if user.brightness ~= nil then
+   theme.brightness_enabled = user.brightness
+end
 theme.brightness_name         = user.brightness_name ~= nil and user.brightness_name or "intel_backlight"
-theme.bluetooth_enabled       = user.bluetooth ~= nil       and user.bluetooth       or false
+
+theme.bluetooth_enabled       = false
+if user.bluetooth ~= nil then
+   theme.bluetooth_enabled = user.bluetooth
+end
 
 -- Fonts 
 --------
 -- the space at the end is necessary
-theme.ui_font                 = user.ui_font ~= nil and user.ui_font .. " " or "Roboto "
+theme.ui_font                 = user.ui_font ~= nil and user.ui_font .. " " or "IBM Plex Sans "
 theme.ic_font                 = user.ic_font ~= nil and user.ic_font .. " " or "Material Icons "
-theme.mn_font                 = user.mn_font ~= nil and user.mn_font .. " " or "Fira Code "
+theme.mn_font                 = user.mn_font ~= nil and user.mn_font .. " " or "IBM Plex Mono "
 -- default font
 theme.font                    = theme.ui_font .. "Medium " .. dpi(theme.resolution * 0.92)
 
@@ -103,7 +123,12 @@ theme.outer_gaps              = user.outer_gaps ~= nil and user.outer_gaps * the
 --------------------
 theme.border_radius           = user.border_rad ~= nil and user.border_rad * theme.resolution
                                 or 0.8 * theme.resolution
-theme.rounded_clients         = user.round_client ~= nil and user.round_client or false
+
+theme.rounded_clients         = false
+if user.round_client ~= nil then
+   theme.rounded_clients = user.round_client
+end
+
 theme.border_width            = user.border_size ~= nil and dpi(user.border_size * theme.resolution)
                                 or dpi(0)
 theme.border_width_maximized  = dpi(theme.border_width)
@@ -146,13 +171,21 @@ end
 
 -- Bar
 ------
-theme.bar_enabled             = user.bar_enabled ~= nil and user.bar_enabled or true
-theme.bar_gap                 = user.bar_gap ~= nil     and user.bar_gap     or false
-theme.bar_size                = user.bar_size ~= nil    and user.bar_size * theme.resolution
-                                or (user.bar_type == "vertical" and 4.5 * theme.resolution) 
-                                or 3.825 * theme.resolution
+theme.bar_enabled             = true
+if user.bar_enabled ~= nil then
+   theme.bar_enabled = user.bar_enabled
+end
+
+theme.bar_gap                 = false
+if user.bar_gap ~= nil then
+   theme.bar_gap = user.bar_gap
+end
+
 theme.bar_position            = user.bar_pos ~= nil     and user.bar_pos     or "left"
 theme.bar_type                = (theme.bar_position == "left" or theme.bar_position == "right") and "vertical" or "horizontal"
+theme.bar_size                = user.bar_size ~= nil    and user.bar_size * theme.resolution
+                                or (theme.bar_type == "vertical" and 4.5 * theme.resolution) 
+                                or 3.825 * theme.resolution
 theme.wibar_bg                = theme.bg_normal
 theme.wibar_fg                = theme.fg_normal
 -- tasklist settings
@@ -174,9 +207,19 @@ theme.systray_icon_spacing    = dpi(theme.useless_gap / 2)
 
 -- Titles
 ---------
-theme.titles_enabled          = user.title_enable ~= nil and user.title_enable or true
+theme.titles_enabled          = true
+if user.title_enable ~= nil then
+   theme.titles_enabled = user.title_enable
+end
+
 theme.titles_size             = user.titles_size ~= nil  and user.titles_size * theme.resolution 
                                 or 3 * theme.resolution
+
+theme.titles_inverted         = false
+if user.title_invert ~= nil then
+   theme.titles_inverted = user.title_invert
+end
+
 theme.titles_position         = user.titles_pos ~= nil   and user.titles_pos   or "top"
 theme.titles_orientation      = user.titles_side ~= nil  and user.titles_side  or "start"
 theme.titles_type             = (theme.titles_position == "left" or theme.titles_position == "right") and "vertical" or "horizontal"

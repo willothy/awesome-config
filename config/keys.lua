@@ -10,8 +10,9 @@ local beautiful = require('beautiful')
 
 require('awful.autofocus') -- don't remove this, trust me
 
-term_cmd        = terminal == "wezterm" and " start " or " -e "
-editor_cmd      = terminal .. term_cmd .. editor
+term_cmd        = terminal:match('wezterm') and " start " or " -e "
+editor_cmd      = (editor:match('emacs -nw') or not editor:match('emacs'))
+                  and terminal .. term_cmd .. editor or editor
 files_cmd       = terminal .. term_cmd .. files_cli
 tasks_cmd       = terminal .. term_cmd .. top
 
@@ -55,8 +56,11 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "Return",  function() awful.spawn(terminal) end,
               { description = "Open a terminal",  group = "Programs" }),
     -- Scratchpad terminal
-    awful.key({ modkey, "Control" }, "Return",  function() scratch:toggle() end,
+    awful.key({ modkey, "Control" }, "Return",  function() scratch.terminal:toggle() end,
               { description = "Opens a terminal scratchpad", group = "Programs" }),
+    -- Scratchpad music player
+    awful.key({ modkey, "Control" }, "p",  function() scratch.music:toggle() end,
+              { description = "Opens a music scratchpad", group = "Programs" }),
     -- Editor
     awful.key({ modkey, "Shift"   }, "Return",  function() awful.spawn(editor_cmd) end,
               { description = "Open an editor",   group = "Programs" }),

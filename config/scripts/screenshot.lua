@@ -77,7 +77,7 @@ end
 local function take_screenshot(command)
     local temp_file = "/tmp/ss-" .. os.date("%Y%m%d-%H%M%S") .. ".png"
     awful.spawn.easy_async_with_shell(command .. " " .. temp_file, function()
-        awful.spawn.with_shell("cat " .. temp_file .. " | xclip -se c -t image/png -i")
+        awful.spawn.with_shell("cat " .. temp_file .. " | xclip -selection clip -t image/png -i")
         send_notif(temp_file)
     end)
 end
@@ -89,5 +89,5 @@ end)
 
 -- Selection screenshot
 awesome.connect_signal("screenshot::selection", function()
-    take_screenshot("shotgun $(slop -f '-i %i -g %g')")
+    take_screenshot("shotgun $(hacksaw -f '-i %i -g %g')")
 end)

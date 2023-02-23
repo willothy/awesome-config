@@ -8,12 +8,12 @@
 ---------------
 -- These are mandatory, and therefore cannot be commented or deleted.
 -- Define your default applications, mainly used in 'config/keys.lua'
-terminal     = "alacritty"
-editor       = os.getenv("EDITOR")  or "nvim"
+terminal     = "tym"
+editor       = os.getenv("EDITOR")  or "emacs"
 browser      = os.getenv("BROWSER") or "firefox"
 top          = "htop"
 files_cli    = "lf"
-files_gui    = "thunar"
+files_gui    = "nemo"
 
 -- Options
 ----------
@@ -26,7 +26,7 @@ local user = {}
 --- Use the CapsLock key as an additional super key. Defaults to false.
 -- user.caps_super   = true
 --- Should hovering a client with mouse focus it. Defaults to false.
--- user.hover_focus  = false
+-- user.hover_focus  = true
 --- Keyboard layouts to switch between using `mod + u`. Comment `kb_layout2` 
 --- to disable this behavior. If set, `kb_layout1` will be set as keyboard 
 --- layout on startup.
@@ -76,17 +76,19 @@ local user = {}
 --- System bar size (screen %). Defaults to 4.5.
 -- user.bar_size     = 4.5
 --- Can be 'top', 'bottom', 'right' or 'left'. Defaults to 'left'.
--- user.bar_pos      = "top"
+-- user.bar_pos      = "right"
 --- Adds 'outer_gaps' to the bar. Defaults to false.
 -- user.bar_gap      = false
 
 --- Titles
 --- Toggles titlebars. Defaults to true.
 -- user.title_enable = true
+--- Toggles inverted titlebar layout. Defaults to false.
+-- user.title_invert = true
 --- Titlebars size (screen %). Defaults to 3.
 -- user.titles_size  = 3
 --- Can be 'top', 'bottom', 'right' or 'left'. Defaults to 'top'.
--- user.titles_pos   = "left"
+-- user.titles_pos   = "right"
 
 --- Dashboard
 --- Dashboard size (screen %). Defaults to 75.
@@ -122,22 +124,22 @@ local user = {}
 ---  light:
 ---    'gruvbox', 'solarized'
 --- More themes can be added at `themes/palettes`. DOES NOT have a default.
-user.clr_palette  = "everblush"
+user.clr_palette  = "mar"
 --- GTK icon pack to use, comment for Papirus or name.
 -- user.icon_pack    = "Papirus"
 --- Fonts to be used.
---- Default to 'Roboto', 'Material Icons' and 'Fira Code' respectively.
--- user.ui_font      = "Roboto"
+--- Default to 'IBM Plex Sans', 'Material Icons' and 'IBM Plex Mono' respectively.
+-- user.ui_font      = "IBM Plex Sans"
 -- user.ic_font      = "Material Icons"
--- user.mn_font      = "Fira Code"
+-- user.mn_font      = "IBM Plex Mono"
 
 --- Lua doesn't take '~' for home, use os.getenv('HOME').
 --- Your *amazing* profile picture. Path or comment for default.
--- user.avatar       = os.getenv("HOME") .. "/Pictures/avatars/maka.png"
+-- user.avatar       = os.getenv("HOME") .. "/Pictures/avatars/serasAlt.jpg"
 --- Your wallpaper path. Path, or comment for colorscheme default.
--- user.wall         = os.getenv("HOME") .. "/Pictures/walls/gruvbox/Forest.png"
+-- user.wall         = os.getenv("HOME") .. "/Pictures/walls/urban/LamppostReflection.jpg"
 --- Music player fallback background. Path, or comment for colorscheme default.
--- user.player_bg    = os.getenv("HOME") .. "/Pictures/walls/YOURPLAYER.png"
+-- user.player_bg    = os.getenv("HOME") .. "/Pictures/walls/landscape/Somewhere.png"
 --- AwesomeWM icon to be used (comment for default awesome icon): 
 ---   'arch', 'debian', 'fedora', 'nix', 'ubuntu' or 'void'.
 --- Can also be a path to an image.
@@ -162,6 +164,8 @@ user.clr_palette  = "everblush"
 local awful = require('awful')
 
 -- awful.spawn.once("picom")
+-- awful.spawn.once("mpd")
+-- awful.spawn.once("mpDris2")
 
 -- EOF
 ------

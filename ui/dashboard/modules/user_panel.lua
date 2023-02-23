@@ -14,16 +14,9 @@ local helpers   = require('helpers')
 
 -- User profile
 ---------------
-local avatar  = wibox.widget {
-    widget        = wibox.widget.imagebox,
-    image         = helpers.crop_surface(1, gears.surface.load_uncached(beautiful.user_avatar)),
-    clip_shape    = gears.shape.circle,
-    resize        = true
-}
-
 local greeter = wibox.widget {
     markup = "Welcome, <b>user!</b>",
-    font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.025),
+    font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.021),
     widget = wibox.widget.textbox
 }
 awful.spawn.easy_async_with_shell(
@@ -35,7 +28,7 @@ awful.spawn.easy_async_with_shell(
 
 local uptime = wibox.widget {
     text   = "Uptime unknown...",
-    font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.015),
+    font   = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.013),
     widget = wibox.widget.textbox
 }
 local function get_uptime()
@@ -53,71 +46,81 @@ gears.timer {
 
 -- Battery
 ----------
+local avatar = wibox.widget {
+   {
+      widget        = wibox.widget.imagebox,
+      image         = helpers.crop_surface(1, gears.surface.load_uncached(beautiful.user_avatar)),
+      clip_shape    = gears.shape.circle,
+      resize        = true,
+      horizontal_fit_policy = "fit",
+      vertical_fit_policy   = "fit"
+   },
+   paddings     = dpi(beautiful.dashboard_size * 0.006),
+   thickness    = dpi(beautiful.dashboard_size * 0.004),
+   max_value    = 100,
+   value        = 100,
+   rounded_edge = beautiful.border_radius > 0,
+   colors       = {
+      {
+         type  = "linear",
+         from  = { 0, 0 },
+         to    = { dpi(beautiful.dashboard_size / 10), dpi(beautiful.dashboard_size / 10) },
+         stops = { { 0, beautiful.grn }, { 1, beautiful.grn_d } }
+      }
+   },
+   bg           = beautiful.blk,
+   start_angle  = 3 * math.pi / 2,
+   widget       = wibox.container.arcchart
+}
+
 local bat_bar = wibox.widget {
-    {
-        {
-            id          = 'progressbar_role',
-            color       = beautiful.grn,
-            background_color = beautiful.nbg,
-            max_value   = 100,
-            clip        = true,
-            bar_shape   = helpers.mkroundedrect(),
-            shape       = helpers.mkroundedrect(),
-            forced_height = dpi(beautiful.dashboard_size / 32),
-            forced_width  = dpi(beautiful.dashboard_size / 12),
-            widget      = wibox.widget.progressbar
-        },
-        {
-            {
-                {
-                    id      = 'icon_role',
-                    font    = beautiful.ic_font .. dpi(beautiful.dashboard_size * 0.018),
-                    halign  = "left",
-                    valign  = "center",
-                    widget  = wibox.widget.textbox
-                },
-                fg      = beautiful.nbg,
-                widget  = wibox.container.background
-            },
-            left   = dpi(beautiful.dashboard_size / 128),
-            widget = wibox.container.margin
-        },
-        layout = wibox.layout.stack,
-    },
-    {
-        {
+   {
+      {
+         {
+            id      = 'icon_role',
+            font    = beautiful.ic_font .. dpi(beautiful.dashboard_size * 0.018),
+            halign  = "left",
+            valign  = "center",
+            widget  = wibox.widget.textbox
+         },
+         fg     = beautiful.wht,
+         widget = wibox.container.background
+      },
+      {
+         {
             id      = 'text_role',
             font    = beautiful.ui_font .. dpi(beautiful.dashboard_size * 0.013), 
             widget  = wibox.widget.textbox
-        },
-        fg     = beautiful.wht,
-        widget = wibox.container.background
-    },
-    spacing = dpi(beautiful.dashboard_size / 128),
-    layout  = wibox.layout.fixed.horizontal,
-    set_value  = function(self, val)
-        self:get_children_by_id('progressbar_role')[1].value = val
-    end,
-    set_icon   = function(self, new_icon)
-        self:get_children_by_id('icon_role')[1].text = new_icon
-    end,
-    set_text   = function(self, new_text)
-        self:get_children_by_id('text_role')[1].text = new_text
-    end
+         },
+         fg     = beautiful.wht,
+         widget = wibox.container.background
+      },
+      spacing = dpi(beautiful.dashboard_size / 128),
+      layout  = wibox.layout.fixed.horizontal
+   },
+   left   = dpi(beautiful.dashboard_size / 128),
+   widget = wibox.container.margin,
+   set_icon   = function(self, new_icon)
+       self:get_children_by_id('icon_role')[1].text = new_icon
+   end,
+   set_text   = function(self, new_text)
+       self:get_children_by_id('text_role')[1].text = new_text
+   end
 }
+
 if beautiful.battery_enabled then
     awesome.connect_signal("signal::battery", function(level, state, discharge_t, charge_t, type)
-        bat_bar.value  = level
+        avatar.value = level
         if state ~= 2 then
             bat_bar.icon = ""
             if state ~= 1 then
-                bat_bar.text = "Fully Charged"
+                bat_bar.text     = "Fully Charged"
             else
-                bat_bar.text = charge_t .. " mins"
+                bat_bar.text = charge_t .. " mins to full charge"
             end
         else
             bat_bar.icon = ""
-            bat_bar.text = discharge_t .. " mins"
+            bat_bar.text = discharge_t .. " mins remaining"
         end
     end)
 end
@@ -135,13 +138,13 @@ local function txtbtn(icon, action)
         fg     = beautiful.red,
         widget = wibox.container.background,
         buttons = {
-            awful.button({}, 1, 
-                function() awful.spawn(action) end)
+            awful.button({}, 1, action)
         }
     } 
 end
-local shutdown = txtbtn("", "systemctl poweroff");
-local reboot   = txtbtn("", "systemctl reboot");
+local shutdown = txtbtn("", function() awful.spawn("systemctl poweroff") end);
+local reboot   = txtbtn("", function() awful.spawn("systemctl reboot") end);
+local logoff   = txtbtn("", function() awesome.quit() end);
 
 local function user_profile()
     return wibox.widget {
@@ -197,6 +200,7 @@ local function user_profile()
                     },
                     nil,
                     {
+                        helpers.mkbtn(logoff,   beautiful.lbg, beautiful.gry),
                         helpers.mkbtn(reboot,   beautiful.lbg, beautiful.gry),
                         helpers.mkbtn(shutdown, beautiful.lbg, beautiful.gry),
                         spacing = dpi(beautiful.dashboard_size / 220),

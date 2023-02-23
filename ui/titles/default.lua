@@ -20,7 +20,7 @@ local mkbutton = function (width, color, onclick)
       wibox.widget.textbox(),
       forced_width  = dpi(width),
       forced_height = dpi(beautiful.titles_size),
-      bg            = color,
+      bg            = beautiful.titlebar_bg_normal,
       shape         = helpers.mkroundedrect(beautiful.border_radius * 0.5),
       widget        = wibox.container.background
     }
@@ -28,11 +28,11 @@ local mkbutton = function (width, color, onclick)
     local color_transition = helpers.apply_transition {
       element   = button,
       prop      = 'bg',
-      bg        = color,
+      bg        = beautiful.titlebar_bg_normal,
       hbg       = beautiful.titlebar_fg_normal,
     }
 
-    client.connect_signal("property::active", function ()
+    client.connect_signal("property::active", function()
       if c.active then
         color_transition.off()
       else
@@ -40,7 +40,7 @@ local mkbutton = function (width, color, onclick)
       end
     end)
 
-    button:add_button(awful.button({}, 1, function ()
+    button:add_button(awful.button({}, 1, function()
       if onclick then
         onclick(c)
       end
@@ -56,6 +56,12 @@ end)
 
 local maximize = mkbutton(beautiful.titles_size * 3/4, beautiful.ylw, function(c)
     c.maximized = not c.maximized
+end)
+
+local minimize = mkbutton(beautiful.titles_size * 3/4, beautiful.ylw, function(c)
+    gears.timer.delayed_call(function()
+        c.minimized = not c.minimized
+    end)
 end)
 
 local sticky = mkbutton(beautiful.titles_size * 3/4, beautiful.grn, function(c)
@@ -81,58 +87,38 @@ client.connect_signal("request::titlebars", function(c)
     }
 
     local n_titlebar = awful.titlebar(c, {
-            size        = beautiful.titles_size,
-            position    = beautiful.titles_position,
-        })
+        size     = beautiful.titles_size,
+        position = beautiful.titles_position,
+    })
     n_titlebar.widget = {
         {
-            { -- Left
-                {
-                    {
-                      close(c),
-                      direction = beautiful.titles_type == "vertical" and "east" or "north",
-                      widget    = wibox.container.rotate
-                    },
-                    {
-                      maximize(c),
-                      direction = beautiful.titles_type == "vertical" and "east" or "north",
-                      widget    = wibox.container.rotate
-                    },
-                    {
-                      sticky(c),
-                      direction = beautiful.titles_type == "vertical" and "east" or "north",
-                      widget    = wibox.container.rotate
-                    },
+            {
+                { -- Start
+                    close(c),
+                    maximize(c),
+                    minimize(c),
                     spacing = dpi(beautiful.titles_size / 4),
-                    layout  = beautiful.titles_type == "horizontal"
-                              and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
+                    layout  = wibox.layout.fixed.horizontal
                 },
-
-                top     = beautiful.titles_type == "horizontal"
-                          and dpi(beautiful.titles_size / 6) or dpi(beautiful.titles_size / 6),
-                bottom  = beautiful.titles_type == "horizontal" 
-                          and dpi(beautiful.titles_size / 6) or dpi(beautiful.titles_size / 4),
-                left    = beautiful.titles_type == "horizontal" 
-                          and dpi(beautiful.titles_size / 6) or dpi(beautiful.titles_size / 6),
-                right   = beautiful.titles_type == "horizontal" 
-                          and dpi(beautiful.titles_size / 4) or dpi(beautiful.titles_size / 6),
-                widget = wibox.container.margin
+                { -- Middle
+                    buttons = buttons,
+                    layout  = wibox.layout.fixed.horizontal
+                },
+                { -- End
+                    sticky(c),
+                    spacing = dpi(beautiful.titles_size / 4),
+                    layout  = wibox.layout.fixed.horizontal
+                },
+                spacing = dpi(beautiful.titles_size / 4),
+                layout  = wibox.layout.align.horizontal
             },
-            { -- Middle
-                buttons = buttons,
-                layout  = beautiful.titles_type == "horizontal"
-                          and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
-            },
-            { -- Right
-                buttons = buttons,
-                layout  = beautiful.titles_type == "horizontal"
-                          and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
-            },
-            spacing = dpi(beautiful.titles_size / 4),
-            layout  = beautiful.titles_type == "horizontal"
-                      and wibox.layout.align.horizontal or wibox.layout.align.vertical
+            direction = (beautiful.titles_inverted and beautiful.titles_type == "vertical")     and "west"  or
+                        (not beautiful.titles_inverted and beautiful.titles_type == "vertical") and "east"  or
+                        (beautiful.titles_inverted and beautiful.titles_type == "horizontal")   and "south" or
+                        "north",
+            widget    = wibox.container.rotate
         },
-        margins = dpi(beautiful.titles_size / 5),
+        margins = dpi(beautiful.titles_size / 2.85),
         widget  = wibox.container.margin
     }
 end)

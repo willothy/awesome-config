@@ -34,17 +34,22 @@ local function makeslider(base_icon, color, input)
                 },
                 {
                     {
-                        id                  = 'slider_role',
-                        bar_shape           = helpers.mkroundedrect(),
-                        bar_height          = dpi(beautiful.dashboard_size / 172),
-                        bar_color           = beautiful.blk,
-                        bar_active_color    = color,
-                        handle_color        = color,
-                        handle_shape        = gears.shape.circle,
-                        handle_width        = dpi(beautiful.dashboard_size / 64),
-                        minimum             = 0,
-                        maximum             = 100,
-                        widget              = wibox.widget.slider
+                        {
+                            id                  = 'slider_role',
+                            bar_shape           = helpers.mkroundedrect(),
+                            bar_height          = dpi(beautiful.dashboard_size / 172),
+                            bar_color           = beautiful.blk,
+                            bar_active_color    = color,
+                            handle_color        = color,
+                            handle_shape        = helpers.mkroundedrect(),
+                            handle_width        = dpi(beautiful.dashboard_size / 64),
+                            minimum             = 0,
+                            maximum             = 100,
+                            widget              = wibox.widget.slider
+                        },
+                        top    = dpi(beautiful.dashboard_size / 96),
+                        bottom = dpi(beautiful.dashboard_size / 96),
+                        widget = wibox.container.margin
                     },
                     direction = "east",
                     widget    = wibox.container.rotate
