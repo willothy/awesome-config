@@ -14,8 +14,8 @@ local helpers   = require('helpers')
 
 -- Widgets
 ----------
-local function makeslider(base_icon, color, input)
-    return wibox.widget {
+local function makeslider(base_icon, color, input, min)
+    local widget = wibox.widget {
         {
             {
                 {
@@ -26,7 +26,8 @@ local function makeslider(base_icon, color, input)
                         align   = "center",
                         widget  = wibox.widget.textbox
                     },
-                    fg      = color,
+                    id      = 'fg_role',
+                    fg      = beautiful.wht,
                     widget  = wibox.container.background,
                     buttons = {
                         awful.button({}, 1, input)
@@ -39,11 +40,11 @@ local function makeslider(base_icon, color, input)
                             bar_shape           = helpers.mkroundedrect(),
                             bar_height          = dpi(beautiful.dashboard_size / 172),
                             bar_color           = beautiful.blk,
-                            bar_active_color    = color,
-                            handle_color        = color,
+                            bar_active_color    = beautiful.wht,
+                            handle_color        = beautiful.wht,
                             handle_shape        = helpers.mkroundedrect(),
                             handle_width        = dpi(beautiful.dashboard_size / 64),
-                            minimum             = 0,
+                            minimum             = min,
                             maximum             = 100,
                             widget              = wibox.widget.slider
                         },
@@ -69,6 +70,9 @@ local function makeslider(base_icon, color, input)
         get_slider = function(self)
             return self:get_children_by_id('slider_role')[1]
         end,
+        get_stt_ic = function(self)
+            return self:get_children_by_id('fg_role')[1]
+        end,
         set_value  = function(self, val)
             self.slider.value = val
         end,
@@ -76,11 +80,22 @@ local function makeslider(base_icon, color, input)
             self:get_children_by_id('icon_role')[1].text = new_icon
         end
     }
+    widget:connect_signal("mouse::enter", function()
+        widget.slider.bar_active_color = color
+        widget.slider.handle_color     = color
+        widget.stt_ic.fg               = color
+    end)
+    widget:connect_signal("mouse::leave", function()
+        widget.slider.bar_active_color = beautiful.wht
+        widget.slider.handle_color     = beautiful.wht
+        widget.stt_ic.fg               = beautiful.wht
+    end)
+    return widget
 end
 
 -- Volume
 ---------
-local volumebar = makeslider("", beautiful.blu, function() awesome.emit_signal("volume::mute") end)
+local volumebar = makeslider("", beautiful.blu, function() awesome.emit_signal("volume::mute") end, 0)
 awesome.connect_signal("signal::volume", function(volume, muted)
     volumebar.value = volume
     volumebar.icon  = muted and "" or ""
@@ -91,7 +106,7 @@ end)
 
 -- Microphone
 -------------
-local mic        = makeslider("", beautiful.mag, function() awesome.emit_signal("microphone::mute") end)
+local mic        = makeslider("", beautiful.mag, function() awesome.emit_signal("microphone::mute") end, 0)
 awesome.connect_signal("signal::microphone", function(mic_level, mic_muted)
     mic.value = mic_level
     mic.icon = mic_muted and "" or ""
@@ -102,7 +117,7 @@ end)
 
 -- Brightness
 -------------
-local brightbar = makeslider("", beautiful.ylw, nil)
+local brightbar = makeslider("", beautiful.ylw, nil, 5)
 if beautiful.brightness_enabled then
     awesome.connect_signal("signal::brightness", function(brightness)
         brightbar.value = brightness

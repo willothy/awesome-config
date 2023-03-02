@@ -120,9 +120,9 @@ local user = {}
 ----------
 --- Supported themes:
 ---  dark:
----    'catppuccin', 'everblush', 'everforest', 'tokyonight' 
+---    'everblush', 'everforest', 'tokyonight', 'mar' 
 ---  light:
----    'gruvbox', 'solarized'
+---    'gruvbox', 'solarized', 'plata'
 --- More themes can be added at `themes/palettes`. DOES NOT have a default.
 user.clr_palette  = "mar"
 --- GTK icon pack to use, comment for Papirus or name.

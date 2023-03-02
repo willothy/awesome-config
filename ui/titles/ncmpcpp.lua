@@ -78,18 +78,15 @@ local function ctrlbtn(icon, run)
     local ctrl_button = wibox.widget {
         {
             {
-                {
-                    id     = "text_role",
-                    text   = icon,
-                    font   = beautiful.ic_font .. dpi(beautiful.resolution * 1.3),
-                    widget = wibox.widget.textbox
-                },
-                fg     = beautiful.nfg,
-                widget = wibox.container.background
+                id     = "text_role",
+                text   = icon,
+                font   = beautiful.ic_font .. dpi(beautiful.resolution * 1.3),
+                widget = wibox.widget.textbox
             },
             margins = dpi(0.4 * beautiful.resolution),
             widget  = wibox.container.margin
         },
+        fg      = beautiful.nfg,
         bg      = beautiful.titlebar_bg_focus,
         shape   = helpers.mkroundedrect(),
         widget  = wibox.container.background,

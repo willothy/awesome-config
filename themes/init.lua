@@ -197,8 +197,8 @@ theme.tasklist_bg_normal         = theme.bg_normal
 theme.tasklist_bg_focus          = theme.blk
 theme.tasklist_bg_urgent         = theme.fg_urgent
 -- taglist settings
-theme.taglist_bg_focus           = theme.ylw
-theme.taglist_bg_occupied        = theme.ylw_d
+theme.taglist_bg_focus           = theme.cya_d
+theme.taglist_bg_occupied        = theme.wht
 theme.taglist_bg_empty           = theme.gry
 theme.taglist_bg_urgent          = theme.fg_urgent
 -- systray

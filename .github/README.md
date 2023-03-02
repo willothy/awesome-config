@@ -1,5 +1,12 @@
-# Welcome, stranger!
+> **Warning!**
+It is not uncommon for me to commit broken code. Also I don't guarantee this setup to be stable
+or the slightest bit safe for use. You have been warned.
 
+## TODO:
+- Finish ncmpcpp UI.
+- Maybe implement an lgi interface for NetworkManager and Bluez.
+
+# Welcome, stranger!
 <img align="right" width="50%" src="./laptop_screenshot.png">
 <img align="right" width="50%" src="./desktop_screenshot.png">
 
@@ -21,11 +28,10 @@ a few variables in the `userconf.lua` file.
 - [Pipewire](https://github.com/PipeWire/pipewire) and
 [Wireplumber](https://github.com/PipeWire/wireplumber) (audio signals)
 - [shotgun](https://github.com/neXromancers/shotgun),
-[slop](https://github.com/naelstrof/slop),
+[hacksaw](https://github.com/neXromancers/hacksaw),
 [xclip](https://github.com/astrand/xclip) (screenshots)
 - [IBM Plex](https://github.com/IBM/plex) and
 [Material Icons](https://github.com/google/material-design-icons)
-
 
 ### Optional (toggleable)
 - [brightnessctl](https://github.com/Hummer12007/brightnessctl) (brightness signals)

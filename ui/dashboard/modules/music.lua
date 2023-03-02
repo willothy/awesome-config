@@ -50,8 +50,8 @@ local sng_album  = sng_info(0.016, beautiful.dfg,       "On <i>Unknown</i>")
 local is_prog_hovered = false
 local sng_progress = wibox.widget {
     bar_color        = beautiful.lbg,
-    bar_active_color = beautiful.cya,
-    handle_color     = beautiful.cya,
+    bar_active_color = beautiful.gry,
+    handle_color     = beautiful.gry,
     handle_shape     = helpers.mkroundedrect(),
     bar_shape        = helpers.mkroundedrect(),
     handle_width     = dpi(beautiful.dashboard_size * 0.0125),
@@ -61,13 +61,17 @@ local sng_progress = wibox.widget {
 }
 sng_progress:connect_signal('mouse::enter', function()
     is_prog_hovered = true
+    sng_progress.bar_active_color = beautiful.cya
+    sng_progress.handle_color     = beautiful.cya
 end)
 sng_progress:connect_signal('mouse::leave', function()
     is_prog_hovered = false
+    sng_progress.bar_active_color = beautiful.gry
+    sng_progress.handle_color     = beautiful.gry
 end)
 sng_progress:connect_signal('property::value', function(_, value)
     if is_prog_hovered then
-        playerctl:set_position(value)
+       playerctl:set_position(value)
     end
 end)
 
@@ -84,6 +88,7 @@ local function mk_ctrl(icon, run)
             margins = dpi(0.4 * beautiful.resolution),
             widget  = wibox.container.margin
         },
+        fg      = beautiful.nfg,
         bg      = beautiful.lbg,
         shape   = helpers.mkroundedrect(),
         widget  = wibox.container.background,
@@ -116,8 +121,8 @@ local vol_bar = wibox.widget {
                 id                  = 'slider_role',
                 bar_shape           = helpers.mkroundedrect(),
                 bar_color           = beautiful.blk,
-                bar_active_color    = beautiful.grn,
-                handle_color        = beautiful.grn,
+                bar_active_color    = beautiful.wht,
+                handle_color        = beautiful.wht,
                 handle_shape        = helpers.mkroundedrect(),
                 minimum             = 0,
                 maximum             = 100,
@@ -147,9 +152,13 @@ vol_bar.slider:connect_signal('property::value', function(_, value)
 end)
 vol_bar:connect_signal('mouse::enter', function()
     is_vol_hovered = true
+    vol_bar.slider.bar_active_color = beautiful.grn
+    vol_bar.slider.handle_color     = beautiful.grn
 end)
 vol_bar:connect_signal('mouse::leave', function()
     is_vol_hovered = false
+    vol_bar.slider.bar_active_color = beautiful.wht
+    vol_bar.slider.handle_color     = beautiful.wht
 end)
 
 -- Signals

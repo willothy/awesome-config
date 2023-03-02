@@ -1,7 +1,7 @@
 -----------------------
 -- screenshot script --
 -----------------------
--- Uses shotgun, slop, cat and xclip. I was gonna use awful.screenshot
+-- Uses shotgun, hacksaw and xclip. I was gonna use awful.screenshot
 -- but I ended up giving up because it's buggy as hell. Shotgun is also
 -- fast as actual fuck.
 
@@ -77,7 +77,7 @@ end
 local function take_screenshot(command)
     local temp_file = "/tmp/ss-" .. os.date("%Y%m%d-%H%M%S") .. ".png"
     awful.spawn.easy_async_with_shell(command .. " " .. temp_file, function()
-        awful.spawn.with_shell("cat " .. temp_file .. " | xclip -selection clip -t image/png -i")
+        awful.spawn.with_shell("xclip -selection clip -t image/png -i " .. temp_file)
         send_notif(temp_file)
     end)
 end
