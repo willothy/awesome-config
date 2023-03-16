@@ -3,11 +3,11 @@
 local clrs = {}
     clrs.dbg   = "#101619"
     clrs.nbg   = "#141b1e"
-    clrs.lbg   = "#1b2226"
-    clrs.blk   = "#232a2d"
+    clrs.lbg   = "#1d2528"
+    clrs.blk   = "#252e31"
     clrs.gry   = "#3b4244"
-    clrs.wht   = "#97a09e"
-    clrs.dfg   = "#bdc3c2"
+    clrs.wht   = "#616769"
+    clrs.dfg   = "#9ea1a1"
     clrs.nfg   = "#dadada"
 
     clrs.red   = "#ef7d7d"

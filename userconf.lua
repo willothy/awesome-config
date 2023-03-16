@@ -40,14 +40,14 @@ local user = {}
 --- believe it follows the `battery_XXXX` pattern where XXXX is
 --- the `/sys/class/power_supply/` device name, e.g. BAT0/BAT1.
 --- Battery defaults to false and name to "battery_BAT0".
--- user.battery      = false
+-- user.battery      = true
 -- user.battery_name = "battery_BAT0"
 
 --- Enable/disable brightness metrics and specify device to be used.
 --- The device name is found in `/sys/class/backlight/`. Common examples
 --- are "intel_backlight" and "amdgpu_bl0" for integrated graphics.
 --- Brightness defaults to false and name to "intel_backlight".
--- user.brightness      = false
+-- user.brightness      = true
 -- user.brightness_name = "intel_backlight"
 
 --- Enable/disable bluetooth metrics. No need to specify device name.
@@ -112,7 +112,7 @@ local user = {}
 --- Size of borders used on windows and some widgets (screen %). Defaults to 0.
 -- user.border_size  = 0.2 -- 2 pixel border on 1080p
 --- Radius of borders used on windows and some widgets. Defaults to 0.8.
--- user.border_rad   = 0
+user.border_rad   = 0
 --- Should clients/windows be rounded using `border_rad`. Defaults to false.
 -- user.round_client = false
 
@@ -124,7 +124,7 @@ local user = {}
 ---  light:
 ---    'gruvbox', 'solarized', 'plata'
 --- More themes can be added at `themes/palettes`. DOES NOT have a default.
-user.clr_palette  = "mar"
+user.clr_palette  = "everblush"
 --- GTK icon pack to use, comment for Papirus or name.
 -- user.icon_pack    = "Papirus"
 --- Fonts to be used.
@@ -137,13 +137,13 @@ user.clr_palette  = "mar"
 --- Your *amazing* profile picture. Path or comment for default.
 -- user.avatar       = os.getenv("HOME") .. "/Pictures/avatars/serasAlt.jpg"
 --- Your wallpaper path. Path, or comment for colorscheme default.
--- user.wall         = os.getenv("HOME") .. "/Pictures/walls/urban/LamppostReflection.jpg"
+-- user.wall         = os.getenv("HOME") .. "/Pictures/walls/everblush/Smily.jpg"
 --- Music player fallback background. Path, or comment for colorscheme default.
 -- user.player_bg    = os.getenv("HOME") .. "/Pictures/walls/landscape/Somewhere.png"
 --- AwesomeWM icon to be used (comment for default awesome icon): 
 ---   'arch', 'debian', 'fedora', 'nix', 'ubuntu' or 'void'.
 --- Can also be a path to an image.
--- user.awm_icon     = "nix"
+-- user.awm_icon     = "debian"
 
 -- Miscelaneous
 ---------------
