@@ -7,38 +7,44 @@
 
 -- Imports
 ----------
-pcall(require, 'luarocks.loader')
+pcall(require, "luarocks.loader")
 
 -- Error Handling
 -----------------
 -- Leaving this as the first in your config guarantees all errors will produce
 -- a traceback notification.
-local naughty   = require('naughty')
+local naughty = require("naughty")
 naughty.connect_signal("request::display_error", function(message, startup)
-    naughty.notification {
-        urgency = "critical",
-        title   = "Oops, an error happened"..(startup and " during startup!" or "!"),
-        message = message
-    }
+	naughty.notification({
+		urgency = "critical",
+		title = "Oops, an error happened" .. (startup and " during startup!" or "!"),
+		message = message,
+	})
 end)
+
+local awful = require("awful")
+awful.spawn.with_shell("~/.config/awesome/screens.sh")
 
 -- Files
 --------
--- Contains general user configuration. 
+-- Contains general user configuration.
 -- I recommend checking this out FIRST.
-require('userconf')
+require("userconf")
 -- Loads the theming configuration.
-require('beautiful').init(
-    require('gears.filesystem').get_configuration_dir() .. "themes/init.lua")
+require("beautiful").init(require("gears.filesystem").get_configuration_dir() .. "themes/init.lua")
 -- Contains custom managed signals.
-require('signals')
+require("signals")
 -- Contains the window manager configuration, like keybinds and rules.
-require('config')
+require("config")
 -- Contains the UI configuration.
-require('ui')
+require("ui")
+
+awful.spawn.with_shell("~/.config/awesome/screens.sh")
+awful.spawn.with_shell("picom --config ~/.config/awesome/picom.conf")
+awful.spawn.with_shell("nitrogen --restore")
 
 -- Garbage Collection
 ---------------------
 -- Utilize lua garbage cleanup, helps with resource usage.
-collectgarbage('setpause',   110)
-collectgarbage('setstepmul', 1000)
+collectgarbage("setpause", 110)
+collectgarbage("setstepmul", 1000)
