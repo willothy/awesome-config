@@ -1,9 +1,6 @@
------------------
--- ui settings --
------------------
-
-require('ui.notification')
-require('ui.menu')
-require('ui.bar')
-require('ui.titles')
-require('ui.dashboard')
+require "ui.wallpaper"
+require "ui.bar"
+require "ui.titlebar"
+require 'ui.tag_preview'
+require 'ui.task_preview'
+require 'ui.notifications'
