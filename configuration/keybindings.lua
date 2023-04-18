@@ -1,4 +1,5 @@
 local awful = require("awful")
+local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
 local function set_keybindings()
@@ -11,6 +12,48 @@ local function set_keybindings()
 		awful.key({ modkey }, "r", function()
 			awful.spawn("rofi -show drun")
 		end, { description = "Open rofi", group = "launcher" }),
+	})
+
+	local with_volume = function(f)
+		awful.spawn.easy_async_with_shell([[bash -c "amixer -D pulse sget Master"]], function(stdout)
+			local volume = string.match(stdout, "(%d?%d?%d)%%")
+			f(volume)
+		end)
+	end
+
+	-- media binds
+	awful.keyboard.append_global_keybindings({
+		awful.key({}, "XF86AudioRaiseVolume", function()
+			-- awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")
+			awesome.emit_signal("widget::volume::show")
+			with_volume(function(vol)
+				vol = math.max(0, vol + 5)
+				awful.spawn.easy_async("amixer -D pulse sset Master " .. vol .. "%", function()
+					awesome.emit_signal("widget::volume")
+				end)
+			end)
+		end, { description = "Raise volume", group = "media" }),
+		awful.key({}, "XF86AudioLowerVolume", function()
+			awesome.emit_signal("widget::volume::show")
+			with_volume(function(vol)
+				vol = math.max(0, vol - 5)
+				awful.spawn.easy_async("amixer -D pulse sset Master " .. vol .. "%", function()
+					awesome.emit_signal("widget::volume")
+				end)
+			end)
+		end, { description = "Lower volume", group = "media" }),
+		awful.key({}, "XF86AudioMute", function()
+			awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
+		end, { description = "Mute volume", group = "media" }),
+		awful.key({}, "XF86AudioPlay", function()
+			awful.spawn("playerctl play-pause")
+		end, { description = "Play/pause", group = "media" }),
+		awful.key({}, "XF86AudioNext", function()
+			awful.spawn("playerctl next")
+		end, { description = "Next", group = "media" }),
+		awful.key({}, "XF86AudioPrev", function()
+			awful.spawn("playerctl previous")
+		end, { description = "Previous", group = "media" }),
 	})
 
 	-- Tags related keybindings

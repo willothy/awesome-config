@@ -64,9 +64,10 @@ volume_slider:connect_signal("property::value", function()
 	local volume_level = volume_slider:get_value()
 
 	spawn("amixer -D pulse sset Master " .. volume_level .. "%", false)
+	-- awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ " .. volume_level .. "%")
 
 	-- Update volume osd
-	awesome.emit_signal("module::volume_osd", volume_level)
+	-- awesome.emit_signal("module::volume_osd", volume_level)
 end)
 
 volume_slider:buttons(gears.table.join(
@@ -150,12 +151,66 @@ local popup = awful.popup({
 		y = 5,
 		x = -5,
 	},
+	-- placement = awful.placement.top_right,
 	widget = volume_setting,
 	shape = helpers.mkroundedrect(50),
 })
 
-popup:connect_signal("mouse::leave", function()
+local with_volume = function(f)
+	awful.spawn.easy_async_with_shell([[bash -c "amixer -D pulse sget Master"]], function(stdout)
+		local volume = string.match(stdout, "(%d?%d?%d)%%")
+		f(volume)
+	end)
+end
+
+local t = gears.timer({
+	timeout = 2,
+	autostart = false,
+	single_shot = true,
+	callback = function()
+		with_volume(function(vol)
+			popup.visible = false
+			return false
+		end)
+	end,
+})
+
+awesome.connect_signal("widget::volume::toggle", function()
+	popup:move_next_to(screen.primary.geometry)
+	popup.visible = not popup.visible
+end)
+
+awesome.connect_signal("widget::volume::show", function(click)
+	t:again()
+	if click then
+		popup.offset = {
+			y = 5,
+			x = -5,
+		}
+		popup:move_next_to(mouse.current_widget_geometry)
+	else
+		popup.offset = {
+			y = 48,
+			x = -15,
+		}
+		popup:move_next_to(screen.primary.geometry)
+	end
+	popup.visible = true
+	-- t:start()
+	-- popup:move_next_to(mouse.current_widget_geometry)
+end)
+
+awesome.connect_signal("widget::volume::hide", function()
 	popup.visible = false
+end)
+
+popup:connect_signal("mouse::enter", function()
+	t:stop()
+end)
+
+popup:connect_signal("mouse::leave", function()
+	t:again()
+	-- popup.visible = false
 end)
 
 return popup

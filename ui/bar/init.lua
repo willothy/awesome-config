@@ -192,6 +192,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
 	powerbutton:add_button(awful.button({}, 1, function()
 		if power_popup.visible then
+			power_popup:move_next_to(mouse.current_widget_geometry)
 			power_popup.visible = not power_popup.visible
 		else
 			power_popup:move_next_to(mouse.current_widget_geometry)
@@ -209,9 +210,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
 	volumebutton:add_button(awful.button({}, 1, function()
 		if volume_popup.visible then
-			volume_popup.visible = not volume_popup.visible
+			-- volume_popup.visible = not volume_popup.visible
+			awesome.emit_signal("widget::volume::hide")
 		else
-			volume_popup:move_next_to(mouse.current_widget_geometry)
+			awesome.emit_signal("widget::volume::show", true)
+			-- volume_popup:move_next_to(mouse.current_widget_geometry)
 		end
 	end))
 
