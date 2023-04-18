@@ -100,7 +100,7 @@ theme.bg_contrast = "#0f111a"
 theme.bg_lighter = "#11131c"
 
 -- elements bg
-theme.bg_focus = theme.bg_normal
+theme.bg_focus = theme.dimblack
 theme.bg_urgent = theme.red
 theme.bg_minimize = theme.bg_normal
 theme.bg_systray = theme.bg_normal
@@ -226,8 +226,11 @@ theme.layout_cornerse = gears.color.recolor_image(themes_path .. "default/layout
 theme.launcher_icon = gears.color.recolor_image(icons_path .. "launcher.svg", theme.blue)
 theme.menu_icon = gears.color.recolor_image(icons_path .. "menu.svg", theme.fg_normal)
 theme.hints_icon = gears.color.recolor_image(icons_path .. "hints.svg", theme.blue)
-theme.powerbutton_icon = gears.color.recolor_image(icons_path .. "poweroff.svg", theme.red)
-theme.poweroff_icon = icons_path .. "poweroff.svg"
+
+theme.powerbutton_icon = gears.color.recolor_image(icons_path .. "power.svg", theme.fg_normal)
+theme.poweroff_icon = gears.color.recolor_image(icons_path .. "power.svg", theme.red)
+theme.reboot_icon = gears.color.recolor_image(icons_path .. "reboot.svg", theme.yellow)
+theme.logout_icon = gears.color.recolor_image(icons_path .. "logout2.svg", theme.blue)
 
 theme.volume_on = gears.color.recolor_image(icons_path .. "volume-on.svg", theme.fg_normal)
 theme.volume_muted = gears.color.recolor_image(icons_path .. "volume-muted.svg", theme.fg_normal)

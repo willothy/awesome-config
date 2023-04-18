@@ -8,6 +8,9 @@ local dpi = beautiful.xresources.apply_dpi
 
 require("ui.powermenu")
 
+local power_popup = require("ui.bar.power_menu")
+local volume_popup = require("ui.bar.volume")
+
 screen.connect_signal("request::desktop_decoration", function(s)
 	awful.tag({ "1", "2", "3", "4", "5", "6" }, s, awful.layout.layouts[1])
 
@@ -36,8 +39,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	}, beautiful.black, beautiful.dimblack)
 
 	settings_button:add_button(awful.button({}, 1, function()
-		require("ui.dashboard")
-		awesome.emit_signal("dashboard::toggle")
+		-- do something
 	end))
 
 	local tasklist = awful.widget.tasklist({
@@ -189,7 +191,28 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	}, beautiful.black, beautiful.dimblack)
 
 	powerbutton:add_button(awful.button({}, 1, function()
-		awesome.emit_signal("powermenu::toggle")
+		if power_popup.visible then
+			power_popup.visible = not power_popup.visible
+		else
+			power_popup:move_next_to(mouse.current_widget_geometry)
+		end
+	end))
+
+	local volumebutton = helpers.mkbtn({
+		image = beautiful.volume_on,
+		forced_height = dpi(16),
+		forced_width = dpi(16),
+		halign = "center",
+		valign = "center",
+		widget = wibox.widget.imagebox,
+	}, beautiful.black, beautiful.dimblack)
+
+	volumebutton:add_button(awful.button({}, 1, function()
+		if volume_popup.visible then
+			volume_popup.visible = not volume_popup.visible
+		else
+			volume_popup:move_next_to(mouse.current_widget_geometry)
+		end
 	end))
 
 	local function mkcontainer(template)
@@ -232,6 +255,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				mkcontainer({
 					date,
 					layoutbox,
+					volumebutton,
 					powerbutton,
 					spacing = dpi(8),
 					layout = wibox.layout.fixed.horizontal,
