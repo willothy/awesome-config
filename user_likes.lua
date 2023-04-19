@@ -2,10 +2,10 @@ local menubar = require("menubar")
 
 terminal = "wezterm"
 explorer = "nautilus"
-browser = "chromium"
+browser = "brave"
 launcher = "rofi -show drun"
-editor = os.getenv("EDITOR") or "vim"
-visual_editor = os.getenv("EDITOR") or "vim"
+editor = os.getenv("EDITOR") or "nvim"
+visual_editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4" -- super, the windows key
 

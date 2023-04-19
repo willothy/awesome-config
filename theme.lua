@@ -72,7 +72,7 @@ end
 theme.font_name = "Product Sans"
 theme.nerd_font = "Iosevka NF"
 theme.material_icons = "Material Icons"
-theme.font_size = "10"
+theme.font_size = "12"
 theme.font = theme.font_name .. " " .. theme.font_size
 
 -- base colors

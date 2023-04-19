@@ -9,10 +9,10 @@ local wh_power_menu = {
 	{
 		name = "Logout",
 		icon = beautiful.logout_icon,
-		command = "awesome-client 'awesome.emit_signal(\"exit_screen::show\")'",
+		fn = awesome.quit,
 	},
-	{ name = "Reboot", icon = beautiful.reboot_icon, command = "reboot" },
-	{ name = "Shutdown", icon = beautiful.poweroff_icon, command = "shutdown now" },
+	{ name = "Reboot", icon = beautiful.reboot_icon, cmd = "reboot" },
+	{ name = "Shutdown", icon = beautiful.poweroff_icon, cmd = "shutdown" },
 }
 
 local popup = awful.popup({
@@ -60,6 +60,14 @@ for _, item in ipairs(wh_power_menu) do
 		right = 6,
 		widget = wibox.container.margin,
 	})
+	row:buttons(awful.util.table.join(awful.button({}, 1, function()
+		popup.visible = not popup.visible
+		if item.cmd then
+			awful.spawn.with_shell(item.cmd)
+		elseif item.fn then
+			item.fn()
+		end
+	end)))
 	row:connect_signal("mouse::enter", function(c)
 		c.widget:set_bg(beautiful.bg_focus)
 		-- c.bg = beautiful.bg_focus

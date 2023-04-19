@@ -74,7 +74,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			end),
 		},
 		style = {
-			shape = gears.shape.rounded_rect,
+			shape = helpers.mkroundedrect(),
 		},
 		layout = {
 			spacing = dpi(5),
