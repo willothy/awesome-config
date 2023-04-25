@@ -86,26 +86,6 @@ local function set_keybindings()
 		end, { description = "Swap the client to the right", group = "client" }),
 	})
 
-	-- Focus related keybindings
-	awful.keyboard.append_global_keybindings({
-		awful.key({ modkey, "Control" }, "j", function()
-			awful.screen.focus_relative(1)
-		end, { description = "focus the next screen", group = "screen" }),
-		awful.key({ modkey, "Control" }, "k", function()
-			awful.screen.focus_relative(-1)
-		end, { description = "focus the previous screen", group = "screen" }),
-	})
-
-	-- Layout related keybindings
-	awful.keyboard.append_global_keybindings({
-		awful.key({ modkey }, "Tab", function()
-			awful.layout.inc(1)
-		end, { description = "select next", group = "layout" }),
-		awful.key({ modkey, "Shift" }, "Tab", function()
-			awful.layout.inc(-1)
-		end, { description = "select previous", group = "layout" }),
-	})
-
 	-- Number keybinds
 
 	awful.keyboard.append_global_keybindings({
@@ -150,20 +130,6 @@ local function set_keybindings()
 			end,
 		}),
 		awful.key({
-			modifiers = { modkey, "Control", "Shift" },
-			keygroup = "numrow",
-			description = "toggle focused client on tag",
-			group = "tag",
-			on_press = function(index)
-				if client.focus then
-					local tag = client.focus.screen.tags[index]
-					if tag then
-						client.focus:toggle_tag(tag)
-					end
-				end
-			end,
-		}),
-		awful.key({
 			modifiers = { modkey },
 			keygroup = "numpad",
 			description = "select layout directly",
@@ -177,9 +143,39 @@ local function set_keybindings()
 		}),
 	})
 
+	-- Focus related keybindings
+	awful.keyboard.append_global_keybindings({
+		awful.key({ modkey, "Control" }, "j", function()
+			awful.screen.focus_relative(1)
+		end, { description = "focus the next screen", group = "screen" }),
+		awful.key({ modkey, "Control" }, "k", function()
+			awful.screen.focus_relative(-1)
+		end, { description = "focus the previous screen", group = "screen" }),
+	})
+
+	-- Layout related keybindings
+	awful.keyboard.append_global_keybindings({
+		-- awful.key({ modkey }, "Tab", function()
+		-- 	awful.layout.inc(1)
+		-- end, { description = "select next", group = "layout" }),
+		-- awful.key({ modkey, "Shift" }, "Tab", function()
+		-- 	awful.layout.inc(-1)
+		-- end, { description = "select previous", group = "layout" }),
+		-- Cycle
+		awful.key({ modkey }, "Tab", function()
+			local next = awful.client.next(1)
+			next:raise()
+		end, { description = "select next", group = "layout" }),
+		awful.key({ modkey, "Shift" }, "Tab", function()
+			local next = awful.client.next(-1)
+			next:raise()
+		end, { description = "select next", group = "layout" }),
+	})
+
 	-- @DOC_CLIENT_KEYBINDINGS@
 	client.connect_signal("request::default_keybindings", function()
 		awful.keyboard.append_client_keybindings({
+
 			awful.key({ modkey }, "f", function(c)
 				c.fullscreen = not c.fullscreen
 				c:raise()
