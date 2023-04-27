@@ -8,6 +8,10 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 client.connect_signal("request::titlebars", function(c)
+	if c.instance == "spad" then
+		return
+	end
+
 	local titlebar = awful.titlebar(c, {
 		position = "top",
 		size = 28,

@@ -1,6 +1,7 @@
 local awful = require("awful")
 local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local term = require("term")
 
 local function set_keybindings()
 	awful.keyboard.append_global_keybindings({
@@ -12,6 +13,9 @@ local function set_keybindings()
 		awful.key({ modkey }, "r", function()
 			awful.spawn("rofi -show drun")
 		end, { description = "Open rofi", group = "launcher" }),
+		awful.key({ modkey }, "KP_Enter", function()
+			term:toggle()
+		end, { description = "dropdown terminal", group = "launcher" }),
 	})
 
 	local with_volume = function(f)
