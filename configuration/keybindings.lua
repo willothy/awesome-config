@@ -14,7 +14,7 @@ local function set_keybindings()
 			awful.spawn("rofi -show drun")
 		end, { description = "Open rofi", group = "launcher" }),
 		awful.key({ modkey }, "KP_Enter", function()
-			term:toggle()
+			term.toggle()
 		end, { description = "dropdown terminal", group = "launcher" }),
 	})
 
@@ -151,9 +151,11 @@ local function set_keybindings()
 	awful.keyboard.append_global_keybindings({
 		awful.key({ modkey, "Control" }, "j", function()
 			awful.screen.focus_relative(1)
+			-- awful.focus.byidx(1)
 		end, { description = "focus the next screen", group = "screen" }),
 		awful.key({ modkey, "Control" }, "k", function()
 			awful.screen.focus_relative(-1)
+			-- awful.focus.byidx(-1)
 		end, { description = "focus the previous screen", group = "screen" }),
 	})
 
@@ -167,12 +169,14 @@ local function set_keybindings()
 		-- end, { description = "select previous", group = "layout" }),
 		-- Cycle
 		awful.key({ modkey }, "Tab", function()
-			local next = awful.client.next(1)
-			next:raise()
+			-- local next = awful.client.next(1)
+			-- next:raise()
+			awful.client.focus.byidx(1)
 		end, { description = "select next", group = "layout" }),
 		awful.key({ modkey, "Shift" }, "Tab", function()
-			local next = awful.client.next(-1)
-			next:raise()
+			-- local next = awful.client.next(-1)
+			-- next:raise()
+			awful.client.focus.byidx(-1)
 		end, { description = "select next", group = "layout" }),
 	})
 
@@ -190,10 +194,10 @@ local function set_keybindings()
 				awful.client.floating.toggle,
 				{ description = "toggle floating", group = "client" }
 			),
-			awful.key({ modkey }, "`", function(c)
-				awful.client.focus.byidx(1)
-				-- c:lower()
-			end),
+			-- awful.key({ modkey }, "`", function(c)
+			-- 	awful.client.focus.byidx(1)
+			-- 	-- c:lower()
+			-- end),
 			awful.key({ modkey }, "Left", function(c)
 				-- todo
 				c:relative_move(0, 0, -10, 0)

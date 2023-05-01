@@ -111,6 +111,9 @@ theme.fg_focus = theme.fg_normal
 theme.fg_urgent = theme.fg_normal
 theme.fg_minimize = theme.fg_normal
 
+-- hotkeys
+theme.hotkeys_modifiers_fg = theme.fg_normal
+
 -- some actions bg colors
 theme.actions = {
 	bg = theme.bg_normal,
@@ -175,7 +178,7 @@ theme.titlebar_close_button_focus = gears.color.recolor_image(titlebar_assets_pa
 theme.titlebar_close_button_focus_hover =
 	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red_dark)
 
--- maximized
+-- maximize
 theme.titlebar_maximized_button_normal_active =
 	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
 theme.titlebar_maximized_button_normal_inactive =
