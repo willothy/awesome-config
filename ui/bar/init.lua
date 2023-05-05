@@ -229,11 +229,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			bottom = 2,
 			right = 10,
 			forced_width = dpi(250),
-			forced_height = dpi(100),
+			forced_height = dpi(50),
 			widget = wibox.container.margin,
 		},
 		forced_width = dpi(250),
-		forced_height = dpi(100),
+		forced_height = dpi(50),
 		widget = wibox.container.background,
 		shape_clip = true,
 	})
@@ -242,10 +242,13 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		ontop = true,
 		visible = false,
 		shape = helpers.mkroundedrect(),
-		offset = { y = 8, x = -8 },
+		offset = (s.index == screen.primary.index) and { y = 8, x = -2305 } or { y = 8, x = -1670 },
+		bg = beautiful.bg_normal .. "af",
 		widget = systray_widget,
-		shape_clip = true,
 	})
+	systray:connect_signal("mouse::leave", function()
+		systray.visible = false
+	end)
 
 	local systray_button = helpers.mkbtn({
 		image = beautiful.menu_icon,
@@ -291,7 +294,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			{
 				{
 					mkcontainer({
-						launcher,
+						-- launcher,
+						systray_button,
 						taglist,
 						-- settings_button,
 						spacing = dpi(12),
@@ -305,9 +309,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			{
 				mkcontainer({
 					is_primary and date or nil,
-					systray_button,
+					-- systray_button,
 					layoutbox,
-					volumebutton,
+					is_primary and volumebutton or nil,
 					is_primary and powerbutton or nil,
 					spacing = dpi(8),
 					layout = wibox.layout.fixed.horizontal,

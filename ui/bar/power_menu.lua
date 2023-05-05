@@ -11,8 +11,8 @@ local wh_power_menu = {
 		icon = beautiful.logout_icon,
 		fn = awesome.quit,
 	},
-	{ name = "Reboot", icon = beautiful.reboot_icon, cmd = "reboot" },
-	{ name = "Shutdown", icon = beautiful.poweroff_icon, cmd = "shutdown" },
+	{ name = "Reboot", icon = beautiful.reboot_icon, cmd = "sudo reboot" },
+	{ name = "Shutdown", icon = beautiful.poweroff_icon, cmd = "sudo shutdown now" },
 }
 
 local popup = awful.popup({
@@ -21,6 +21,7 @@ local popup = awful.popup({
 	shape = helpers.mkroundedrect(),
 	-- maximum_width = 300,
 	offset = { y = 5 },
+	bg = beautiful.bg_normal .. "af",
 	widget = {},
 })
 local rows = { layout = wibox.layout.fixed.vertical }
@@ -50,7 +51,7 @@ for _, item in ipairs(wh_power_menu) do
 				bottom = 8,
 				widget = wibox.container.margin,
 			},
-			bg = beautiful.bg_normal,
+			bg = beautiful.bg_normal .. "5f",
 			shape = helpers.mkroundedrect(),
 			widget = wibox.container.background,
 		},
@@ -69,11 +70,11 @@ for _, item in ipairs(wh_power_menu) do
 		end
 	end)))
 	row:connect_signal("mouse::enter", function(c)
-		c.widget:set_bg(beautiful.bg_focus)
+		c.widget:set_bg(beautiful.bg_focus .. "5f")
 		-- c.bg = beautiful.bg_focus
 	end)
 	row:connect_signal("mouse::leave", function(c)
-		c.widget:set_bg(beautiful.bg_normal)
+		c.widget:set_bg(beautiful.bg_normal .. "5f")
 		-- c.bg = beautiful.bg_normal
 	end)
 	table.insert(rows, row)
