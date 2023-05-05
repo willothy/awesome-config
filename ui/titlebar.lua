@@ -57,6 +57,33 @@ client.connect_signal("request::titlebars", function(c)
 		})
 	end
 
+	-- local left_dummy_bar = awful.titlebar(c, {
+	-- 	position = "left",
+	-- 	size = 0,
+	-- 	bg_focus = beautiful.dark_blue,
+	-- 	bg_normal = beautiful.dark_blue,
+	-- })
+	-- left_dummy_bar:setup({
+	-- 	layout = wibox.layout.fixed.vertical,
+	-- })
+	-- local right_dummy_bar = awful.titlebar(c, {
+	-- 	position = "right",
+	-- 	size = 0,
+	-- 	bg_focus = beautiful.dark_blue,
+	-- 	bg_normal = beautiful.dark_blue,
+	-- })
+	-- right_dummy_bar:setup({
+	-- 	layout = wibox.layout.fixed.vertical,
+	-- })
+	-- local bottom_dummy_bar = awful.titlebar(c, {
+	-- 	position = "bottom",
+	-- 	size = 0,
+	-- 	bg_focus = beautiful.dark_blue,
+	-- 	bg_normal = beautiful.dark_blue,
+	-- })
+	-- bottom_dummy_bar:setup({
+	-- 	layout = wibox.layout.fixed.horizontal,
+	-- })
 	titlebar:setup({
 		{
 			padded_button(awful.titlebar.widget.closebutton(c), {

@@ -218,6 +218,52 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		end
 	end))
 
+	-- beautiful.bg_systray = "#ff0000"
+	-- beautiful.systray_icon_spacing = 10
+
+	local systray_widget = wibox.widget({
+		{
+			wibox.widget.systray,
+			left = 10,
+			top = 2,
+			bottom = 2,
+			right = 10,
+			forced_width = dpi(250),
+			forced_height = dpi(100),
+			widget = wibox.container.margin,
+		},
+		forced_width = dpi(250),
+		forced_height = dpi(100),
+		widget = wibox.container.background,
+		shape_clip = true,
+	})
+
+	local systray = awful.popup({
+		ontop = true,
+		visible = false,
+		shape = helpers.mkroundedrect(),
+		offset = { y = 8, x = -8 },
+		widget = systray_widget,
+		shape_clip = true,
+	})
+
+	local systray_button = helpers.mkbtn({
+		image = beautiful.menu_icon,
+		forced_height = dpi(16),
+		forced_width = dpi(16),
+		halign = "center",
+		valign = "center",
+		widget = wibox.widget.imagebox,
+	}, beautiful.black, beautiful.dimblack)
+
+	systray_button:add_button(awful.button({}, 1, function()
+		if systray.visible then
+			systray.visible = not systray.visible
+		else
+			systray:move_next_to(mouse.current_widget_geometry)
+		end
+	end))
+
 	local function mkcontainer(template)
 		return wibox.widget({
 			template,
@@ -237,6 +283,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		shape = gears.shape.rectangle,
 	})
 
+	local is_primary = s.index == screen.primary.index
+
 	s.mywibox:setup({
 		{
 			layout = wibox.layout.align.horizontal,
@@ -245,7 +293,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 					mkcontainer({
 						launcher,
 						taglist,
-						settings_button,
+						-- settings_button,
 						spacing = dpi(12),
 						layout = wibox.layout.fixed.horizontal,
 					}),
@@ -256,10 +304,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			nil,
 			{
 				mkcontainer({
-					date,
+					is_primary and date or nil,
+					systray_button,
 					layoutbox,
 					volumebutton,
-					powerbutton,
+					is_primary and powerbutton or nil,
 					spacing = dpi(8),
 					layout = wibox.layout.fixed.horizontal,
 				}),

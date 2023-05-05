@@ -30,9 +30,9 @@ local action_level = wibox.widget({
 		widget = clickable_container,
 	},
 	bg = beautiful.groups_bg,
-	shape = function(cr, width, height)
+	shape = helpers.mkroundedrect(),--[[ function(cr, width, height)
 		gears.shape.rounded_rect(cr, width, height, beautiful.groups_radius)
-	end,
+	end ]]
 	widget = wibox.container.background,
 })
 
@@ -40,15 +40,14 @@ local slider = wibox.widget({
 	nil,
 	{
 		id = "volume_slider",
-		bar_shape = gears.shape.rounded_rect,
+		bar_shape = helpers.mkroundedrect(),
 		bar_height = dpi(24),
 		bar_color = "#ffffff20",
 		bar_active_color = "#f2f2f2EE",
 		handle_color = "#ffffff",
 		handle_shape = gears.shape.circle,
 		handle_width = dpi(24),
-		handle_border_color = "#00000012",
-		handle_border_width = dpi(1),
+		shape_clip = true,
 		maximum = 100,
 		widget = wibox.widget.slider,
 	},
@@ -154,6 +153,7 @@ local popup = awful.popup({
 	-- placement = awful.placement.top_right,
 	widget = volume_setting,
 	shape = helpers.mkroundedrect(50),
+	shape_clip = true,
 })
 
 local with_volume = function(f)
@@ -164,7 +164,7 @@ local with_volume = function(f)
 end
 
 local t = gears.timer({
-	timeout = 2,
+	timeout = 1,
 	autostart = false,
 	single_shot = true,
 	callback = function()
@@ -176,24 +176,38 @@ local t = gears.timer({
 })
 
 awesome.connect_signal("widget::volume::toggle", function()
+	popup.offset = {
+		y = 48,
+		x = -15,
+	}
 	popup:move_next_to(screen.primary.geometry)
 	popup.visible = not popup.visible
 end)
 
+local set = false
 awesome.connect_signal("widget::volume::show", function(click)
-	t:again()
-	if click then
-		popup.offset = {
-			y = 5,
-			x = -5,
-		}
-		popup:move_next_to(mouse.current_widget_geometry)
+	-- popup.screen = screen.primary
+	if t.started then
+		t:stop()
+		t:again()
 	else
+		if click and not set then
+			popup.offset = {
+				y = 9,
+				x = -15,
+			}
+			popup:move_next_to(mouse.current_widget_geometry)
+			set = true
+		end
+		t:start()
+	end
+	if set == false then
 		popup.offset = {
 			y = 48,
 			x = -15,
 		}
 		popup:move_next_to(screen.primary.geometry)
+		set = true
 	end
 	popup.visible = true
 	-- t:start()

@@ -7,7 +7,7 @@ function exe () {
     fi
 }
 
+exe $HOME/.config/awesome/screens.sh
 exe picom --config=./picom/picom.conf -b
-exe $HOME/.config/awesome/scripts/redshift.sh restore
 
 xrdb merge $HOME/.Xresources
