@@ -7,7 +7,6 @@ function exe () {
     fi
 }
 
-exe $HOME/.config/awesome/screens.sh
 exe picom --config=./picom/picom.conf -b
 
 xrdb merge $HOME/.Xresources
