@@ -286,8 +286,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		shape = gears.shape.rectangle,
 	})
 
-	local is_primary = s.index == screen.primary.index
-
 	s.mywibox:setup({
 		{
 			layout = wibox.layout.align.horizontal,
@@ -308,11 +306,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			nil,
 			{
 				mkcontainer({
-					is_primary and date or nil,
+					s.index == screen.primary.index and date or nil,
 					-- systray_button,
 					layoutbox,
-					is_primary and volumebutton or nil,
-					is_primary and powerbutton or nil,
+					s.index == screen.primary.index and volumebutton or nil,
+					s.index == screen.primary.index and powerbutton or nil,
 					spacing = dpi(8),
 					layout = wibox.layout.fixed.horizontal,
 				}),

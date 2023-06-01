@@ -11,8 +11,20 @@ local wh_power_menu = {
 		icon = beautiful.logout_icon,
 		fn = awesome.quit,
 	},
-	{ name = "Reboot", icon = beautiful.reboot_icon, cmd = "sudo reboot" },
-	{ name = "Shutdown", icon = beautiful.poweroff_icon, cmd = "sudo shutdown now" },
+	{
+		name = "Reboot",
+		icon = beautiful.reboot_icon,
+		fn = function()
+			awful.spawn("sudo /sbin/shutdown -r now")
+		end,
+	},
+	{
+		name = "Shutdown",
+		icon = beautiful.poweroff_icon,
+		fn = function()
+			awesome.quit()
+		end,
+	},
 }
 
 local popup = awful.popup({
