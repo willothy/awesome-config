@@ -26,11 +26,24 @@ function helpers.add_hover(element, bg, hbg)
 	end)
 end
 
+local rounded_corner_shape = function(radius, position)
+	if position == "bottom" then
+		return function(cr, width, height)
+			gears.shape.partially_rounded_rect(cr, width, height, false, false, true, true, radius)
+		end
+	elseif position == "top" then
+		return function(cr, width, height)
+			gears.shape.partially_rounded_rect(cr, width, height, true, true, false, false, radius)
+		end
+	end
+	return nil
+end
+
 -- create a rounded rect using a custom radius
 function helpers.mkroundedrect(radius)
 	radius = radius or dpi(5)
 	return function(cr, w, h)
-		return gears.shape.rounded_rect(cr, w, h, radius)
+		return gears.shape.partially_rounded_rect(cr, w, h, true, true, true, true, radius)
 	end
 end
 

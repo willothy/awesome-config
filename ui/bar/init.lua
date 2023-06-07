@@ -44,7 +44,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
 	local tasklist = awful.widget.tasklist({
 		screen = s,
-		filter = awful.widget.tasklist.filter.allscreen,
+		filter = awful.widget.tasklist.filter.currenttags,
 		-- sort clients by tags
 		source = function()
 			local ret = {}
@@ -83,19 +83,15 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		widget_template = {
 			{
 				{
-					{
-						id = "icon_role",
-						widget = wibox.widget.imagebox,
-					},
-					margins = 2,
-					widget = wibox.container.margin,
+					id = "icon_role",
+					widget = wibox.widget.imagebox,
 				},
 				margins = dpi(4),
 				widget = wibox.container.margin,
 			},
 			id = "background_role",
 			widget = wibox.container.background,
-			create_callback = function(self, c, _, _)
+			create_callback = function(self, c, idx, clients)
 				self:connect_signal("mouse::enter", function()
 					awesome.emit_signal("bling::task_preview::visibility", s, true, c)
 				end)

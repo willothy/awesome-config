@@ -16,6 +16,9 @@ local function set_keybindings()
 		awful.key({ modkey }, "KP_Enter", function()
 			term.toggle()
 		end, { description = "dropdown terminal", group = "launcher" }),
+		awful.key({ "Mod1" }, "Tab", function()
+			awesome.emit_signal("bling::window_switcher::turn_on")
+		end, { description = "Window Switcher", group = "bling" }),
 	})
 
 	local with_volume = function(f)
