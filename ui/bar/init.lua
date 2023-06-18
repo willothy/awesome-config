@@ -238,7 +238,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		ontop = true,
 		visible = false,
 		shape = helpers.mkroundedrect(),
-		offset = (s.index == screen.primary.index) and { y = 8, x = -2305 } or { y = 8, x = -1670 },
+		offset = { y = 8, x = -1920 + 258 },
 		bg = beautiful.bg_normal .. "af",
 		widget = systray_widget,
 	})

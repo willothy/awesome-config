@@ -164,12 +164,12 @@ local function set_keybindings()
 
 	-- Layout related keybindings
 	awful.keyboard.append_global_keybindings({
-		-- awful.key({ modkey }, "Tab", function()
-		-- 	awful.layout.inc(1)
-		-- end, { description = "select next", group = "layout" }),
-		-- awful.key({ modkey, "Shift" }, "Tab", function()
-		-- 	awful.layout.inc(-1)
-		-- end, { description = "select previous", group = "layout" }),
+		awful.key({ modkey }, "`", function()
+			awful.layout.inc(1)
+		end, { description = "select next", group = "layout" }),
+		awful.key({ modkey, "Shift" }, "`", function()
+			awful.layout.inc(-1)
+		end, { description = "select previous", group = "layout" }),
 		-- Cycle
 		awful.key({ modkey }, "Tab", function()
 			-- local next = awful.client.next(1)

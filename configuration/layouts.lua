@@ -50,6 +50,7 @@ local function set_layouts()
 		awful.layout.append_default_layouts({
 			-- bling.layout.deck,
 			-- bling.layout.mstab,
+			awful.layout.suit.tile,
 			deck(0.1),
 			awful.layout.suit.tile.left,
 			awful.layout.suit.tile.right,
@@ -57,7 +58,6 @@ local function set_layouts()
 			awful.layout.suit.floating,
 			awful.layout.suit.tile.top,
 			awful.layout.suit.tile.bottom,
-			awful.layout.suit.tile,
 			awful.layout.suit.max, -- numpad 0
 		})
 	end)

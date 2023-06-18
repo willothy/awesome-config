@@ -9,3 +9,4 @@ local picom_cfg = conf .. "assets/picom/picom.conf"
 awful.spawn("picom --config " .. picom_cfg .. " -b")
 
 awful.spawn("nm-applet")
+awful.spawn.with_shell("lxpolkit")
