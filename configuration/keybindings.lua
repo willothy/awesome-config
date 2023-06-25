@@ -61,6 +61,12 @@ local function set_keybindings()
 		awful.key({}, "XF86AudioPrev", function()
 			awful.spawn("playerctl previous")
 		end, { description = "Previous", group = "media" }),
+		awful.key({}, "XF86MonBrightnessUp", function()
+			awful.spawn("brightnessctl -d intel_backlight set +5%")
+		end, { description = "Brightness up" }),
+		awful.key({}, "XF86MonBrightnessDown", function()
+			awful.spawn("brightnessctl -d intel_backlight set 5%-")
+		end, { description = "Brightness down" }),
 	})
 
 	-- Tags related keybindings
