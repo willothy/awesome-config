@@ -5,6 +5,9 @@ local gfs = require("gears.filesystem")
 
 local conf = gfs.get_configuration_dir()
 
+local screens = conf .. "screens.sh"
+awful.spawn.with_shell(screens)
+
 local picom_cfg = conf .. "assets/picom/picom.conf"
 awful.spawn("picom --config " .. picom_cfg .. " -b")
 
