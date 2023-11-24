@@ -5,8 +5,8 @@ local gfs = require("gears.filesystem")
 
 local conf = gfs.get_configuration_dir()
 
--- local screens = conf .. "screens.sh"
--- awful.spawn.with_shell(screens)
+local screens = conf .. "screens.sh"
+awful.spawn.with_shell(screens)
 
 awful.spawn("picom")
 
