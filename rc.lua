@@ -7,9 +7,9 @@ terminal = "wezterm"
 explorer = "nautilus"
 browser = "brave"
 launcher = "rofi -show drun"
-editor = os.getenv("EDITOR") or "nvim"
-visual_editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " -e " .. editor
+editor = "nvim"
+visual_editor = "nvim"
+editor_cmd = "wezterm start nvim"
 modkey = "Mod4" -- super, the windows key
 
 -- Set the terminal for applications that require it

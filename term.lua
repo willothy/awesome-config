@@ -1,21 +1,10 @@
 local bling = require("bling")
-local awful = require("awful")
-local gears = require("gears")
 local rubato = require("rubato") -- Totally optional, only required if you are using animations.
 
 -- These are example rubato tables. You can use one for just y, just x, or both.
 -- The duration and easing is up to you. Please check out the rubato docs to learn more.
 local anim_y = rubato.timed({
 	pos = -400,
-	rate = 60,
-	easing = rubato.quadratic,
-	intro = 0.1,
-	duration = 0.3,
-	awestore_compat = true, -- This option must be set to true.
-})
-
-local anim_x = rubato.timed({
-	pos = 0,
 	rate = 60,
 	easing = rubato.quadratic,
 	intro = 0.1,
@@ -35,23 +24,35 @@ local term_scratch = bling.module.scratchpad({
 	rubato = { y = anim_y }, -- Optional. This is how you can pass in the rubato tables for animations. If you don't want animations, you can ignore this option.
 })
 
-local M = {}
+-- Override the default behavior of the scratchpad to center it on the primary screen instead
+-- of the focused one.
+function term_scratch:apply(c)
+	if not c or not c.valid then
+		return
+	end
+	c.floating = self.floating
+	c.sticky = self.sticky
+	c.fullscreen = false
+	c.maximized = false
+	c:geometry({
+		x = self.geometry.x + screen.primary.geometry.x,
+		y = self.geometry.y + screen.primary.geometry.y,
+		width = self.geometry.width,
+		height = self.geometry.height,
+	})
 
--- term_scratch:connect_signal("turn_off", function()
--- 	open = false
--- end)
+	if self.autoclose then
+		c:connect_signal("unfocus", function(c1)
+			c1.sticky = false -- client won't turn off if sticky
+			bling.helpers.client.turn_off(c1)
+		end)
+	end
+end
+
+local M = {}
 
 M.toggle = function()
 	term_scratch:toggle()
-	-- if open == true then
-	-- 	-- awful.client.focus.history.previous()
-	-- 	open = false
-	-- else
-	-- 	-- awful.client.focus.history.add(awful.client.focus)
-	-- 	term_scratch:turn_on()
-	-- 	open = true
-	-- end
-	-- -- awful.client.focus.byidx(1)
 end
 
 return M

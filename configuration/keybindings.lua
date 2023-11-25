@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch, missing-parameter
 local awful = require("awful")
 local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup")
@@ -31,7 +32,6 @@ local function set_keybindings()
 	-- media binds
 	awful.keyboard.append_global_keybindings({
 		awful.key({}, "XF86AudioRaiseVolume", function()
-			-- awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")
 			awesome.emit_signal("widget::volume::show")
 			with_volume(function(vol)
 				vol = math.max(0, vol + 5)

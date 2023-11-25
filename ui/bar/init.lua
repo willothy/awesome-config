@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-global
+---@diagnostic disable: undefined-global, missing-parameter, param-type-mismatch
 local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
@@ -14,33 +14,8 @@ local volume_popup = require("ui.bar.volume")
 screen.connect_signal("request::desktop_decoration", function(s)
 	awful.tag({ "1", "2", "3", "4", "5", "6" }, s, awful.layout.layouts[1])
 
-	local launcher = helpers.mkbtn({
-		image = beautiful.launcher_icon,
-		forced_height = dpi(16),
-		forced_width = dpi(16),
-		halign = "center",
-		valign = "center",
-		widget = wibox.widget.imagebox,
-	}, beautiful.black, beautiful.dimblack)
-
-	launcher:add_button(awful.button({}, 1, function()
-		awful.spawn("rofi -show drun")
-	end))
-
 	local get_tags = require("ui.bar.tags")
 	local taglist = get_tags(s)
-
-	local settings_button = helpers.mkbtn({
-		widget = wibox.widget.imagebox,
-		image = beautiful.menu_icon,
-		forced_height = dpi(16),
-		forced_width = dpi(16),
-		halign = "center",
-	}, beautiful.black, beautiful.dimblack)
-
-	settings_button:add_button(awful.button({}, 1, function()
-		-- do something
-	end))
 
 	local tasklist = awful.widget.tasklist({
 		screen = s,
@@ -206,16 +181,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
 	volumebutton:add_button(awful.button({}, 1, function()
 		if volume_popup.visible then
-			-- volume_popup.visible = not volume_popup.visible
 			awesome.emit_signal("widget::volume::hide")
 		else
 			awesome.emit_signal("widget::volume::show", true)
-			-- volume_popup:move_next_to(mouse.current_widget_geometry)
 		end
 	end))
-
-	-- beautiful.bg_systray = "#ff0000"
-	-- beautiful.systray_icon_spacing = 10
 
 	local systray_widget = wibox.widget({
 		{
@@ -231,6 +201,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		forced_width = dpi(250),
 		forced_height = dpi(50),
 		widget = wibox.container.background,
+		valign = "left",
 		shape_clip = true,
 	})
 
@@ -238,7 +209,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		ontop = true,
 		visible = false,
 		shape = helpers.mkroundedrect(),
-		offset = { y = 8, x = -1920 + 258 },
 		bg = beautiful.bg_normal .. "af",
 		widget = systray_widget,
 	})
@@ -259,6 +229,14 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		if systray.visible then
 			systray.visible = not systray.visible
 		else
+			if not systray.offset then
+				systray.offset = {
+					y = 8,
+					x = dpi(258) - awful.screen.focused().geometry.width,
+				}
+			else
+				systray.offset.x = dpi(258) - awful.screen.focused().geometry.width
+			end
 			systray:move_next_to(mouse.current_widget_geometry)
 		end
 	end))
@@ -288,10 +266,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			{
 				{
 					mkcontainer({
-						-- launcher,
 						systray_button,
 						taglist,
-						-- settings_button,
 						spacing = dpi(12),
 						layout = wibox.layout.fixed.horizontal,
 					}),
@@ -303,7 +279,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			{
 				mkcontainer({
 					s.index == screen.primary.index and date or nil,
-					-- systray_button,
 					layoutbox,
 					s.index == screen.primary.index and volumebutton or nil,
 					s.index == screen.primary.index and powerbutton or nil,
