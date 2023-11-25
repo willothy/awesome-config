@@ -11,4 +11,4 @@ awful.spawn.with_shell(screens)
 awful.spawn("picom")
 
 awful.spawn("nm-applet")
-awful.spawn.with_shell("lxpolkit")
+awful.spawn.with_shell("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
