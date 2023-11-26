@@ -14,14 +14,14 @@ local power_menu = {
 		name = "Reboot",
 		icon = beautiful.reboot_icon,
 		fn = function()
-			awful.spawn("sudo /sbin/shutdown -r now")
+			awful.spawn("systemctl reboot")
 		end,
 	},
 	{
 		name = "Shutdown",
 		icon = beautiful.poweroff_icon,
 		fn = function()
-			awesome.quit()
+			awful.spawn("systemctl poweroff")
 		end,
 	},
 }
