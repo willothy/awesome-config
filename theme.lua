@@ -56,18 +56,6 @@ local titlebar_assets_path = assets_path .. "titlebar/"
 
 local theme = {}
 
-local function clamp(component)
-	return math.min(math.max(component, 0), 255)
-end
-
-local function brightness_mod(col, amt)
-	local num = tonumber(col, 16)
-	local r = math.floor(num / 0x10000) + amt
-	local g = (math.floor(num / 0x100) % 0x100) + amt
-	local b = (num % 0x100) + amt
-	return string.format("%#x", clamp(r) * 0x10000 + clamp(g) * 0x100 + clamp(b))
-end
-
 -- fonts
 theme.font_name = "Product Sans"
 theme.nerd_font = "Iosevka NF"
@@ -80,6 +68,7 @@ theme.black = "#151720"
 theme.dimblack = "#1a1c25"
 theme.light_black = "#262831"
 theme.grey = "#666891"
+theme.grey_light = "#686868"
 theme.red = "#dd6777"
 theme.red_dark = "#de495d"
 theme.yellow = "#ecd3a0"
@@ -167,7 +156,7 @@ theme.normal_tag_format = assets_path .. "taglist/screen-full-svgrepo-com.svg"
 theme.occupied_tag_format = theme.normal_tag_format
 theme.selected_tag_format = assets_path .. "taglist/screen-normal-svgrepo-com.svg"
 theme.taglist_fg_focus = theme.yellow
-theme.taglist_fg = theme.dimblack
+theme.taglist_fg = theme.grey_light
 theme.taglist_fg_occupied = theme.blue
 
 -- systray
@@ -178,7 +167,7 @@ theme.tray_chevron_down = gears.color.recolor_image(assets_path .. "tray/down.sv
 
 -- menu
 theme.menu_font = theme.font
-theme.menu_submenu_icon = gears.color.recolor_image(shapes_path .. "triangle.png", theme.fg_normal)
+theme.menu_submenu_icon = gears.color.recolor_image(assets_path .. "tray/down.svg", theme.fg_normal)
 theme.menu_height = dpi(40)
 theme.menu_width = dpi(180)
 theme.menu_bg_focus = theme.bg_lighter

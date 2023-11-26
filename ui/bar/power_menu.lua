@@ -3,9 +3,8 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
 local helpers = require("helpers")
-local dpi = beautiful.xresources.apply_dpi
 
-local wh_power_menu = {
+local power_menu = {
 	{
 		name = "Logout",
 		icon = beautiful.logout_icon,
@@ -31,13 +30,12 @@ local popup = awful.popup({
 	ontop = true,
 	visible = false,
 	shape = helpers.mkroundedrect(),
-	-- maximum_width = 300,
 	offset = { y = 5 },
 	bg = beautiful.bg_normal .. "af",
 	widget = {},
 })
 local rows = { layout = wibox.layout.fixed.vertical }
-for _, item in ipairs(wh_power_menu) do
+for _, item in ipairs(power_menu) do
 	local row = wibox.widget({
 		{
 			{
@@ -48,16 +46,22 @@ for _, item in ipairs(wh_power_menu) do
 						forced_width = 16,
 						forced_height = 16,
 						widget = wibox.widget.imagebox,
+						valign = "center",
 					},
 					{
-						text = item.name,
-						markup = "<b>" .. item.name .. "</b>",
-						widget = wibox.widget.textbox,
+						{
+							text = item.name,
+							markup = "<b>" .. item.name .. "</b>",
+							widget = wibox.widget.textbox,
+							valign = "center",
+						},
+						bottom = 2,
+						widget = wibox.container.margin,
 					},
 					spacing = 12,
 					layout = wibox.layout.fixed.horizontal,
 				},
-				left = 16,
+				left = 12,
 				right = 16,
 				top = 8,
 				bottom = 8,
@@ -87,7 +91,6 @@ for _, item in ipairs(wh_power_menu) do
 	end)
 	row:connect_signal("mouse::leave", function(c)
 		c.widget:set_bg(beautiful.bg_normal .. "5f")
-		-- c.bg = beautiful.bg_normal
 	end)
 	table.insert(rows, row)
 end

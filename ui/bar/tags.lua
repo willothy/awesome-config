@@ -4,7 +4,6 @@ local helpers = require("helpers")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
-local dpi = beautiful.xresources.apply_dpi
 
 local function enable_tag_preview(self, c3)
 	self:connect_signal("mouse::enter", function()
@@ -14,7 +13,9 @@ local function enable_tag_preview(self, c3)
 		end
 		self.bg = beautiful.dimblack
 		if #c3:clients() > 0 then
+			---@diagnostic disable-next-line: param-type-mismatch
 			awesome.emit_signal("bling::tag_preview::update", c3)
+			---@diagnostic disable-next-line: param-type-mismatch
 			awesome.emit_signal("bling::tag_preview::visibility", s, true)
 		end
 	end)
@@ -22,6 +23,7 @@ local function enable_tag_preview(self, c3)
 		if self.has_backup then
 			self.bg = self.backup
 		end
+		---@diagnostic disable-next-line: param-type-mismatch
 		awesome.emit_signal("bling::tag_preview::visibility", s, false)
 	end)
 end
@@ -42,7 +44,7 @@ local function update_tags(self, index, s)
 	if found then
 		markup_role.image = gears.color.recolor_image(beautiful.selected_tag_format, beautiful.taglist_fg_focus)
 	else
-		markup_role.image = gears.color.recolor_image(beautiful.normal_tag_format, "#686868") --beautiful.taglist_fg)
+		markup_role.image = gears.color.recolor_image(beautiful.normal_tag_format, beautiful.taglist_fg)
 		for _, c in ipairs(client.get(s)) do
 			for _, t in ipairs(c:tags()) do
 				if t.index == index then
@@ -78,15 +80,15 @@ local function get_taglist(s)
 		},
 		widget_template = {
 			{
-				margins = dpi(6),
+				margins = 6,
 				widget = wibox.container.margin,
 				{
 					id = "markup_role",
 					image = nil,
 					valign = "center",
 					halign = "center",
-					forced_height = dpi(16),
-					forced_width = dpi(16),
+					forced_height = 16,
+					forced_width = 16,
 					widget = wibox.widget.imagebox,
 				},
 			},
@@ -99,8 +101,6 @@ local function get_taglist(s)
 			create_callback = function(self, c3, index)
 				enable_tag_preview(self, c3)
 				update_tags(self, index, s)
-				-- local markup_role = self:get_children_by_id("markup_role")[1]
-				-- markup_role.image = gears.color.recolor_image(beautiful.occupied_tag_format, "#ffffff")
 			end,
 		},
 	})

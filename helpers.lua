@@ -4,7 +4,6 @@ local gears = require("gears")
 local wibox = require("wibox")
 local awful = require("awful")
 local beautiful = require("beautiful")
-local dpi = beautiful.xresources.apply_dpi
 
 local helpers = {}
 
@@ -41,7 +40,7 @@ end
 
 -- create a rounded rect using a custom radius
 function helpers.mkroundedrect(radius)
-	radius = radius or dpi(5)
+	radius = radius or 5
 	return function(cr, w, h)
 		return gears.shape.partially_rounded_rect(cr, w, h, true, true, true, true, radius)
 	end
@@ -52,7 +51,7 @@ function helpers.mkbtn(template, bg, hbg, radius)
 	local button = wibox.widget({
 		{
 			template,
-			margins = dpi(7),
+			margins = 7,
 			widget = wibox.container.margin,
 		},
 		bg = bg,
@@ -99,8 +98,8 @@ function helpers.make_popup_tooltip(text, placement)
 			{
 				id = "image",
 				image = beautiful.hints_icon,
-				forced_height = dpi(12),
-				forced_width = dpi(12),
+				forced_height = 12,
+				forced_width = 12,
 				halign = "center",
 				valign = "center",
 				widget = wibox.widget.imagebox,
@@ -111,10 +110,10 @@ function helpers.make_popup_tooltip(text, placement)
 				align = "center",
 				widget = wibox.widget.textbox,
 			},
-			spacing = dpi(7),
+			spacing = 7,
 			layout = wibox.layout.fixed.horizontal,
 		},
-		margins = dpi(12),
+		margins = 12,
 		widget = wibox.container.margin,
 		set_text = function(self, t)
 			self:get_children_by_id("text")[1].markup = t
@@ -138,7 +137,8 @@ function helpers.make_popup_tooltip(text, placement)
 	local self = ret.popup
 
 	function ret.show()
-		self.screen = awful.screen.focused()
+		local screen = awful.screen.focused()
+		self.screen = screen
 		self.visible = true
 	end
 
@@ -147,10 +147,11 @@ function helpers.make_popup_tooltip(text, placement)
 	end
 
 	function ret.toggle()
-		if not self.visible and self.screen ~= awful.screen.focused() then
-			self.screen = awful.screen.focused()
+		if self.visible then
+			self.hide()
+		else
+			self.show()
 		end
-		self.visible = not self.visible
 	end
 
 	function ret.attach_to_object(object)

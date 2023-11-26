@@ -1,9 +1,9 @@
+---@diagnostic disable: missing-parameter, param-type-mismatch
 local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local spawn = awful.spawn
-local dpi = beautiful.xresources.apply_dpi
 local clickable_container = require("ui.clickable_container")
 local helpers = require("helpers")
 
@@ -23,7 +23,7 @@ local action_level = wibox.widget({
 	{
 		{
 			icon,
-			margins = dpi(5),
+			margins = 5,
 			widget = wibox.container.margin,
 		},
 		widget = clickable_container,
@@ -38,19 +38,19 @@ local slider = wibox.widget({
 	{
 		id = "volume_slider",
 		bar_shape = helpers.mkroundedrect(),
-		bar_height = dpi(24),
+		bar_height = 24,
 		bar_color = "#ffffff20",
 		bar_active_color = "#f2f2f2",
 		handle_color = "#f2f2f2", -- "#ffffff",
 		handle_shape = gears.shape.circle,
-		handle_width = dpi(24),
+		handle_width = 24,
 		shape_clip = true,
 		maximum = 100,
 		widget = wibox.widget.slider,
 	},
 	nil,
 	expand = "none",
-	forced_height = dpi(24),
+	forced_height = 24,
 	layout = wibox.layout.align.vertical,
 })
 
@@ -181,7 +181,6 @@ awesome.connect_signal("widget::volume::show", function(click)
 			popup:move_next_to(mouse.current_widget_geometry)
 			set = true
 		end
-		t:start()
 	end
 	if set == false then
 		popup.offset = {
@@ -192,6 +191,12 @@ awesome.connect_signal("widget::volume::show", function(click)
 		set = true
 	end
 	popup.visible = true
+end)
+
+awesome.connect_signal("widget::volume::hide_hover", function()
+	if popup.visible then
+		t:again()
+	end
 end)
 
 ---@diagnostic disable-next-line: param-type-mismatch, missing-parameter
