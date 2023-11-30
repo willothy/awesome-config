@@ -264,15 +264,15 @@ theme.fallback_notif_icon = gears.color.recolor_image(icons_path .. "hints.svg",
 theme.icon_theme = nil
 
 -- task preview
-theme.task_preview_widget_border_radius = dpi(7)
+theme.task_preview_widget_border_radius = 8
 theme.task_preview_widget_bg = theme.bg_normal
 theme.task_preview_widget_border_color = theme.bg_normal
 theme.task_preview_widget_border_width = 0
-theme.task_preview_widget_margin = dpi(10)
+theme.task_preview_widget_margin = 10
 
 -- tag preview
-theme.tag_preview_widget_border_radius = dpi(1)
-theme.tag_preview_client_border_radius = dpi(1)
+theme.tag_preview_widget_border_radius = dpi(8)
+theme.tag_preview_client_border_radius = dpi(8)
 theme.tag_preview_client_opacity = 0.5
 theme.tag_preview_client_bg = theme.bg_lighter
 theme.tag_preview_client_border_color = theme.blue

@@ -14,6 +14,7 @@ bling.widget.task_preview.enable({
 				top = beautiful.bar_height + beautiful.useless_gap * 2,
 			},
 		})
+		c:set_xproperty("WM_CLASS", "task-preview")
 	end,
 	widget_structure = {
 		{

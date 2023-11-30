@@ -5,9 +5,9 @@ local beautiful = require("beautiful")
 
 bling.widget.tag_preview.enable({
 	show_client_content = false,
-	scale = 0.25,
+	scale = 0.20,
 	honor_padding = false,
-	honor_workarea = false,
+	honor_workarea = true,
 	placement_fn = function(c)
 		awful.placement.top_left(c, {
 			margins = {
@@ -15,6 +15,7 @@ bling.widget.tag_preview.enable({
 				left = beautiful.useless_gap * 2,
 			},
 		})
+		c:set_xproperty("WM_CLASS", "tag-preview")
 	end,
 	background_widget = wibox.widget({
 		image = beautiful.wallpaper,

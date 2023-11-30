@@ -41,8 +41,15 @@ end
 -- create a rounded rect using a custom radius
 function helpers.mkroundedrect(radius)
 	radius = radius or 5
-	return function(cr, w, h)
-		return gears.shape.partially_rounded_rect(cr, w, h, true, true, true, true, radius)
+	-- local r1, r2, r3, r4 = radius, radius, radius, radius
+	return function(cr, width, height)
+		-- cr:new_sub_path()
+		-- cr:arc(width - r1, r1, r1, rad(-90), rad(0))
+		-- cr:arc(width - r2, height - r2, r2, rad(0), rad(90))
+		-- cr:arc(r3, height - r3, r3, rad(90), rad(180))
+		-- cr:arc(r4, r4, r4, rad(180), rad(270))
+		-- cr:close_path()
+		return gears.shape.partially_rounded_rect(cr, width, height, true, true, true, true, radius)
 	end
 end
 

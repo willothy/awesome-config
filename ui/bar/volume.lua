@@ -34,7 +34,6 @@ local action_level = wibox.widget({
 })
 
 local slider = wibox.widget({
-	nil,
 	{
 		id = "volume_slider",
 		bar_shape = helpers.mkroundedrect(),
@@ -44,12 +43,11 @@ local slider = wibox.widget({
 		handle_color = "#f2f2f2", -- "#ffffff",
 		handle_shape = gears.shape.circle,
 		handle_width = 24,
-		shape_clip = true,
+		-- shape_clip = true,
 		maximum = 100,
 		widget = wibox.widget.slider,
 	},
-	nil,
-	expand = "none",
+	-- expand = "none",
 	forced_height = 24,
 	layout = wibox.layout.align.vertical,
 })
@@ -120,11 +118,17 @@ awesome.connect_signal("widget::volume:update", function(value)
 end)
 
 local volume_setting = wibox.widget({
-	layout = wibox.layout.fixed.horizontal,
-	slider,
+	{
+		slider,
+		layout = wibox.layout.fixed.horizontal,
+	},
+	widget = wibox.container.background(),
+	shape = helpers.mkroundedrect(50),
 })
 
 local popup = awful.popup({
+	-- {},
+	widget = volume_setting,
 	ontop = true,
 	visible = false,
 	maximum_width = 300,
@@ -132,10 +136,17 @@ local popup = awful.popup({
 		y = 5,
 		x = -5,
 	},
-	widget = volume_setting,
-	shape = helpers.mkroundedrect(50),
-	shape_clip = true,
+	bg = "#00000000",
+	id = "volume-popup",
 })
+
+local set_class = false
+popup:connect_signal("popup::show", function(c)
+	if not set_class then
+		c:set_xproperty("WM_CLASS", "volume-popup")
+		set_class = true
+	end
+end)
 
 local with_volume = function(f)
 	awful.spawn.easy_async_with_shell([[bash -c "amixer -D pulse sget Master"]], function(stdout)
@@ -169,6 +180,7 @@ end)
 local set = false
 ---@diagnostic disable-next-line: param-type-mismatch, missing-parameter
 awesome.connect_signal("widget::volume::show", function(click)
+	popup:emit_signal("popup::show")
 	if t.started then
 		t:stop()
 		t:again()
@@ -204,7 +216,7 @@ awesome.connect_signal("widget::volume::hide", function()
 	popup.visible = false
 end)
 
-popup:connect_signal("mouse::enter", function()
+popup:connect_signal("mouse::enter", function(c)
 	t:stop()
 end)
 
