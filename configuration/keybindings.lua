@@ -29,8 +29,23 @@ local function set_keybindings()
 		end)
 	end
 
+	-- F1 and F2 on apple keyboard are XF86MonBrightnessDown and XF86MonBrightnessUp
+	-- F3 and F4 on apple keyboard are XF86LaunchA and XF86LaunchB
+	-- F7, F8, F9 on apple keyboard are XF86AudioPrev, XF86AudioPlay, XF86AudioNext
+	-- F10, F11, F12 on apple keyboard are XF86AudioMute, XF86AudioLowerVolume, XF86AudioRaiseVolume
+	-- Eject on apple keyboard is XF86Eject
+
 	-- media binds
 	awful.keyboard.append_global_keybindings({
+		-- Launch Buttons
+		awful.key({}, "XF86LaunchA", function()
+			require("revelation")()
+		end, { description = "Reveal", group = "system" }),
+		awful.key({}, "XF86LaunchB", function()
+			--
+		end, { description = "Reveal", group = "system" }),
+
+		-- Volume Controls
 		awful.key({}, "XF86AudioRaiseVolume", function()
 			awesome.emit_signal("widget::volume::show")
 			with_volume(function(vol)
@@ -52,6 +67,8 @@ local function set_keybindings()
 		awful.key({}, "XF86AudioMute", function()
 			awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
 		end, { description = "Mute volume", group = "media" }),
+
+		-- Media Controls
 		awful.key({}, "XF86AudioPlay", function()
 			awful.spawn("playerctl play-pause")
 		end, { description = "Play/pause", group = "media" }),
@@ -63,10 +80,10 @@ local function set_keybindings()
 		end, { description = "Previous", group = "media" }),
 		awful.key({}, "XF86MonBrightnessUp", function()
 			awful.spawn("brightnessctl -d intel_backlight set +5%")
-		end, { description = "Brightness up" }),
+		end, { description = "Brightness up", group = "system" }),
 		awful.key({}, "XF86MonBrightnessDown", function()
 			awful.spawn("brightnessctl -d intel_backlight set 5%-")
-		end, { description = "Brightness down" }),
+		end, { description = "Brightness down", group = "system" }),
 	})
 
 	-- Tags related keybindings

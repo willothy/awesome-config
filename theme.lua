@@ -1,48 +1,48 @@
-local xresources = require("beautiful.xresources")
 local gears = require("gears")
 local gfs = require("gears.filesystem")
+local xresources = require("beautiful.xresources")
 
 local dpi = xresources.apply_dpi
 
 local minimus = {
-	turquoise = "#5de4c7",
-	tiffany_blue = "#85e2da",
-	pale_azure = "#89ddff",
-	uranian_blue = "#add7ff",
-	powder_blue = "#91b4d5",
-	cadet_gray = "#8da3bf",
-	cool_gray = "#7f92aa",
-	raisin_black = "#1b1e28",
-	colombia_blue = "#c5d2df",
-	persian_red = "#be3937",
-	lemon_chiffon = "#fffac2",
-	tea_rose = "#e8b1b0",
-	lavender_pink = "#fcc5e9",
-	pale_purple = "#fee4fc",
-	pale_turquoise = "#baf5e8", --"#d0e9f5",
-	white = "#f1f1f1",
-	black = "#1f1f1f",
-	----------------------
-	gunmetal = "#303340",
-	dark_blue = "#26283f",
-	----------------------
-	rosewater = "#F5E0DC",
-	flamingo = "#F2CDCD",
-	pink = "#F5C2E7",
-	mauve = "#CBA6F7",
-	red = "#F38BA8",
-	maroon = "#EBA0AC",
-	peach = "#FAB387",
-	yellow = "#F9E2AF",
-	green = "#A6E3A1",
-	teal = "#94E2D5",
-	sky = "#89DCEB",
-	sapphire = "#74C7EC",
-	blue = "#89B4FA",
-	lavender = "#B4BEFE",
-	---------------------
-	text = "#e4f0fb",
-	none = "none",
+  turquoise = "#5de4c7",
+  tiffany_blue = "#85e2da",
+  pale_azure = "#89ddff",
+  uranian_blue = "#add7ff",
+  powder_blue = "#91b4d5",
+  cadet_gray = "#8da3bf",
+  cool_gray = "#7f92aa",
+  raisin_black = "#1b1e28",
+  colombia_blue = "#c5d2df",
+  persian_red = "#be3937",
+  lemon_chiffon = "#fffac2",
+  tea_rose = "#e8b1b0",
+  lavender_pink = "#fcc5e9",
+  pale_purple = "#fee4fc",
+  pale_turquoise = "#baf5e8", --"#d0e9f5",
+  white = "#f1f1f1",
+  black = "#1f1f1f",
+  ----------------------
+  gunmetal = "#303340",
+  dark_blue = "#26283f",
+  ----------------------
+  rosewater = "#F5E0DC",
+  flamingo = "#F2CDCD",
+  pink = "#F5C2E7",
+  mauve = "#CBA6F7",
+  red = "#F38BA8",
+  maroon = "#EBA0AC",
+  peach = "#FAB387",
+  yellow = "#F9E2AF",
+  green = "#A6E3A1",
+  teal = "#94E2D5",
+  sky = "#89DCEB",
+  sapphire = "#74C7EC",
+  blue = "#89B4FA",
+  lavender = "#B4BEFE",
+  ---------------------
+  text = "#e4f0fb",
+  none = "none",
 }
 
 -- paths
@@ -105,10 +105,10 @@ theme.hotkeys_modifiers_fg = theme.fg_normal
 
 -- some actions bg colors
 theme.actions = {
-	bg = theme.bg_normal,
-	contrast = theme.bg_contrast,
-	lighter = theme.bg_lighter,
-	fg = theme.fg_normal,
+  bg = theme.bg_normal,
+  contrast = theme.bg_contrast,
+  lighter = theme.bg_lighter,
+  fg = theme.fg_normal,
 }
 
 -- bar
@@ -129,7 +129,7 @@ theme.tasklist_bg_focus = theme.dimblack
 theme.tasklist_bg_urgent = theme.red .. "4D" -- 30% of transparency
 
 -- switcher
-theme.window_switcher_widget_bg = "#00000070" -- The bg color of the widget
+theme.window_switcher_widget_bg = "#0f0f0f70" -- The bg color of the widget
 theme.window_switcher_widget_border_width = 0 -- The border width of the widget
 theme.window_switcher_widget_border_radius = 8 -- The border radius of the widget
 theme.window_switcher_widget_border_color = "#00000070" -- The border color of the widget
@@ -153,7 +153,8 @@ theme.taglist_bg = theme.bg_normal
 theme.taglist_bg_urgent = theme.taglist_bg
 theme.normal_tag_format = assets_path .. "taglist/screen-full-svgrepo-com.svg"
 theme.occupied_tag_format = theme.normal_tag_format
-theme.selected_tag_format = assets_path .. "taglist/screen-normal-svgrepo-com.svg"
+theme.selected_tag_format = assets_path
+  .. "taglist/screen-normal-svgrepo-com.svg"
 theme.taglist_fg_focus = theme.yellow
 theme.taglist_fg = theme.grey_light
 theme.taglist_fg_occupied = theme.blue
@@ -161,12 +162,15 @@ theme.taglist_fg_occupied = theme.blue
 -- systray
 theme.systray_icon_spacing = dpi(12)
 theme.systray_max_rows = 7
-theme.tray_chevron_up = gears.color.recolor_image(assets_path .. "tray/up.svg", theme.fg_normal)
-theme.tray_chevron_down = gears.color.recolor_image(assets_path .. "tray/down.svg", theme.fg_normal)
+theme.tray_chevron_up =
+  gears.color.recolor_image(assets_path .. "tray/up.svg", theme.fg_normal)
+theme.tray_chevron_down =
+  gears.color.recolor_image(assets_path .. "tray/down.svg", theme.fg_normal)
 
 -- menu
 theme.menu_font = theme.font
-theme.menu_submenu_icon = gears.color.recolor_image(assets_path .. "tray/down.svg", theme.fg_normal)
+theme.menu_submenu_icon =
+  gears.color.recolor_image(assets_path .. "tray/down.svg", theme.fg_normal)
 theme.menu_height = dpi(40)
 theme.menu_width = dpi(180)
 theme.menu_bg_focus = theme.bg_lighter
@@ -180,72 +184,152 @@ theme.titlebar_bg_focus = theme.dark_blue
 -- theme.titlebar_fg = theme.fg_normal
 
 -- close
-theme.titlebar_close_button_normal = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red)
-theme.titlebar_close_button_normal_hover =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red_dark)
-theme.titlebar_close_button_focus = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red)
-theme.titlebar_close_button_focus_hover =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red_dark)
+theme.titlebar_close_button_normal =
+  gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red)
+theme.titlebar_close_button_normal_hover = gears.color.recolor_image(
+  titlebar_assets_path .. "circle.png",
+  theme.red_dark
+)
+theme.titlebar_close_button_focus =
+  gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.red)
+theme.titlebar_close_button_focus_hover = gears.color.recolor_image(
+  titlebar_assets_path .. "circle.png",
+  theme.red_dark
+)
 
 -- maximize
 theme.titlebar_maximized_button_normal_active =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
+  gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
 theme.titlebar_maximized_button_normal_inactive =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
+  gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
 theme.titlebar_maximized_button_focus_active =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
+  gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
 theme.titlebar_maximized_button_focus_inactive =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
+  gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green)
 theme.titlebar_maximized_button_normal_active_hover =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green_dark)
+  gears.color.recolor_image(
+    titlebar_assets_path .. "circle.png",
+    theme.green_dark
+  )
 theme.titlebar_maximized_button_normal_inactive_hover =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green_dark)
-theme.titlebar_maximized_button_focus_active_hover =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green_dark)
+  gears.color.recolor_image(
+    titlebar_assets_path .. "circle.png",
+    theme.green_dark
+  )
+theme.titlebar_maximized_button_focus_active_hover = gears.color.recolor_image(
+  titlebar_assets_path .. "circle.png",
+  theme.green_dark
+)
 theme.titlebar_maximized_button_focus_inactive_hover =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.green_dark)
+  gears.color.recolor_image(
+    titlebar_assets_path .. "circle.png",
+    theme.green_dark
+  )
 
 -- minimize
-theme.titlebar_minimize_button_normal = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow)
-theme.titlebar_minimize_button_focus = gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow)
-theme.titlebar_minimize_button_normal_hover =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow_dark)
-theme.titlebar_minimize_button_focus_hover =
-	gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow_dark)
+theme.titlebar_minimize_button_normal =
+  gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow)
+theme.titlebar_minimize_button_focus =
+  gears.color.recolor_image(titlebar_assets_path .. "circle.png", theme.yellow)
+theme.titlebar_minimize_button_normal_hover = gears.color.recolor_image(
+  titlebar_assets_path .. "circle.png",
+  theme.yellow_dark
+)
+theme.titlebar_minimize_button_focus_hover = gears.color.recolor_image(
+  titlebar_assets_path .. "circle.png",
+  theme.yellow_dark
+)
 
 -- wallpaper
 theme.wallpaper = assets_path .. "wallpaper.jpg"
 
 -- layouts
-theme.layout_fairh = gears.color.recolor_image(themes_path .. "default/layouts/fairhw.png", theme.fg_normal)
-theme.layout_fairv = gears.color.recolor_image(themes_path .. "default/layouts/fairvw.png", theme.fg_normal)
-theme.layout_floating = gears.color.recolor_image(themes_path .. "default/layouts/floatingw.png", theme.fg_normal)
-theme.layout_magnifier = gears.color.recolor_image(themes_path .. "default/layouts/magnifierw.png", theme.fg_normal)
-theme.layout_max = gears.color.recolor_image(themes_path .. "default/layouts/maxw.png", theme.fg_normal)
-theme.layout_fullscreen = gears.color.recolor_image(themes_path .. "default/layouts/fullscreenw.png", theme.fg_normal)
-theme.layout_tilebottom = gears.color.recolor_image(themes_path .. "default/layouts/tilebottomw.png", theme.fg_normal)
-theme.layout_tileleft = gears.color.recolor_image(themes_path .. "default/layouts/tileleftw.png", theme.fg_normal)
-theme.layout_tile = gears.color.recolor_image(themes_path .. "default/layouts/tilew.png", theme.fg_normal)
-theme.layout_tiletop = gears.color.recolor_image(themes_path .. "default/layouts/tiletopw.png", theme.fg_normal)
-theme.layout_spiral = gears.color.recolor_image(themes_path .. "default/layouts/spiralw.png", theme.fg_normal)
-theme.layout_dwindle = gears.color.recolor_image(themes_path .. "default/layouts/dwindlew.png", theme.fg_normal)
-theme.layout_cornernw = gears.color.recolor_image(themes_path .. "default/layouts/cornernww.png", theme.fg_normal)
-theme.layout_cornerne = gears.color.recolor_image(themes_path .. "default/layouts/cornernew.png", theme.fg_normal)
-theme.layout_cornersw = gears.color.recolor_image(themes_path .. "default/layouts/cornersww.png", theme.fg_normal)
-theme.layout_cornerse = gears.color.recolor_image(themes_path .. "default/layouts/cornersew.png", theme.fg_normal)
+theme.layout_fairh = gears.color.recolor_image(
+  themes_path .. "default/layouts/fairhw.png",
+  theme.fg_normal
+)
+theme.layout_fairv = gears.color.recolor_image(
+  themes_path .. "default/layouts/fairvw.png",
+  theme.fg_normal
+)
+theme.layout_floating = gears.color.recolor_image(
+  themes_path .. "default/layouts/floatingw.png",
+  theme.fg_normal
+)
+theme.layout_magnifier = gears.color.recolor_image(
+  themes_path .. "default/layouts/magnifierw.png",
+  theme.fg_normal
+)
+theme.layout_max = gears.color.recolor_image(
+  themes_path .. "default/layouts/maxw.png",
+  theme.fg_normal
+)
+theme.layout_fullscreen = gears.color.recolor_image(
+  themes_path .. "default/layouts/fullscreenw.png",
+  theme.fg_normal
+)
+theme.layout_tilebottom = gears.color.recolor_image(
+  themes_path .. "default/layouts/tilebottomw.png",
+  theme.fg_normal
+)
+theme.layout_tileleft = gears.color.recolor_image(
+  themes_path .. "default/layouts/tileleftw.png",
+  theme.fg_normal
+)
+theme.layout_tile = gears.color.recolor_image(
+  themes_path .. "default/layouts/tilew.png",
+  theme.fg_normal
+)
+theme.layout_tiletop = gears.color.recolor_image(
+  themes_path .. "default/layouts/tiletopw.png",
+  theme.fg_normal
+)
+theme.layout_spiral = gears.color.recolor_image(
+  themes_path .. "default/layouts/spiralw.png",
+  theme.fg_normal
+)
+theme.layout_dwindle = gears.color.recolor_image(
+  themes_path .. "default/layouts/dwindlew.png",
+  theme.fg_normal
+)
+theme.layout_cornernw = gears.color.recolor_image(
+  themes_path .. "default/layouts/cornernww.png",
+  theme.fg_normal
+)
+theme.layout_cornerne = gears.color.recolor_image(
+  themes_path .. "default/layouts/cornernew.png",
+  theme.fg_normal
+)
+theme.layout_cornersw = gears.color.recolor_image(
+  themes_path .. "default/layouts/cornersww.png",
+  theme.fg_normal
+)
+theme.layout_cornerse = gears.color.recolor_image(
+  themes_path .. "default/layouts/cornersew.png",
+  theme.fg_normal
+)
 
 -- icons
-theme.launcher_icon = gears.color.recolor_image(icons_path .. "launcher.svg", theme.blue)
-theme.menu_icon = gears.color.recolor_image(icons_path .. "menu.svg", theme.fg_normal)
-theme.hints_icon = gears.color.recolor_image(icons_path .. "hints.svg", theme.blue)
+theme.launcher_icon =
+  gears.color.recolor_image(icons_path .. "launcher.svg", theme.blue)
+theme.menu_icon =
+  gears.color.recolor_image(icons_path .. "menu.svg", theme.fg_normal)
+theme.hints_icon =
+  gears.color.recolor_image(icons_path .. "hints.svg", theme.blue)
 
-theme.powerbutton_icon = gears.color.recolor_image(icons_path .. "power.svg", theme.fg_normal)
-theme.poweroff_icon = gears.color.recolor_image(icons_path .. "power.svg", theme.red)
-theme.reboot_icon = gears.color.recolor_image(icons_path .. "reboot.svg", theme.yellow)
-theme.logout_icon = gears.color.recolor_image(icons_path .. "logout2.svg", theme.blue)
+theme.powerbutton_icon =
+  gears.color.recolor_image(icons_path .. "power.svg", theme.fg_normal)
+theme.poweroff_icon =
+  gears.color.recolor_image(icons_path .. "power.svg", theme.red)
+theme.reboot_icon =
+  gears.color.recolor_image(icons_path .. "reboot.svg", theme.yellow)
+theme.logout_icon =
+  gears.color.recolor_image(icons_path .. "logout2.svg", theme.blue)
 
-theme.volume_on = gears.color.recolor_image(icons_path .. "volume-on.svg", theme.fg_normal)
-theme.volume_muted = gears.color.recolor_image(icons_path .. "volume-muted.svg", theme.fg_normal)
+theme.volume_on =
+  gears.color.recolor_image(icons_path .. "volume-on.svg", theme.fg_normal)
+theme.volume_muted =
+  gears.color.recolor_image(icons_path .. "volume-muted.svg", theme.fg_normal)
 
 theme.network_connected = "  "
 theme.network_disconnected = "睊 "
@@ -257,7 +341,8 @@ theme.pfp = assets_path .. "pfp.png"
 theme.fallback_music = assets_path .. "fallback-music.png"
 
 -- fallback notification icon
-theme.fallback_notif_icon = gears.color.recolor_image(icons_path .. "hints.svg", theme.blue)
+theme.fallback_notif_icon =
+  gears.color.recolor_image(icons_path .. "hints.svg", theme.blue)
 
 -- disable icon theme
 theme.icon_theme = nil

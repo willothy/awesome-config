@@ -24,3 +24,5 @@ require("signal.global")
 require("autostart")
 require("configuration")
 require("ui")
+
+require("revelation").init()
