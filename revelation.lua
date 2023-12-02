@@ -506,9 +506,14 @@ function revelation.expose_callback(t, zt, clientlist)
   end, "fleur")
 end
 
+local initialized = false
+
 -- Create the wiboxes, but don't show them
 --
 function revelation.init(args)
+  if initialized then
+    return
+  end
   local letterbox = {}
 
   args = args or {}
@@ -538,6 +543,7 @@ function revelation.init(args)
     letterbox[char]:set_align("center")
     hintbox[char]:set_widget(letterbox[char])
   end
+  initialized = true
 end
 
 setmetatable(revelation, {
