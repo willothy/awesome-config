@@ -19,7 +19,8 @@ local function set_mousebindings()
         c:activate({ context = "mouse_click", action = "mouse_move" })
       end),
       awful.button({ modkey }, 3, function(c)
-        c:activate({ context = "mouse_click", action = "mouse_resize" })
+        -- c:activate({ context = "mouse_click", action = "mouse_resize" })
+        require("lib.client").mouse_resize(c)
       end),
     })
   end)
