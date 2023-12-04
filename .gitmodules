@@ -1,5 +1,5 @@
-[submodule "vendor/types"]
-	path = vendor/types
+[submodule "types"]
+	path = types
 	url = git@github.com:kosorin/awesome-code-doc
 [submodule "vendor/bling"]
 	path = vendor/bling

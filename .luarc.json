@@ -9,6 +9,6 @@
     "tag"
   ],
   "workspace.library": [
-    "~/.config/awesome/awesome-code-doc/"
+    "./types/"
   ]
 }
