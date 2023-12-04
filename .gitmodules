@@ -1,6 +1,0 @@
-[submodule "rubato"]
-	path = rubato
-	url = git@github.com:andOrlando/rubato.git
-[submodule "awesome-code-doc"]
-	path = awesome-code-doc
-	url = git@github.com:kosorin/awesome-code-doc
