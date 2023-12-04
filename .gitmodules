@@ -1,0 +1,9 @@
+[submodule "vendor/types"]
+	path = vendor/types
+	url = git@github.com:kosorin/awesome-code-doc
+[submodule "vendor/bling"]
+	path = vendor/bling
+	url = git@github.com:BlingCorp/bling
+[submodule "vendor/rubato"]
+	path = vendor/rubato
+	url = git@github.com:andOrlando/rubato
