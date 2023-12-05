@@ -16,7 +16,9 @@ Capi.ruled.client.connect_signal("request::rules", function()
   -- Scratchpad terminal
   Capi.ruled.client.append_rule({
     id = "spad",
-    rule_any = { instance = { "spad" } },
+    rule_any = {
+      instance = { "spad" },
+    },
     properties = { titlebars_enabled = false },
   })
 
