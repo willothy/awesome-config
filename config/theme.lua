@@ -370,4 +370,7 @@ theme.tag_preview_widget_margin = dpi(7)
 theme.tooltip_bg = theme.bg_normal
 theme.tooltip_fg = theme.fg_normal
 
+-- notification
+theme.notification_action_bg_selected = theme.bg_lighter
+
 return theme
