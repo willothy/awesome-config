@@ -6,7 +6,12 @@ local main_menu = Capi.awful.menu({
     { "Explorer", Programs.explorer },
     { "Browser", Programs.browser },
     { "Restart", awesome.restart },
-    { "Logout", awesome.quit },
+    {
+      "Logout",
+      function()
+        awesome.quit()
+      end,
+    },
   },
 })
 

@@ -1,29 +1,46 @@
 local M = {}
 
 local awful = Capi.awful
+local gears = Capi.gears
+
+local playerctl = require("vendor.bling.signal.playerctl")
+
+local lib = playerctl.lib()
 
 function M.play()
-  awful.spawn.with_shell("playerctl play")
+  gears.timer.delayed_call(function()
+    lib:play()
+  end)
 end
 
 function M.pause()
-  awful.spawn.with_shell("playerctl pause")
+  gears.timer.delayed_call(function()
+    lib:pause()
+  end)
 end
 
 function M.stop()
-  awful.spawn.with_shell("playerctl stop")
+  gears.timer.delayed_call(function()
+    lib:stop()
+  end)
 end
 
 function M.play_pause()
-  awful.spawn.with_shell("playerctl play-pause")
+  gears.timer.delayed_call(function()
+    lib:play_pause()
+  end)
 end
 
 function M.next()
-  awful.spawn.with_shell("playerctl next")
+  gears.timer.delayed_call(function()
+    lib:next()
+  end)
 end
 
 function M.previous()
-  awful.spawn.with_shell("playerctl previous")
+  gears.timer.delayed_call(function()
+    lib:previous()
+  end)
 end
 
 return M

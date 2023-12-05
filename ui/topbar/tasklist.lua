@@ -5,57 +5,14 @@ local gears = Capi.gears
 local wibox = Capi.wibox
 local beautiful = Capi.beautiful
 
-local dpi = beautiful.xresources.apply_dpi
-
 require("vendor.bling").widget.task_preview.enable({
-  -- height = dpi(300),
-  -- width = dpi(300),
-  -- y = beautiful.bar_height + (beautiful.useless_gap * 2),
-  x = beautiful.useless_gap * 2,
-  -- honor_workarea = true,
-  -- honor_padding = true,
   placement_fn = function(c)
-    -- c.screen = awful.screen.focused()
-    awful.placement.center_horizontal(c)
     awful.placement.top(c, {
       margins = {
         top = beautiful.bar_height + beautiful.useless_gap * 2,
-        right = 0,
-        -- left = c.screen:get_bounding_geometry().width,
-        -- left = c.screen:get_bounding_geometry({
-        --   honor_workarea = true,
-        -- }).x,
-        -- left = 0,
-        -- left = (c.screen.geometry.width / 2) + (beautiful.useless_gap * 2),
       },
     })
-    -- c:set_xproperty("WM_CLASS", "task-preview")
   end,
-  widget_structure = {
-    {
-      {
-        {
-          id = "icon_role",
-          widget = awful.widget.clienticon, -- The client icon
-        },
-        {
-          id = "name_role", -- The client name / title
-          widget = wibox.widget.textbox,
-        },
-        layout = wibox.layout.flex.horizontal,
-      },
-      widget = wibox.container.margin,
-      margins = 5,
-    },
-    {
-      id = "image_role", -- The client preview
-      resize = true,
-      valign = "center",
-      halign = "center",
-      widget = wibox.widget.imagebox,
-    },
-    layout = wibox.layout.fixed.vertical,
-  },
 })
 
 function M.new(s)
