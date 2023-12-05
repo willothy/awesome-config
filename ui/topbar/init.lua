@@ -1,16 +1,21 @@
 local M = {}
 
+local awful = Capi.awful
+local beautiful = Capi.beautiful
+local wibox = Capi.wibox
+
 function M.setup()
   screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
-    Capi.awful.tag(
+    awful.tag(
       { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
       s,
-      Capi.awful.layout.layouts[1]
+      awful.layout.layouts[1]
     )
 
-    -- Create a promptbox for each screen
-    s.mypromptbox = Capi.awful.widget.prompt()
+    -- local taglist = require("ui.topbar.taglist")
+
+    -- prompt_popup:show()
 
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
@@ -92,7 +97,6 @@ function M.setup()
         { -- Left widgets
           layout = Capi.wibox.layout.fixed.horizontal,
           s.mytaglist,
-          s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets

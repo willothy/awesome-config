@@ -19,12 +19,21 @@ awful.keyboard.append_global_keybindings({
     awesome.quit,
     { description = "quit awesome", group = "awesome" }
   ),
-  -- -- TODO: Rework input prompt
   awful.key({ Settings.modkey }, "x", function()
+    require("ui.prompt").show()
     awful.prompt.run({
       prompt = "Lua: ",
-      textbox = awful.screen.focused().mypromptbox.widget,
-      exe_callback = awful.util.eval,
+      textbox = require("ui.prompt").widget.children[1],
+      done_callback = function()
+        require("ui.prompt").hide()
+      end,
+      exe_callback = function(input)
+        require("ui.prompt").hide()
+        if not input or #input == 0 then
+          return
+        end
+        Capi.naughty.notify({ text = awful.util.eval(input) })
+      end,
       history_path = awful.util.get_cache_dir() .. "/history_eval",
     })
   end, { description = "lua execute prompt", group = "awesome" }),
