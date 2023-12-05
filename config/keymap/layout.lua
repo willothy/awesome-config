@@ -1,70 +1,83 @@
 local awful = Capi.awful
 
+local function swap(dir)
+  local c = client.focus
+  awful.client.swap.global_bydirection(dir, client.focus)
+  -- delay to account for animation
+  Capi.gears.timer.delayed_call(function()
+    c:jump_to(false)
+  end)
+end
+
+local function focus(dir)
+  awful.client.focus.global_bydirection(dir, client.focus)
+end
+
 awful.keyboard.append_global_keybindings({
   -- Swap windows
   -- Left
   awful.key({ Settings.modkey, "Shift" }, "Left", function()
-    awful.client.swap.global_bydirection("left")
+    swap("left")
   end, { description = "Swap with the client to the left", group = "layout" }),
   awful.key({ Settings.modkey, "Shift" }, "h", function()
-    awful.client.swap.global_bydirection("left")
+    swap("left")
   end, { description = "Swap with the client to the left", group = "layout" }),
 
   -- Right
   awful.key({ Settings.modkey, "Shift" }, "Right", function()
-    awful.client.swap.global_bydirection("right")
+    swap("right")
   end, { description = "Swap with the client to the right", group = "layout" }),
   awful.key({ Settings.modkey, "Shift" }, "l", function()
-    awful.client.swap.global_bydirection("right")
+    swap("right")
   end, { description = "Swap with the client to the right", group = "layout" }),
 
   -- Up
   awful.key({ Settings.modkey, "Shift" }, "Up", function()
-    awful.client.swap.global_bydirection("up")
+    swap("up")
   end, { description = "Swap with the client above", group = "layout" }),
   awful.key({ Settings.modkey, "Shift" }, "k", function()
-    awful.client.swap.global_bydirection("up")
+    swap("up")
   end, { description = "Swap with the client above", group = "layout" }),
 
   -- Down
   awful.key({ Settings.modkey, "Shift" }, "Down", function()
-    awful.client.swap.global_bydirection("down")
+    swap("down")
   end, { description = "Swap with the client below", group = "layout" }),
   awful.key({ Settings.modkey, "Shift" }, "j", function()
-    awful.client.swap.global_bydirection("down")
+    swap("down")
   end, { description = "Swap with the client below", group = "layout" }),
 
   -- Focus windows
   -- Up
   awful.key({ Settings.modkey }, "Up", function()
-    awful.client.focus.global_bydirection("up")
+    focus("up")
   end, { description = "Focus the client above", group = "layout" }),
   awful.key({ Settings.modkey }, "k", function()
-    awful.client.focus.global_bydirection("up")
+    focus("up")
   end, { description = "Focus the client above", group = "layout" }),
 
   -- Down
   awful.key({ Settings.modkey }, "Down", function()
-    awful.client.focus.global_bydirection("down")
+    focus("down")
   end, { description = "Focus the client below", group = "layout" }),
   awful.key({ Settings.modkey }, "j", function()
-    awful.client.focus.global_bydirection("down")
+    focus("down")
   end, { description = "Focus the client below", group = "layout" }),
 
   -- Left
   awful.key({ Settings.modkey }, "Left", function()
-    awful.client.focus.global_bydirection("left")
+    focus("left")
   end, { description = "Focus the client to the left", group = "layout" }),
   awful.key({ Settings.modkey }, "h", function()
-    awful.client.focus.global_bydirection("left")
+    focus("left")
   end, { description = "Focus the client to the left", group = "layout" }),
 
   -- Right
   awful.key({ Settings.modkey }, "Right", function()
-    awful.client.focus.global_bydirection("right")
+    focus("right")
   end, { description = "Focus the client to the right", group = "layout" }),
   awful.key({ Settings.modkey }, "l", function()
-    awful.client.focus.global_bydirection("right")
+    focus("right")
   end, { description = "Focus the client to the right", group = "layout" }),
 
   -- Focus screens
