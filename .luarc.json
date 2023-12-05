@@ -12,5 +12,6 @@
   "workspace.library": [
     "./types/",
     "./"
-  ]
+  ],
+    "completion.autoRequire": false
 }

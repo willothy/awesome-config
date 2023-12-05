@@ -4,7 +4,8 @@ Capi.ruled.client.connect_signal("request::rules", function()
     id = "global",
     rule = {},
     properties = {
-      focus = Capi.awful.client.focus.filter,
+      -- focus = Capi.awful.client.focus.filter,
+      focus = true,
       raise = true,
       screen = Capi.awful.screen.preferred,
       placement = Capi.awful.placement.no_overlap

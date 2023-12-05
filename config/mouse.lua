@@ -7,8 +7,6 @@ awful.mouse.append_global_mousebindings({
   awful.button({}, 3, function()
     require("ui.menu").show()
   end),
-  awful.button({}, 4, Capi.awful.tag.viewprev),
-  awful.button({}, 5, Capi.awful.tag.viewnext),
 })
 
 client.connect_signal("request::default_mousebindings", function()

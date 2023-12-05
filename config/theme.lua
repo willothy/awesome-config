@@ -112,7 +112,7 @@ theme.actions = {
 }
 
 -- bar
-theme.bar_height = 40
+theme.bar_height = 35
 
 -- gaps and borders
 theme.useless_gap = dpi(4)

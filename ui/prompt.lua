@@ -5,9 +5,7 @@ local gears = Capi.gears
 
 local ret = {}
 
-ret.widget = awful.widget.prompt({
-  prompt = "$",
-})
+ret.widget = wibox.widget.textbox()
 
 ret.popup = awful.popup({
   visible = false,

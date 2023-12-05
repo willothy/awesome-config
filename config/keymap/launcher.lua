@@ -6,11 +6,11 @@ awful.keyboard.append_global_keybindings({
     awful.spawn("rofi -show drun")
   end, { description = "rofi", group = "launcher" }),
   awful.key({}, "XF86LaunchA", function()
-    require("revelation")()
+    require("lib.revelation")()
   end, { description = "Reveal", group = "launcher" }),
-  -- awful.key({}, "XF86LaunchB", function()
-  --   --
-  -- end, { description = "Reveal", group = "launcher" }),
+  awful.key({}, "XF86LaunchB", function()
+    awful.spawn("rofi -show window")
+  end, { description = "Reveal", group = "launcher" }),
 
   -- Terminal
   awful.key({ Settings.modkey }, "Return", function()

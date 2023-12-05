@@ -21,9 +21,25 @@ awful.keyboard.append_global_keybindings({
   ),
   awful.key({ Settings.modkey }, "x", function()
     require("ui.prompt").show()
+
+    -- local prompt_icon = Capi.wibox.container.margin({
+    --   -- "󰢱 "
+    --   {},
+    --   markup = "<span foreground='#ffffff'>󰢱</span>",
+    -- })
+    --
+    -- local prompt_icon = Capi.wibox.widget({
+    --   {
+    --     widget = prompt_icon,
+    --   },
+    --   layout = Capi.wibox.layout.fixed.horizontal,
+    --   -- widget = prompt_icon,
+    -- })
+
     awful.prompt.run({
-      prompt = "Lua: ",
-      textbox = require("ui.prompt").widget.children[1],
+      prompt = "󰢱 ",
+      font = "Fira Code NF 12",
+      textbox = require("ui.prompt").widget,
       done_callback = function()
         require("ui.prompt").hide()
       end,

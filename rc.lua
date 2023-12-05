@@ -46,6 +46,10 @@ function M.setup_sloppy_focus()
   client.connect_signal("mouse::enter", function(c)
     c:activate({ context = "mouse_enter", raise = false })
   end)
+
+  client.connect_signal("request::autoactivate", function(c)
+    c:activate({ context = "autoactivate", raise = false })
+  end)
 end
 
 function M.setup_error_handling()
@@ -66,20 +70,21 @@ end
 
 ---Start programs that should be started automatically with awesome
 function M.autostart()
-  Capi.awful.spawn("nm-applet")
+  Capi.awful.spawn("nm-applet", false)
   Capi.awful.spawn.with_shell(
-    "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+    "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
+    false
   )
 end
 
 function M.setup_screens()
   local screens = Capi.gears.filesystem.get_configuration_dir() .. "screens.sh"
-  Capi.awful.spawn.with_shell(screens)
+  Capi.awful.spawn.with_shell(screens, false)
 end
 
 function M.setup_compositor()
   -- awful.spawn("picom")
-  Capi.awful.spawn("compfy")
+  Capi.awful.spawn("compfy", false)
 end
 
 function M.register_xprops()
@@ -90,6 +95,7 @@ end
 
 function M.setup_dependencies()
   require("lib.revelation").init()
+  require("vendor.bling")
 end
 
 function M.setup_floats()
