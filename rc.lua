@@ -52,6 +52,8 @@ function M.setup_sloppy_focus()
   end)
 end
 
+-- Setup error message reporting, so that errors are shown in a
+-- notification after the fallback config is loaded.
 function M.setup_error_handling()
   -- Check if awesome encountered an error during startup and fell back to
   -- another config (This code will only ever execute for the fallback config)
@@ -68,36 +70,63 @@ function M.setup_error_handling()
   )
 end
 
----Start programs that should be started automatically with awesome
+-- Start programs that should be started automatically with awesome
 function M.autostart()
-  Capi.awful.spawn("nm-applet", false)
-  Capi.awful.spawn.with_shell(
+  -- network manager systray applet
+  Capi.awful.spawn.single_instance("nm-applet", false)
+
+  -- authentication agent
+  Capi.awful.spawn(
     "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
+    false
+  )
+
+  -- volctl needs special treatment because it doesn't know
+  -- how to ensure only one instance is running, and doesn't support
+  -- the startup notification protocol.
+  Capi.awful.spawn.with_shell(
+    'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;'
+      .. 'xrdb -merge <<< "awesome.started:true";'
+      .. "volctl &"
+      .. "dex --environment Awesome --autostart",
     false
   )
 end
 
+-- Execute xrandr script to setup screens
 function M.setup_screens()
   local screens = Capi.gears.filesystem.get_configuration_dir() .. "screens.sh"
-  Capi.awful.spawn.with_shell(screens, false)
+  Capi.awful.spawn(screens, false)
 end
 
+-- Start the compositor
 function M.setup_compositor()
   -- awful.spawn("picom")
   Capi.awful.spawn("compfy", false)
 end
 
+-- Register xproperty for WM_CLASS so it can be set with
+-- client:set_xproperty("WM_CLASS", "class")
+--
+-- This is useful for matching rules with WM_CLASS and giving
+-- specific widgets setting overrides in the compositor.
 function M.register_xprops()
-  -- Register xproperty for WM_CLASS so it can be set with
-  -- client:set_xproperty("WM_CLASS", "class")
   awesome.register_xproperty("WM_CLASS", "string")
 end
 
+-- This is used to setup libraries and plugins that are used
+-- throughout the configuration. It is called at the beginning of the
+-- config so that these libraries can be assumed to be available
+-- throughout the configuration.
 function M.setup_dependencies()
   require("lib.revelation").init()
   require("vendor.bling")
+  require("vendor.icon_customizer")({
+    delay = 0.5,
+  })
 end
 
+-- Center floating windows on creation
 function M.setup_floats()
   client.connect_signal("request::manage", function(c)
     Capi.awful.placement.centered(c, {
@@ -121,7 +150,7 @@ M.setup_floats()
 M.setup_dependencies()
 
 -- Layout setup
-require("config.layouts").setup()
+require("config.layouts")
 
 -- Rules
 require("config.rules")
@@ -131,17 +160,13 @@ require("config.mouse")
 require("config.keymap")
 
 -- UI Setup
-require("ui.wallpaper").setup()
-require("ui.notifications").setup()
-require("ui.menu").setup()
-require("ui.window-switcher").setup()
+require("ui.wallpaper")
+require("ui.notifications")
+require("ui.menu")
+require("ui.window-switcher")
 
-require("ui.titlebar").setup()
-require("ui.topbar").setup()
+require("ui.titlebar")
+require("ui.topbar")
 
 -- Compositor and Environment setup
 M.autostart()
-
--- require("signal.global")
--- require("configuration")
--- require("ui")

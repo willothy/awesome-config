@@ -373,4 +373,13 @@ theme.tooltip_fg = theme.fg_normal
 -- notification
 theme.notification_action_bg_selected = theme.bg_lighter
 
+-- Icon customizer icons
+-- theme.volume_on =
+--   gears.color.recolor_image(icons_path .. "volume-on.svg", theme.fg_normal)
+-- theme.volume_muted =
+--   gears.color.recolor_image(icons_path .. "volume-muted.svg", theme.fg_normal)
+theme.ic_icons = {
+  volctl = icons_path .. "volume-on.svg",
+}
+
 return theme

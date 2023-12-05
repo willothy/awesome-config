@@ -68,7 +68,12 @@ function M.new(s)
           id = "icon_role",
           widget = wibox.widget.imagebox,
         },
-        margins = 4,
+        margins = {
+          left = 2,
+          right = 2,
+          top = 1,
+          bottom = 1,
+        },
         widget = wibox.container.margin,
       },
       id = "background_role",

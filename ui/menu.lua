@@ -15,10 +15,6 @@ local main_menu = Capi.awful.menu({
   },
 })
 
-function M.setup()
-  -- no-op, but included for future use
-end
-
 function M.toggle()
   main_menu:toggle()
 end

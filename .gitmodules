@@ -7,3 +7,6 @@
 [submodule "vendor/rubato"]
 	path = vendor/rubato
 	url = git@github.com:andOrlando/rubato
+[submodule "vendor/icon_customizer"]
+	path = vendor/icon_customizer
+	url = git@github.com:intrntbrn/icon_customizer
