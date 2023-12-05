@@ -16,35 +16,7 @@ function M.setup()
 
     local taglist = require("ui.topbar.taglist").new(s)
     local tasklist = require("ui.topbar.tasklist").new(s)
-
-    local layout_indicator = wibox.widget({
-      awful.widget.layoutbox({
-        screen = s,
-        buttons = {
-          awful.button({}, 1, function()
-            awful.layout.inc(1)
-          end),
-          awful.button({}, 3, function()
-            awful.layout.inc(-1)
-          end),
-          awful.button({}, 4, function()
-            awful.layout.inc(-1)
-          end),
-          awful.button({}, 5, function()
-            awful.layout.inc(1)
-          end),
-        },
-        valign = "center",
-        halign = "center",
-      }),
-      widget = wibox.container.margin,
-      valign = "center",
-      halign = "center",
-      margins = {
-        top = 2,
-        bottom = 2,
-      },
-    })
+    local layoutbox = require("ui.topbar.layoutbox").new(s)
 
     local topbar = awful.wibar({
       position = "top",
@@ -54,22 +26,12 @@ function M.setup()
       shape = gears.shape.rectangle,
     })
 
-    local function mkcontainer(template)
-      return wibox.widget({
-        template,
-        left = 8,
-        right = 8,
-        top = 6,
-        bottom = 6,
-        widget = wibox.container.margin,
-      })
-    end
-
     topbar:setup({
       {
         layout = wibox.layout.align.horizontal,
         {
           {
+            -- s.index == screen.primary.index and powerbutton or nil,
             taglist,
             margins = {
               left = beautiful.useless_gap * 2,
@@ -80,25 +42,37 @@ function M.setup()
         },
         nil,
         {
-          mkcontainer({
-            s.index == screen.primary.index and awful.widget.textclock(
-              "%H:%M"
-            ) or nil,
-            layout_indicator,
-            -- s.index == screen.primary.index and volumebutton or nil,
-            -- s.index == screen.primary.index and powerbutton or nil,
-
-            spacing = 8,
-            layout = wibox.layout.fixed.horizontal,
-          }),
+          {
+            {
+              s.index == screen.primary.index and awful.widget.textclock(
+                "%I:%M %p"
+              ) or nil,
+              -- s.index == screen.primary.index and volumebutton or nil,
+              layoutbox,
+              spacing = 8,
+              layout = wibox.layout.fixed.horizontal,
+            },
+            widget = wibox.container.margin,
+            left = 8,
+            right = 8,
+            top = 6,
+            bottom = 6,
+          },
           layout = wibox.layout.fixed.horizontal,
         },
       },
       {
-        mkcontainer({
-          tasklist,
-          layout = wibox.layout.fixed.horizontal,
-        }),
+        {
+          {
+            tasklist,
+            layout = wibox.layout.fixed.horizontal,
+          },
+          widget = wibox.container.margin,
+          left = 8,
+          right = 8,
+          top = 6,
+          bottom = 6,
+        },
         halign = "center",
         widget = wibox.container.margin,
         layout = wibox.container.place,

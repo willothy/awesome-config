@@ -74,10 +74,28 @@ function M.new(s)
       id = "background_role",
       widget = wibox.container.background,
       create_callback = function(self, c, _idx, _clients)
+        local timed = require("vendor.rubato").timed({
+          duration = 0.3,
+          intro = 0.0,
+          easing = require("vendor.rubato").easing.linear,
+          subscribed = function(pos)
+            if c == client.focus then
+              return
+            end
+            self.bg = require("lib.color").interpolate(
+              beautiful.bg_normal,
+              beautiful.bg_focus,
+              pos
+            )
+          end,
+          clamp_position = true,
+        })
         self:connect_signal("mouse::enter", function()
+          timed.target = 1
           awesome.emit_signal("bling::task_preview::visibility", s, true, c)
         end)
         self:connect_signal("mouse::leave", function()
+          timed.target = 0
           awesome.emit_signal("bling::task_preview::visibility", s, false, c)
         end)
       end,
