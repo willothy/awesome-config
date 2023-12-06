@@ -15,6 +15,20 @@ require("vendor.bling").widget.task_preview.enable({
   end,
 })
 
+client.connect_signal("request::manage", function(c)
+  local icon = beautiful.icon_theme:get_client_icon_path(c)
+
+  if icon then
+    local new_icon = Capi.gears.surface(icon)
+    c.icon = new_icon._native
+  else
+    local new_icon = Capi.gears.surface(
+      Capi.menubar.utils.lookup_icon("application-default-icon")
+    )
+    c.icon = new_icon._native
+  end
+end)
+
 function M.new(s)
   return awful.widget.tasklist({
     screen = s,
@@ -65,20 +79,27 @@ function M.new(s)
     widget_template = {
       {
         {
-          id = "icon_role",
-          widget = wibox.widget.imagebox,
+          -- id = "icon_role",
+          -- widget = wibox.widget.imagebox,
+          id = "clienticon",
+          widget = awful.widget.clienticon,
         },
         margins = {
-          left = 2,
-          right = 2,
-          top = 1,
-          bottom = 1,
+          left = 0,
+          right = 0,
+          top = 0,
+          bottom = 0,
+          -- left = 2,
+          -- right = 2,
+          -- top = 1,
+          -- bottom = 1,
         },
         widget = wibox.container.margin,
       },
       id = "background_role",
       widget = wibox.container.background,
       create_callback = function(self, c, _idx, _clients)
+        self:get_children_by_id("clienticon")[1].client = c
         local timed = require("vendor.rubato").timed({
           duration = 0.3,
           intro = 0.0,

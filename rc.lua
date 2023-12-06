@@ -19,6 +19,8 @@ Capi = {
   ruled = require("ruled"),
 
   hotkeys_popup = require("awful.hotkeys_popup"),
+
+  menubar = require("menubar"),
 }
 
 Programs = {
@@ -121,9 +123,6 @@ end
 function M.setup_dependencies()
   require("lib.revelation").init()
   require("vendor.bling")
-  require("vendor.icon_customizer")({
-    delay = 0.5,
-  })
 end
 
 -- Center floating windows on creation

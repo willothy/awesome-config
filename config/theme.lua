@@ -127,6 +127,7 @@ theme.tasklist_plain_task_name = true
 theme.tasklist_bg = theme.bg_normal
 theme.tasklist_bg_focus = theme.dimblack
 theme.tasklist_bg_urgent = theme.red .. "4D" -- 30% of transparency
+theme.tasklist_shape_border_width = 0
 
 -- switcher
 theme.window_switcher_widget_bg = "#0f0f0f70" -- The bg color of the widget
@@ -160,7 +161,7 @@ theme.taglist_fg = theme.grey_light
 theme.taglist_fg_occupied = theme.blue
 
 -- systray
-theme.systray_icon_spacing = dpi(12)
+theme.systray_icon_spacing = 8
 theme.systray_max_rows = 7
 theme.tray_chevron_up =
   gears.color.recolor_image(assets_path .. "tray/up.svg", theme.fg_normal)
@@ -344,8 +345,7 @@ theme.fallback_music = assets_path .. "fallback-music.png"
 theme.fallback_notif_icon =
   gears.color.recolor_image(icons_path .. "hints.svg", theme.blue)
 
--- disable icon theme
-theme.icon_theme = nil
+theme.icon_theme = require("vendor.bling.helpers.icon_theme")("Tela", 512)
 
 -- task preview
 theme.task_preview_widget_border_radius = 8
@@ -378,8 +378,5 @@ theme.notification_action_bg_selected = theme.bg_lighter
 --   gears.color.recolor_image(icons_path .. "volume-on.svg", theme.fg_normal)
 -- theme.volume_muted =
 --   gears.color.recolor_image(icons_path .. "volume-muted.svg", theme.fg_normal)
-theme.ic_icons = {
-  volctl = icons_path .. "volume-on.svg",
-}
 
 return theme

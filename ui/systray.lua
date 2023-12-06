@@ -5,9 +5,7 @@ local awful = Capi.awful
 local beautiful = Capi.beautiful
 
 function M.new(s)
-  local systray = wibox.widget.systray({
-    screen = s,
-  })
+  local systray = wibox.widget.systray()
 
   -- for some reason horizontal means
   -- vertical and vice versa
@@ -25,7 +23,7 @@ function M.new(s)
       },
       widget = wibox.container.margin,
     },
-    layout = wibox.layout.flex.vertical,
+    layout = wibox.layout.flex.horizontal,
     valign = "center",
   })
 
