@@ -5,6 +5,9 @@ local beautiful = Capi.beautiful
 local wibox = Capi.wibox
 
 client.connect_signal("request::titlebars", function(c)
+  -- if not c.titlebars_enabled then
+  --   return
+  -- end
   if c.instance == "spad" then
     return
   end

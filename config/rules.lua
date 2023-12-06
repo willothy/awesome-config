@@ -10,6 +10,7 @@ Capi.ruled.client.connect_signal("request::rules", function()
       screen = Capi.awful.screen.preferred,
       placement = Capi.awful.placement.no_overlap
         + Capi.awful.placement.no_offscreen,
+      titlebars_enabled = true,
     },
   })
 
@@ -18,16 +19,35 @@ Capi.ruled.client.connect_signal("request::rules", function()
     id = "spad",
     rule_any = {
       instance = { "spad" },
+      class = { "spad" },
     },
     properties = { titlebars_enabled = false },
   })
 
-  -- Add titlebars to normal clients and dialogs
   Capi.ruled.client.append_rule({
-    id = "titlebars",
-    rule_any = { type = { "normal", "dialog" } },
-    properties = { titlebars_enabled = true },
+    id = "mautilus",
+    rule_any = {
+      class = { "Nautilus" },
+      instance = { "org.gnome.Nautilus" },
+    },
+    properties = {
+      titlebars_enabled = false,
+    },
   })
+
+  -- Add titlebars to normal clients and dialogs
+  -- Capi.ruled.client.append_rule({
+  --   id = "titlebars",
+  --   rule_any = {
+  --     type = { "normal", "dialog" },
+  --     except = {
+  --       properties = {
+  --         titlebars_enabled = false,
+  --       },
+  --     },
+  --   },
+  --   properties = { titlebars_enabled = true },
+  -- })
 
   -- Floating clients
   Capi.ruled.client.append_rule({
