@@ -11,19 +11,22 @@ function M.new(s)
   -- vertical and vice versa
   ---@diagnostic disable-next-line: inject-field
   systray.horizontal = false
+  ---@diagnostic disable-next-line: inject-field
+  systray.base_size = 20
 
   local widget = wibox.widget({
     {
       systray,
       margins = {
-        top = 0,
+        top = 2,
         bottom = 0,
         left = 0,
         right = 0,
       },
       widget = wibox.container.margin,
     },
-    layout = wibox.layout.flex.horizontal,
+    forced_height = beautiful.bar_height,
+    layout = wibox.layout.flex.vertical,
     valign = "center",
   })
 

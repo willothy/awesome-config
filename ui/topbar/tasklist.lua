@@ -13,6 +13,8 @@ require("vendor.bling").widget.task_preview.enable({
       },
     })
   end,
+  width = 300,
+  height = 300,
 })
 
 client.connect_signal("request::manage", function(c)
