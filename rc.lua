@@ -75,7 +75,7 @@ end
 -- Start programs that should be started automatically with awesome
 function M.autostart()
   -- network manager systray applet
-  Capi.awful.spawn.single_instance("nm-applet", false)
+  Capi.awful.spawn("nm-applet", false)
 
   -- authentication agent
   Capi.awful.spawn(
