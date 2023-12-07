@@ -146,6 +146,7 @@ Capi.naughty.connect_signal("request::display", function(n)
   naughty.layout.box({
     type = "notification",
     notification = n,
+    screen = n.clients[1] and n.clients[1].screen or n.screen,
     position = "top_right",
     border_width = 0,
     border_color = beautiful.bg_normal .. "00",
