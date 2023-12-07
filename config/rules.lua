@@ -1,21 +1,24 @@
-Capi.ruled.client.connect_signal("request::rules", function()
+local awful = Capi.awful
+local beautiful = Capi.beautiful
+local ruled = Capi.ruled
+
+ruled.client.connect_signal("request::rules", function()
   -- All clients will match this rule.
-  Capi.ruled.client.append_rule({
+  ruled.client.append_rule({
     id = "global",
     rule = {},
     properties = {
-      -- focus = Capi.awful.client.focus.filter,
+      -- focus = awful.client.focus.filter,
       focus = true,
       raise = true,
-      screen = Capi.awful.screen.preferred,
-      placement = Capi.awful.placement.no_overlap
-        + Capi.awful.placement.no_offscreen,
+      screen = awful.screen.preferred,
+      placement = awful.placement.no_overlap + awful.placement.no_offscreen,
       titlebars_enabled = true,
     },
   })
 
   -- Scratchpad terminal
-  Capi.ruled.client.append_rule({
+  ruled.client.append_rule({
     id = "spad",
     rule_any = {
       instance = { "spad" },
@@ -24,7 +27,7 @@ Capi.ruled.client.connect_signal("request::rules", function()
     properties = { titlebars_enabled = false },
   })
 
-  Capi.ruled.client.append_rule({
+  ruled.client.append_rule({
     id = "mautilus",
     rule_any = {
       class = { "Nautilus" },
@@ -35,8 +38,33 @@ Capi.ruled.client.connect_signal("request::rules", function()
     },
   })
 
+  ruled.client.append_rule({
+    id = "picture_in_picture",
+    rule_any = {
+      name = {
+        "Picture in picture",
+        "Picture-in-Picture",
+      },
+    },
+    properties = {
+      titlebars_enabled = "toolbox",
+      -- titlebars_enabled = false,
+      floating = true,
+      ontop = true,
+      sticky = true,
+      placement = function(client)
+        awful.placement.top_right(client, {
+          honor_workarea = true,
+          margins = beautiful.useless_gap * 2,
+        })
+      end,
+    },
+  })
+
+  -- Picture in picture
+
   -- Add titlebars to normal clients and dialogs
-  -- Capi.ruled.client.append_rule({
+  -- ruled.client.append_rule({
   --   id = "titlebars",
   --   rule_any = {
   --     type = { "normal", "dialog" },
@@ -50,12 +78,13 @@ Capi.ruled.client.connect_signal("request::rules", function()
   -- })
 
   -- Floating clients
-  Capi.ruled.client.append_rule({
+  ruled.client.append_rule({
     id = "floating",
     rule_any = {
       instance = { "pinentry" },
       class = {
         "Arandr",
+        "Pavucontrol",
       },
       -- Note that the name property shown in xprop might be set slightly after creation of the client
       -- and the name shown there might not match defined rules here.
@@ -66,6 +95,9 @@ Capi.ruled.client.connect_signal("request::rules", function()
         "pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
       },
     },
-    properties = { floating = true },
+    properties = {
+      floating = true,
+      placement = awful.placement.centered,
+    },
   })
 end)

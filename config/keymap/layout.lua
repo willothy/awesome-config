@@ -109,7 +109,7 @@ awful.keyboard.append_client_keybindings({
     description = "toggle fullscreen",
     group = "layout",
   }),
-  awful.key({ Settings.modkey }, "Space", function(c)
+  awful.key({ Settings.modkey, "Shift" }, "f", function(c)
     c.floating = not c.floating
     if c.floating then
       c:raise()

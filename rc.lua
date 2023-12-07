@@ -107,6 +107,18 @@ function M.setup_compositor()
   Capi.awful.spawn("compfy", false)
 end
 
+-- Center floating windows when they are moved to floating
+function M.setup_float_centering()
+  ---@diagnostic disable-next-line: param-type-mismatch
+  client.connect_signal("property::floating", function(c)
+    Capi.awful.placement.centered(c, {
+      honor_workarea = true,
+      -- honor_padding = true,
+      -- margins = beautiful.edge_gap,
+    })
+  end)
+end
+
 -- Register xproperty for WM_CLASS so it can be set with
 -- client:set_xproperty("WM_CLASS", "class")
 --
@@ -125,15 +137,6 @@ function M.setup_dependencies()
   require("vendor.bling")
 end
 
--- Center floating windows on creation
-function M.setup_floats()
-  client.connect_signal("request::manage", function(c)
-    Capi.awful.placement.centered(c, {
-      honor_workarea = true,
-    })
-  end)
-end
-
 -- Pre-init steps
 M.setup_error_handling()
 M.setup_screens()
@@ -143,7 +146,7 @@ M.setup_compositor()
 -- Basic initialization steps
 M.setup_theme()
 M.setup_sloppy_focus()
-M.setup_floats()
+M.setup_float_centering()
 
 -- Setup for plugins, libraries, etc.
 M.setup_dependencies()
