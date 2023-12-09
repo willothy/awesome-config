@@ -56,11 +56,11 @@ client.connect_signal("request::titlebars", function(c)
       },
     })
 
-    c:buttons({
+    resize_handle:set_buttons({
       awful.button({}, 1, function()
         c:activate({
-          -- context = "titlebar",
-          action = "mouse_resize",
+          context = "titlebar",
+          action = "mouse_move",
         })
       end),
       awful.button({}, 3, function()
@@ -94,6 +94,11 @@ client.connect_signal("request::titlebars", function(c)
     end)
 
     resize_handle:connect_signal("unmanage", function()
+      resize_handle.visible = false
+      timout:stop()
+    end)
+
+    c:connect_signal("request::unmanage", function()
       resize_handle.visible = false
       timout:stop()
     end)
