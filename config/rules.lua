@@ -85,6 +85,7 @@ ruled.client.connect_signal("request::rules", function()
       class = {
         "Arandr",
         "Pavucontrol",
+        "Gnome-screenshot",
       },
       -- Note that the name property shown in xprop might be set slightly after creation of the client
       -- and the name shown there might not match defined rules here.

@@ -56,11 +56,11 @@ client.connect_signal("request::titlebars", function(c)
       },
     })
 
-    resize_handle:set_buttons({
+    c:buttons({
       awful.button({}, 1, function()
         c:activate({
-          context = "titlebar",
-          action = "mouse_move",
+          -- context = "titlebar",
+          action = "mouse_resize",
         })
       end),
       awful.button({}, 3, function()
