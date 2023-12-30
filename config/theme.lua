@@ -345,7 +345,7 @@ theme.fallback_music = assets_path .. "fallback-music.png"
 theme.fallback_notif_icon =
   gears.color.recolor_image(icons_path .. "hints.svg", theme.blue)
 
-theme.icon_theme = require("vendor.bling.helpers.icon_theme")("Tela", 512)
+theme.icon_theme = require("vendor.bling.helpers.icon_theme")("Tela")
 
 -- task preview
 theme.task_preview_widget_border_radius = 8

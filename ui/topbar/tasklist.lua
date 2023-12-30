@@ -19,7 +19,6 @@ require("vendor.bling").widget.task_preview.enable({
 
 client.connect_signal("request::manage", function(c)
   local icon = beautiful.icon_theme:get_client_icon_path(c)
-
   if icon then
     local new_icon = Capi.gears.surface(icon)
     c.icon = new_icon._native
@@ -102,6 +101,7 @@ function M.new(s)
       widget = wibox.container.background,
       create_callback = function(self, c, _idx, _clients)
         self:get_children_by_id("clienticon")[1].client = c
+        -- self:get_children_by_id("icon_role")[1].client = c
         local timed = require("vendor.rubato").timed({
           duration = 0.3,
           intro = 0.0,

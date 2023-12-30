@@ -91,10 +91,10 @@ awful.keyboard.append_global_keybindings({
   end, { description = "focus the previous screen", group = "layout" }),
 
   -- Layout
-  awful.key({ Settings.modkey }, "`", function()
+  awful.key({ Settings.modkey }, "Tab", function()
     awful.layout.inc(1)
   end, { description = "next layout", group = "layout" }),
-  awful.key({ Settings.modkey, "Shift" }, "`", function()
+  awful.key({ Settings.modkey, "Shift" }, "Tab", function()
     awful.layout.inc(-1)
   end, { description = "previous layout", group = "layout" }),
 })
