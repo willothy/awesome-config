@@ -97,8 +97,8 @@ end
 
 -- Execute xrandr script to setup screens
 function M.setup_screens()
-  local screens = Capi.gears.filesystem.get_configuration_dir() .. "screens.sh"
-  Capi.awful.spawn(screens, false)
+  -- local screens = Capi.gears.filesystem.get_configuration_dir() .. "screens.sh"
+  -- Capi.awful.spawn(screens, false)
 end
 
 -- Start the compositor

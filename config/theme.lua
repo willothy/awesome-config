@@ -57,8 +57,8 @@ local titlebar_assets_path = assets_path .. "titlebar/"
 local theme = {}
 
 -- fonts
-theme.font_name = "Product Sans"
-theme.nerd_font = "Iosevka NF"
+theme.font_name = "NotoSans"
+theme.nerd_font = "NotoSans Nerd Font"
 theme.material_icons = "Material Icons"
 theme.font_size = "12"
 theme.font = theme.font_name .. " " .. theme.font_size
