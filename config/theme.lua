@@ -51,7 +51,6 @@ local assets_path = gfs.get_configuration_dir() .. "assets/"
 
 -- assets
 local icons_path = assets_path .. "icons/"
-local shapes_path = assets_path .. "shapes/"
 local titlebar_assets_path = assets_path .. "titlebar/"
 
 local theme = {}
@@ -327,13 +326,8 @@ theme.reboot_icon =
 theme.logout_icon =
   gears.color.recolor_image(icons_path .. "logout2.svg", theme.blue)
 
-theme.volume_on =
-  gears.color.recolor_image(icons_path .. "volume-on.svg", theme.fg_normal)
 theme.volume_muted =
   gears.color.recolor_image(icons_path .. "volume-muted.svg", theme.fg_normal)
-
-theme.network_connected = "  "
-theme.network_disconnected = "睊 "
 
 -- pfp
 theme.pfp = assets_path .. "pfp.png"
@@ -372,11 +366,5 @@ theme.tooltip_fg = theme.fg_normal
 
 -- notification
 theme.notification_action_bg_selected = theme.bg_lighter
-
--- Icon customizer icons
--- theme.volume_on =
---   gears.color.recolor_image(icons_path .. "volume-on.svg", theme.fg_normal)
--- theme.volume_muted =
---   gears.color.recolor_image(icons_path .. "volume-muted.svg", theme.fg_normal)
 
 return theme

@@ -19,15 +19,8 @@ require("vendor.bling").widget.task_preview.enable({
 
 client.connect_signal("request::manage", function(c)
   local icon = beautiful.icon_theme:get_client_icon_path(c)
-  if icon then
-    local new_icon = Capi.gears.surface(icon)
-    c.icon = new_icon._native
-  else
-    local new_icon = Capi.gears.surface(
-      Capi.menubar.utils.lookup_icon("application-default-icon")
-    )
-    c.icon = new_icon._native
-  end
+  local surface = Capi.gears.surface(icon)
+  c.icon = surface._native
 end)
 
 function M.new(s)
