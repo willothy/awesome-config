@@ -2,6 +2,8 @@ local M = {}
 
 local gears = Capi.gears
 
+local bit = require("bit")
+
 function M.ensure_rgba(str)
   if #str <= 7 then
     str = str .. "ff"
@@ -37,7 +39,10 @@ function M.interpolate(color1, color2, bias, depth)
     local b = math.floor((b2 - b1) * bias + b1) or 0
     local a = math.floor((a2 - a1) * bias + a1) or 0
 
-    return (r << 24) | (g << 16) | (b << 8) | a
+    return bit.bor(
+      bit.bor(bit.lshift(r, 24), bit.lshift(g, 16)),
+      bit.bor(bit.lshift(b, 8), a)
+    )
   end)
 
   -- sometimes the color parser fails, so we try again

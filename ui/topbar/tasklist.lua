@@ -74,6 +74,7 @@ function TaskList.new(screen)
             )
           end,
           clamp_position = true,
+          awestore_compat = true,
         })
 
         if c.active then

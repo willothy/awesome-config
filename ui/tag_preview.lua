@@ -8,8 +8,32 @@ local wibox = Capi.wibox
 local cairo = require("lgi").cairo
 
 ---@class TagPreviewConfig
+---@field scale number
+---@field tag_preview_image boolean
+---@field width number
+---@field margin number
+---@field client_bg string
+---@field client_border_color string
+---@field client_border_width number
+---@field client_border_radius number
+---@field widget_bg string
+---@field widget_border_color string
+---@field widget_border_width number
+---@field widget_border_radius number
 
 ---@class TagPreviewOpts
+---@field scale? number
+---@field tag_preview_image? boolean
+---@field width? number
+---@field margin? number
+---@field client_bg? string
+---@field client_border_color? string
+---@field client_border_width? number
+---@field client_border_radius? number
+---@field widget_bg? string
+---@field widget_border_color? string
+---@field widget_border_width? number
+---@field widget_border_radius? number
 
 ---@class TagPreview
 ---@field config TagPreviewConfig
@@ -29,53 +53,48 @@ function TagPreview:draw(tag)
   local tag_preview_image = self.config.tag_preview_image
 
   local client_list = self.client_list
-  client_list:reset()
+
+  local clients = {}
+
   ---@diagnostic disable-next-line: missing-parameter
   for _, c in ipairs(tag:clients()) do
+    ---@cast c Previewable
     if not c.hidden and not c.minimized then
       local img_box = wibox.widget({
         resize = true,
-        forced_height = 100 * scale,
-        forced_width = 100 * scale,
+        forced_height = 35,
+        forced_width = 35,
         widget = wibox.widget.imagebox,
-      })
+      }) --[[@as wibox.widget.imagebox]]
 
-      -- If fails to set image, fallback to a awesome icon
-      if
-        not pcall(function()
-          img_box.image = gears.surface.load(c.icon)
-        end)
-      then
-        img_box.image =
+      img_box:set_image(
+        gears.surface.load_silently(
+          c.icon,
           beautiful.theme_assets.awesome_icon(24, "#222222", "#fafafa")
-      end
+        )
+      )
 
-      if tag_preview_image then
-        if c.prev_content or tag.selected then
-          local content
-          if tag.selected then
-            content = gears.surface(c.content)
-          elseif c.prev_content then
-            content = gears.surface(c.prev_content)
-          end
-          local cr = cairo.Context(content)
-          local x, y, w, h = cr:clip_extents()
-          local img =
-            cairo.ImageSurface.create(cairo.Format.ARGB32, w - x, h - y)
-          cr = cairo.Context(img)
-          cr:set_source_surface(content, 0, 0)
-          cr.operator = cairo.Operator.SOURCE
-          cr:paint()
-
-          img_box = wibox.widget({
-            image = gears.surface.load(img),
-            resize = true,
-            opacity = 0.8,
-            forced_height = math.floor(c.height * scale),
-            forced_width = math.floor(c.width * scale),
-            widget = wibox.widget.imagebox,
-          })
+      if tag_preview_image and (c.prev_content or tag.selected) then
+        local content
+        if tag.selected then
+          content = gears.surface(c.content)
+        elseif c.prev_content then
+          content = gears.surface(c.prev_content)
         end
+        local cr = cairo.Context(content)
+        local x, y, w, h = cr:clip_extents()
+        local img =
+          cairo.ImageSurface.create(cairo.Format.ARGB32, w - x, h - y)
+        cr = cairo.Context(img)
+        cr:set_source_surface(content, 0, 0)
+        cr.operator = cairo.Operator.SOURCE
+        cr:paint()
+
+        ---@diagnostic disable-next-line: undefined-field
+        local surface = gears.surface.load_silently(img, img_box.image)
+        img_box:set_image(surface)
+        img_box:set_forced_height(math.floor(c.height * scale))
+        img_box:set_forced_width(math.floor(c.width * scale))
       end
 
       local client_box = wibox.widget({
@@ -101,16 +120,18 @@ function TagPreview:draw(tag)
           self.config.client_border_radius
         ),
         widget = wibox.container.background,
-      })
+      }) --[[@as wibox.container.background]]
 
+      ---@diagnostic disable-next-line: inject-field
       client_box.point = {
         x = math.floor((c.x - geo.x) * scale) + (beautiful.useless_gap * 2),
         y = math.floor((c.y - geo.y) * scale),
       }
 
-      client_list:add(client_box)
+      table.insert(clients, client_box)
     end
   end
+  client_list:set_children(clients)
 end
 
 function TagPreview:show(tag)
@@ -188,8 +209,10 @@ function TagPreview.new(screen, opts)
     honor_padding = false,
   })
 
+  ---@diagnostic disable-next-line: inject-field
   self.widget.maximum_width = self.config.scale * geo.width
     + (self.config.margin or 0) * 2
+  ---@diagnostic disable-next-line: inject-field
   self.widget.maximum_height = self.config.scale * geo.height
     + (self.config.margin or 0)
 
