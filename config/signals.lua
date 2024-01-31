@@ -26,3 +26,33 @@ client.connect_signal("property::floating", function(c)
     honor_workarea = true,
   })
 end)
+
+awesome.connect_signal("startup", function()
+  Capi.gears.timer.delayed_call(function()
+    local clients = Capi.awful.screen.focused():get_clients(true)
+    local mouse_coords = mouse.coords()
+
+    local function point_is_in_rect(point, rect)
+      return point.x >= rect.x
+        and point.x <= rect.x + rect.width
+        and point.y >= rect.y
+        and point.y <= rect.y + rect.height
+    end
+
+    local c
+    for _, cl in ipairs(clients) do
+      if point_is_in_rect(mouse_coords, cl:geometry()) then
+        c = cl
+        break
+      end
+    end
+    if not c then
+      return
+    end
+    c:activate({
+      context = "startup",
+      raise = true,
+      action = true,
+    })
+  end)
+end)
