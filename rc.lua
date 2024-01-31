@@ -43,17 +43,6 @@ function M.setup_theme()
   Capi.beautiful.init(require("config.theme"))
 end
 
--- Enable sloppy focus, so that focus follows mouse.
-function M.setup_sloppy_focus()
-  client.connect_signal("mouse::enter", function(c)
-    c:activate({ context = "mouse_enter", raise = false })
-  end)
-
-  client.connect_signal("request::autoactivate", function(c)
-    c:activate({ context = "autoactivate", raise = false })
-  end)
-end
-
 -- Setup error message reporting, so that errors are shown in a
 -- notification after the fallback config is loaded.
 function M.setup_error_handling()
@@ -107,18 +96,6 @@ function M.setup_compositor()
   Capi.awful.spawn("compfy", false)
 end
 
--- Center floating windows when they are moved to floating
-function M.setup_float_centering()
-  ---@diagnostic disable-next-line: param-type-mismatch
-  client.connect_signal("property::floating", function(c)
-    Capi.awful.placement.centered(c, {
-      honor_workarea = true,
-      -- honor_padding = true,
-      -- margins = beautiful.edge_gap,
-    })
-  end)
-end
-
 -- Register xproperty for WM_CLASS so it can be set with
 -- client:set_xproperty("WM_CLASS", "class")
 --
@@ -146,11 +123,12 @@ M.setup_compositor()
 
 -- Basic initialization steps
 M.setup_theme()
-M.setup_sloppy_focus()
-M.setup_float_centering()
 
 -- Setup for plugins, libraries, etc.
 M.setup_dependencies()
+
+-- Basic signals
+require("config.signals")
 
 -- Layout setup
 require("config.layouts")
