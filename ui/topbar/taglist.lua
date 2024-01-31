@@ -3,20 +3,20 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
 
-require("vendor.bling").widget.tag_preview.enable({
-  show_client_content = false,
-  scale = 0.20,
-  x = beautiful.useless_gap * 2,
-  y = beautiful.bar_height + (beautiful.useless_gap * 2),
-  honor_padding = false,
-  honor_workarea = true,
-  background_widget = wibox.widget({
-    image = beautiful.wallpaper,
-    horizontal_fit_policy = "fit",
-    vertical_fit_policy = "fit",
-    widget = wibox.widget.imagebox,
-  }),
-})
+-- require("vendor.bling").widget.tag_preview.enable({
+--   show_client_content = false,
+--   scale = 0.20,
+--   x = beautiful.useless_gap * 2,
+--   y = beautiful.bar_height + (beautiful.useless_gap * 2),
+--   honor_padding = false,
+--   honor_workarea = true,
+--   background_widget = wibox.widget({
+--     image = beautiful.wallpaper,
+--     horizontal_fit_policy = "fit",
+--     vertical_fit_policy = "fit",
+--     widget = wibox.widget.imagebox,
+--   }),
+-- })
 
 local function is_selected(s, index)
   local i = 1
@@ -59,6 +59,8 @@ end
 local M = {}
 
 function M.new(s)
+  local preview = require("ui.tag_preview").new(s)
+
   return awful.widget.taglist({
     screen = s,
     filter = awful.widget.taglist.filter.all,
@@ -120,7 +122,7 @@ function M.new(s)
       update_callback = function(self, _, index)
         update_tags(self, index, s)
       end,
-      create_callback = function(self, c3, index)
+      create_callback = function(self, tag, index)
         local timed = require("vendor.rubato").timed({
           duration = 0.2,
           intro = 0.0,
@@ -141,13 +143,15 @@ function M.new(s)
 
         self:connect_signal("mouse::enter", function()
           timed.target = 1
-          if #c3:clients() > 0 then
-            awesome.emit_signal("bling::tag_preview::update", c3)
-            awesome.emit_signal("bling::tag_preview::visibility", s, true)
+          if #tag:clients() > 0 then
+            -- awesome.emit_signal("bling::tag_preview::update", c3)
+            -- awesome.emit_signal("bling::tag_preview::visibility", s, true)
+            preview:show(tag)
           end
         end)
         self:connect_signal("mouse::leave", function()
-          awesome.emit_signal("bling::tag_preview::visibility", s, false)
+          preview:hide()
+          -- awesome.emit_signal("bling::tag_preview::visibility", s, false)
           timed.target = 0
         end)
 
