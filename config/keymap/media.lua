@@ -1,5 +1,38 @@
 local awful = Capi.awful
 
+local modal = require("vendor.modalbind")
+
+local volume = {
+  {
+    "j",
+    function()
+      require("lib.volume").decrease()
+    end,
+    "decrease",
+  },
+  {
+    "k",
+    function()
+      require("lib.volume").increase()
+    end,
+    "increase",
+  },
+  {
+    "m",
+    function()
+      require("lib.volume").mute()
+    end,
+    "mute",
+  },
+  {
+    "M",
+    function()
+      require("lib.volume").set(1.0)
+    end,
+    "maximize",
+  },
+}
+
 awful.keyboard.append_global_keybindings({
   -- Volume Controls
   awful.key({}, "XF86AudioRaiseVolume", function()
@@ -11,6 +44,14 @@ awful.keyboard.append_global_keybindings({
   awful.key({}, "XF86AudioMute", function()
     require("lib.volume").mute()
   end, { description = "Mute volume", group = "media" }),
+
+  awful.key({ Settings.modkey }, "v", function()
+    modal.grab({
+      keymap = volume,
+      name = "Volume",
+      -- stay_in_mode = true,
+    })
+  end, { description = "Volume mode", group = "media" }),
 
   -- Media Controls
   awful.key({}, "XF86AudioPlay", function()
