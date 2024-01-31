@@ -17,6 +17,46 @@ ruled.client.connect_signal("request::rules", function()
     },
   })
 
+  -- ruled.client.append_rule({
+  --   id = "fullscreen_rule",
+  --   rule = {
+  --     fullscreen = true,
+  --   },
+  --   properties = {
+  --     -- y = 0,
+  --     honor_workarea = false,
+  --     honor_padding = false,
+  --     -- maximized_vertical = true,
+  --     placment = function(c)
+  --       return awful.placement.top(c, {
+  --         honor_workarea = false,
+  --         honor_padding = false,
+  --         margins = {
+  --           bottom = 0,
+  --           top = 0,
+  --           left = 0,
+  --           right = 0,
+  --         },
+  --       })
+  --     end,
+  --     -- maximized_horizontal = true,
+  --   },
+  -- })
+
+  -- ruled.client.append_rule({
+  --   id = "fullscreen_rule",
+  --   rule = {},
+  --   except = {
+  --     fullscreen = true,
+  --   },
+  --   properties = {
+  --     -- honor_workarea = false,
+  --     -- honor_padding = false,
+  --     maximized_vertical = false,
+  --     -- maximized_horizontal = true,
+  --   },
+  -- })
+
   -- Scratchpad terminal
   ruled.client.append_rule({
     id = "spad",
@@ -101,4 +141,14 @@ ruled.client.connect_signal("request::rules", function()
       placement = awful.placement.centered,
     },
   })
+end)
+
+-- TODO: can I make this into a rule?
+
+---@param c client
+---@diagnostic disable-next-line: param-type-mismatch
+client.connect_signal("property::fullscreen", function(c)
+  if c.fullscreen then
+    c.y = 0
+  end
 end)
