@@ -111,7 +111,6 @@ end
 -- throughout the configuration.
 function M.setup_dependencies()
   require("lib.revelation").init()
-  require("vendor.modalbind").init()
   require("vendor.bling")
 end
 

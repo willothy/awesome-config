@@ -27,6 +27,7 @@ client.connect_signal("property::floating", function(c)
   })
 end)
 
+-- focus the client under the mouse on startup
 awesome.connect_signal("startup", function()
   Capi.gears.timer.delayed_call(function()
     local clients = Capi.awful.screen.focused():get_clients(true)
