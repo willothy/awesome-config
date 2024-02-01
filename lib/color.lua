@@ -2,8 +2,6 @@ local M = {}
 
 local gears = Capi.gears
 
-local bit = require("bit")
-
 function M.ensure_rgba(str)
   if #str <= 7 then
     str = str .. "ff"
@@ -20,6 +18,14 @@ function M.int_to_hex(int)
     return int
   end
   return string.format("#%08x", int)
+end
+
+local bit
+---@diagnostic disable-next-line: undefined-field
+if _G.jit then
+  bit = require("bit")
+else
+  bit = require("lib.no_luajit").bit
 end
 
 function M.interpolate(color1, color2, bias, depth)
