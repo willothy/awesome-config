@@ -56,7 +56,7 @@ local titlebar_assets_path = assets_path .. "titlebar/"
 local theme = {}
 
 -- fonts
-theme.font_name = "NotoSans"
+theme.font_name = "Inter"
 theme.nerd_font = "NotoSans Nerd Font"
 theme.material_icons = "Material Icons"
 theme.font_size = "12"
@@ -142,7 +142,7 @@ theme.window_switcher_thumbnail_margins = 0 -- The margin between one client thu
 theme.thumbnail_scale = false -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
 theme.window_switcher_name_margins = 10 -- The margin of one clients title to the rest of the widget
 theme.window_switcher_name_valign = "center" -- How to vertically align one clients title
-theme.window_switcher_name_font = "JetbrainsMono Nerd Font 12" -- The font of all titles
+theme.window_switcher_name_font = theme.font -- The font of all titles
 theme.window_switcher_name_normal_color = theme.fg_focus -- The color of one title if the client is unfocused
 theme.window_switcher_name_focus_color = "#f9f9f9" -- The color of one title if the client is focused
 theme.window_switcher_icon_valign = "center" -- How to vertically align the one icon

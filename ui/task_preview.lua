@@ -167,10 +167,11 @@ function TaskPreview.new(screen, opts)
             {
               {
                 id = "name_role",
-                font = "NotoSans Nerd Font 12",
+                font = "Inter 14",
                 halign = "center",
                 widget = wibox.widget.textbox,
               },
+              bottom = dpi(2),
               left = dpi(4),
               right = dpi(4),
               widget = wibox.container.margin,

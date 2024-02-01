@@ -110,7 +110,6 @@ end
 -- config so that these libraries can be assumed to be available
 -- throughout the configuration.
 function M.setup_dependencies()
-  require("lib.revelation").init()
   require("vendor.bling")
 end
 

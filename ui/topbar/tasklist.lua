@@ -87,6 +87,18 @@ function TaskList.new(screen)
           timed.target = 1
         end)
 
+        local calling = false
+        c:connect_signal("mouse::move", function()
+          if calling then
+            return
+          end
+          calling = true
+          Capi.gears.timer.delayed_call(function()
+            timed.target = 1
+            calling = false
+          end)
+        end)
+
         c:connect_signal("unfocus", function()
           timed.target = 0
         end)
