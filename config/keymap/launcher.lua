@@ -16,7 +16,7 @@ awful.keyboard.append_global_keybindings({
   awful.key({ Settings.modkey }, "KP_Enter", function()
     require("ui.scratchpad").toggle()
   end, { description = "open a terminal", group = "launcher" }),
-  awful.key({ "Mod1" }, "Tab", function()
+  awful.key({ Settings.modkey }, "w", function()
     -- TODO: Open window switcher
     awesome.emit_signal("bling::window_switcher::turn_on")
   end, { description = "Window Switcher", group = "bling" }),
