@@ -96,15 +96,6 @@ function M.setup_compositor()
   Capi.awful.spawn("compfy", false)
 end
 
--- Register xproperty for WM_CLASS so it can be set with
--- client:set_xproperty("WM_CLASS", "class")
---
--- This is useful for matching rules with WM_CLASS and giving
--- specific widgets setting overrides in the compositor.
-function M.register_xprops()
-  awesome.register_xproperty("WM_CLASS", "string")
-end
-
 -- This is used to setup libraries and plugins that are used
 -- throughout the configuration. It is called at the beginning of the
 -- config so that these libraries can be assumed to be available
@@ -116,7 +107,6 @@ end
 -- Pre-init steps
 M.setup_error_handling()
 M.setup_screens()
-M.register_xprops()
 M.setup_compositor()
 
 -- Basic initialization steps
