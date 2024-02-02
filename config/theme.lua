@@ -101,6 +101,9 @@ theme.fg_minimize = theme.fg_normal
 
 -- hotkeys
 theme.hotkeys_modifiers_fg = theme.fg_normal
+theme.hotkeys_border_width = 15
+theme.hotkeys_border_color = theme.bg_normal
+theme.hotkeys_font = theme.font
 
 -- some actions bg colors
 theme.actions = {

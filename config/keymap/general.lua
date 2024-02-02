@@ -1,12 +1,9 @@
 local awful = require("awful")
 
 awful.keyboard.append_global_keybindings({
-  awful.key(
-    { Settings.modkey },
-    "s",
-    Capi.hotkeys_popup.show_help,
-    { description = "show help", group = "awesome" }
-  ),
+  awful.key({ Settings.modkey }, "s", function()
+    Capi.hotkeys_popup.show_help(client.focus)
+  end, { description = "show help", group = "awesome" }),
   awful.key(
     { Settings.modkey, "Control" },
     "r",
