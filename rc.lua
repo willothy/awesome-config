@@ -92,8 +92,7 @@ end
 
 -- Start the compositor
 function M.setup_compositor()
-  -- awful.spawn("picom")
-  Capi.awful.spawn("compfy", false)
+  Capi.awful.spawn("picom", false)
 end
 
 -- This is used to setup libraries and plugins that are used
