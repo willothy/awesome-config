@@ -20,9 +20,9 @@ function TaskList.new(screen)
     screen = screen,
     filter = awful.widget.tasklist.filter.currenttags,
     source = function()
+      ---@param a client
+      ---@param b client
       return table.sort(screen.all_clients, function(a, b)
-        ---@cast a client
-        ---@cast b client
         return a.name < b.name
       end)
     end,
