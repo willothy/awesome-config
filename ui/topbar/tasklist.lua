@@ -12,6 +12,7 @@ client.connect_signal("request::manage", function(c)
   end)
 end)
 
+---@param screen screen
 function TaskList.new(screen)
   local preview = require("ui.task_preview").new(screen)
 
@@ -19,7 +20,11 @@ function TaskList.new(screen)
     screen = screen,
     filter = awful.widget.tasklist.filter.currenttags,
     source = function()
-      return screen.all_clients
+      return table.sort(screen.all_clients, function(a, b)
+        ---@cast a client
+        ---@cast b client
+        return a.name < b.name
+      end)
     end,
     buttons = {
       awful.button({}, 1, function(c)
