@@ -10,12 +10,17 @@ awful.keyboard.append_global_keybindings({
     awesome.restart,
     { description = "reload awesome", group = "awesome" }
   ),
-  awful.key(
-    { Settings.modkey, "Shift" },
-    "q",
-    awesome.quit,
-    { description = "quit awesome", group = "awesome" }
-  ),
+  -- awful.key(
+  --   { Settings.modkey, "Shift" },
+  --   "q",
+  --   awesome.quit,
+  --   { description = "quit awesome", group = "awesome" }
+  -- ),
+  awful.key({ Settings.modkey }, "v", function()
+    local slider = require("ui.volume_slider")
+    slider:show()
+    awful.screen.focused().show_vol_osd = true
+  end, { description = "volume", group = "awesome" }),
   awful.key({ Settings.modkey }, "x", function()
     require("ui.prompt").show()
 
